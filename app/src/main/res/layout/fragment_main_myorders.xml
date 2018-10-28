@@ -1,0 +1,81 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <co.ceryle.segmentedbutton.SegmentedButtonGroup
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:id="@+id/segment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.55"
+        app:sbg_animateSelector="bounce"
+        app:sbg_borderColor="@color/gray"
+        app:sbg_borderSize="3dp"
+        app:sbg_animateSelectorDuration="1000"
+        app:sbg_backgroundColor="@color/back_home3"
+        app:sbg_dividerColor="@color/back_home3"
+        app:sb_textColor_onSelection="@color/colorPrimary"
+        app:sbg_dividerPadding="10dp"
+        app:sbg_dividerRadius="10dp"
+        app:sbg_dividerSize="1dp"
+        app:sbg_position="1"
+        app:sbg_radius="2dp"
+        app:sbg_ripple="true"
+        app:sbg_rippleColor="@color/back_home3"
+        app:sbg_selectorColor="@color/white"
+
+      >
+
+        <co.ceryle.segmentedbutton.SegmentedButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="3dp"
+            android:textAlignment="center"
+            app:sb_textGravity="center"
+            app:sb_text="غير مكتمل "/>
+
+
+        <co.ceryle.segmentedbutton.SegmentedButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="3dp"
+            android:textAlignment="center"
+            app:sb_textGravity="center"
+            app:sb_text="مكتمل "/>
+
+
+
+    </co.ceryle.segmentedbutton.SegmentedButtonGroup>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="7dp"
+            app:layout_constraintTop_toBottomOf="@+id/segment"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/recylerview"/>
+
+    <FrameLayout
+        android:id="@+id/progress"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
+
+    </android.support.constraint.ConstraintLayout>

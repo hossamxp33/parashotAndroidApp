@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class ="SubCategriesBinding">
+        <variable
+            name="subcategriesmodelbinding"
+            type="com.example.hossam.parashotApp.presentation.screens.home.subcategryFragment.SubCategoryViewModel"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginTop="3dp"
+        app:cardElevation="7dp"
+        >
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/thumbnail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/home3_dept_background"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/itemimage"
+        android:layout_width="85dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="85dp"
+        android:padding="2dp"
+        android:scaleType="fitXY"
+        app:imageUrl="@{subcategriesmodelbinding.resultImageUrl}"
+        />
+
+    <ImageView
+        android:id="@+id/item_delimeter"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        app:layout_constraintWidth_percent="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemimage"
+        android:src="@drawable/cat_line"
+        />
+
+    <TextView
+        android:id="@+id/doctorname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_delimeter"
+        android:gravity="center_vertical|center"
+        android:textSize="16sp"
+        android:text="@{subcategriesmodelbinding.name}"
+        />
+
+</android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class ="MyOrdersBinding">
+        <variable
+            name="ordermodel"
+            type="com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MyOrderViewModel"/>
+    </data>
+
+
+<android.support.constraint.ConstraintLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@drawable/linear_background_for_subcat"
+    android:weightSum="5"
+    android:layoutDirection="rtl"
+    android:layout_marginBottom="10dp">
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidhorizental"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1"
+        />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidhorizental3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4"
+        />
+    <android.support.constraint.Guideline
+        android:id="@+id/guidhorizenta2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7"
+        />
+    <android.support.constraint.Guideline
+        android:id="@+id/guidhorizenta3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.74"
+        />
+    <android.support.constraint.Guideline
+        android:id="@+id/guidvertical1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04"
+        />
+    <android.support.constraint.Guideline
+        android:id="@+id/guidvertical2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45"
+        />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidvertical3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4"
+        />
+
+    <ImageView
+        android:id="@+id/item_img"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/guidhorizental"
+        android:scaleType="fitCenter"
+        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintHeight_percent="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_gravity="center"
+        android:src="@drawable/mobile"/>
+
+
+    <RatingBar
+        android:id="@+id/rates"
+        style="@style/StarRatingBars"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        app:layout_constraintTop_toBottomOf="@+id/guidhorizenta3"
+        app:layout_constraintStart_toEndOf="@id/guidvertical1"
+        android:layout_marginTop="2dp"
+        android:rating="5"
+        android:isIndicator="true" />
+
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp"
+        android:gravity="start"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toStartOf="@id/guidvertical3"
+        app:layout_constraintTop_toBottomOf="@+id/guidhorizenta3"
+        app:layout_constraintStart_toEndOf="@id/rates"
+        android:text="(120)"
+        android:textColor="@color/gray" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="5.849.00 ريال "
+        android:textSize="14dp"
+        android:id="@+id/item_price"
+        app:layout_constraintTop_toBottomOf="@+id/rates"
+        app:layout_constraintStart_toEndOf="@id/guidvertical1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guidvertical3"
+        android:lines="2"
+        android:ellipsize="end"
+        app:layout_constraintHeight_percent="0.2"
+        android:gravity="center"
+        android:layout_marginEnd="10dp"
+        android:layout_gravity="end"
+        android:textColor="#4A4A4A"
+        android:layout_weight="2"/>
+
+    <TextView
+        android:id="@+id/item_description"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:ellipsize="end"
+        app:layout_constraintHeight_percent="0.30"
+        android:layout_marginStart="2dp"
+        app:layout_constraintTop_toBottomOf="@+id/guidhorizental"
+        app:layout_constraintStart_toEndOf="@id/guidvertical2"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18dp"
+        android:textColor="#4A4A4A"
+        android:text="@{ordermodel.name}"
+        />
+
+<View
+    android:id="@+id/vieww"
+    android:layout_width="0dp"
+    android:layout_height="1dp"
+    android:background="#D9D9D9"
+    app:layout_constraintStart_toEndOf="@id/view"
+    app:layout_constraintTop_toBottomOf="@+id/guidhorizental3"
+    />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#D9D9D9"
+        app:layout_constraintStart_toStartOf="@id/guidvertical3"
+        app:layout_constraintEnd_toEndOf="@id/guidvertical2"
+        />
+    <TextView
+        android:id="@+id/storename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/guidvertical2"
+        app:layout_constraintTop_toBottomOf="@+id/vieww"
+        android:text=" اسم المتجر :"
+        />
+    <TextView
+        android:id="@+id/storenamevalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/storename"
+        app:layout_constraintTop_toBottomOf="@+id/vieww"
+        android:text="متجر الاحلام"
+        />
+
+    <TextView
+        android:id="@+id/capitainname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/guidvertical2"
+        app:layout_constraintTop_toBottomOf="@+id/storename"
+        android:text="اسم الكابتن : "
+        />
+    <TextView
+        android:id="@+id/capitainnamevalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/storename"
+        app:layout_constraintTop_toBottomOf="@+id/storename"
+        android:text="اسامه عبدالمنعم "
+        />
+
+    <TextView
+        android:id="@+id/orderstatues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/guidvertical2"
+        app:layout_constraintTop_toBottomOf="@+id/capitainname"
+        android:text="حالة الطلب : "
+        />
+    <TextView
+        android:id="@+id/orderstatuesvalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/storename"
+        app:layout_constraintTop_toBottomOf="@+id/capitainname"
+        android:text=" مكتمل "
+        />
+
+
+    <TextView
+        android:id="@+id/orderdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/guidvertical2"
+        app:layout_constraintTop_toBottomOf="@+id/orderstatues"
+        android:text="تاريخ الطلب : "
+        />
+    <TextView
+        android:id="@+id/orderdatevalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/storename"
+        app:layout_constraintTop_toBottomOf="@+id/orderstatues"
+        android:text=" 14/5/2018 "
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/addtocart_back"
+        android:gravity="center"
+        android:lines="1"
+        android:paddingLeft="27dp"
+        android:paddingRight="27dp"
+        android:text="طلب مرة اخري"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guidvertical2"
+        app:layout_constraintTop_toBottomOf="@+id/orderdate" />
+
+</android.support.constraint.ConstraintLayout>
+</layout>
