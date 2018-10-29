@@ -49,7 +49,7 @@
             android:padding="3dp"
             android:textAlignment="center"
             app:sb_text="commplete "
-            app:sb_textGravity="center" />
+            app:sb_textGravity="center"/>
 
 
     </co.ceryle.segmentedbutton.SegmentedButtonGroup>
