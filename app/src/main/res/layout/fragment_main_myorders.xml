@@ -6,20 +6,22 @@
 
 
     <co.ceryle.segmentedbutton.SegmentedButtonGroup
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:id="@+id/segment"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.65"
+        app:sb_textColor_onSelection="@color/colorPrimary"
         app:sbg_animateSelector="bounce"
-        app:sbg_borderColor="@color/gray"
-        app:sbg_borderSize="3dp"
         app:sbg_animateSelectorDuration="1000"
         app:sbg_backgroundColor="@color/back_home3"
+        app:sbg_borderColor="@color/gray"
+        app:sbg_borderSize="1dp"
         app:sbg_dividerColor="@color/back_home3"
-        app:sb_textColor_onSelection="@color/colorPrimary"
         app:sbg_dividerPadding="10dp"
         app:sbg_dividerRadius="10dp"
         app:sbg_dividerSize="1dp"
@@ -27,9 +29,18 @@
         app:sbg_radius="2dp"
         app:sbg_ripple="true"
         app:sbg_rippleColor="@color/back_home3"
-        app:sbg_selectorColor="@color/white"
+        app:sbg_selectorColor="@color/colorPrimary">
 
-      >
+        <co.ceryle.segmentedbutton.SegmentedButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="3dp"
+            android:saveEnabled="true"
+            android:textAlignment="center"
+            app:sb_text=" not commplete  "
+            app:sb_textGravity="center" />
+
 
         <co.ceryle.segmentedbutton.SegmentedButton
             android:layout_width="0dp"
@@ -37,19 +48,8 @@
             android:layout_weight="0.5"
             android:padding="3dp"
             android:textAlignment="center"
-            app:sb_textGravity="center"
-            app:sb_text="غير مكتمل "/>
-
-
-        <co.ceryle.segmentedbutton.SegmentedButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:padding="3dp"
-            android:textAlignment="center"
-            app:sb_textGravity="center"
-            app:sb_text="مكتمل "/>
-
+            app:sb_text="commplete "
+            app:sb_textGravity="center" />
 
 
     </co.ceryle.segmentedbutton.SegmentedButtonGroup>
@@ -60,10 +60,12 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginRight="7dp"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/segment"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="5dp"
             android:id="@+id/recylerview"/>
+
 
     <FrameLayout
         android:id="@+id/progress"

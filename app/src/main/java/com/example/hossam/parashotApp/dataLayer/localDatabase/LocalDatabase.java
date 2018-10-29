@@ -19,8 +19,11 @@ import com.example.hossam.parashotApp.dataLayer.localDatabase.homePage.entities.
 import com.example.hossam.parashotApp.dataLayer.localDatabase.homePage.entities.FooterEntity;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.homePage.entities.HeaderTable;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.homePage.entities.StoreTable;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.deo.ProductDeo;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 
-@Database(entities = {BodyTable.class, DesignTable.class, FooterEntity.class, HeaderTable.class, StoreTable.class},version = 1,exportSchema = false)
+@Database(entities = {BodyTable.class, DesignTable.class, FooterEntity.class, HeaderTable.class, StoreTable.class,Product.class}
+        ,version = 1,exportSchema = false)
 public abstract class LocalDatabase extends RoomDatabase{
 
     public abstract BodyDao bodyDao ();
@@ -28,6 +31,7 @@ public abstract class LocalDatabase extends RoomDatabase{
     public abstract FooterDao footerDao ();
     public abstract StoreDao storeDao ();
     public abstract HeaderDao headerDao ();
+    public abstract ProductDeo productDeo ();
 
 
     public static LocalDatabase instance;

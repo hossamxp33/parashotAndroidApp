@@ -40,22 +40,22 @@ public class HomeActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_home1);
-    //    storeSettingEntity = (StoreSettingEntity) getIntent().getSerializableExtra("AllData");
+       storeSettingEntity = (StoreSettingEntity) getIntent().getSerializableExtra("AllData");
 
         if (savedInstanceState == null) {
-            Fragment fragment = new ProductDetailsFragment();
-//            Bundle bundle = new Bundle();
-//            bundle.putSerializable("design", storeSettingEntity.getData().get(0).getStoresettings().get(0).getDesign());
-//            fragment.setArguments(bundle);
+            Fragment fragment = new CategoryFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("design", storeSettingEntity.getData().get(0).getStoresettings().get(0).getDesign());
+            fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).commit();
         }
-       // initDataBinding(storeSettingEntity);
+        initDataBinding(storeSettingEntity);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        getSupportFragmentManager().popBackStack();
+        //getSupportFragmentManager().popBackStack();
     }
 
     public void initDataBinding(StoreSettingEntity storeSettingEntity) {
@@ -72,11 +72,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void gotomyOrder(View view) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new MYOrderFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new MYOrderFragment()).addToBackStack(null).commit();
     }
 
     public void gotomainfragment(View view) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).commit();
+    //    getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).addToBackStack(null).commit();
 
     }
 }

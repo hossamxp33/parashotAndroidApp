@@ -1,28 +1,22 @@
 package com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.entities.MYOrdersModel;
-import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.adapters.MyOrderAdapter;
-import com.example.hossam.parashotApp.presentation.screens.home.productsFragment.ProductsViewModel;
-import com.example.hossam.parashotApp.presentation.screens.home.productsFragment.adapter.ProductsAdapter;
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.AllStoresViewModelFactory;
 
 import java.util.List;
+
+import co.ceryle.segmentedbutton.SegmentedButtonGroup;
 
 
 public class MYOrderFragment extends Fragment {
@@ -32,7 +26,7 @@ public class MYOrderFragment extends Fragment {
     MyOrderAdapter myOrderAdapter;
     int COMMPLET_ORDERS_FLAG=1;
 
-    List<MYOrdersModel.DataBean> complet,notcomplete;
+    List<MYOrdersModel.DataBean> completOrders, notcompleteOrders;
     public MYOrderFragment() {
         // Required empty public constructor
     }
@@ -50,27 +44,33 @@ public class MYOrderFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recylerview);
 
         myOrderViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(MyOrderViewModel.class);
-
-//        myOrderViewModel.myordersComplete_MutableLiveData.observe(getActivity(), myOrdersModel ->
-//                {
-//                    complet=myOrdersModel;
-//                    myOrderAdapter = new MyOrderAdapter(getActivity(),notcomplete);
-//                }
-//        );
-
-        myOrderViewModel.myordersComplete_MutableLiveData.observe(getActivity(), myOrdersModel ->
+        myOrderViewModel.allMyOrders.observe(this, myOrdersModel ->
                 {
-                    notcomplete=myOrdersModel;
-                    myOrderAdapter = new MyOrderAdapter(getActivity(),myOrdersModel);
+                    assert myOrdersModel != null;
+                    notcompleteOrders =myOrdersModel.notCommpleteOrderData;
+                    completOrders =myOrdersModel.commpleteOrderData;
+                    myOrderAdapter = new MyOrderAdapter(getActivity(), notcompleteOrders);
+                    recyclerView.setAdapter(myOrderAdapter);
                 }
-        );
+                );
 
-//        if (COMMPLET_ORDERS_FLAG==1)
-//            myOrderAdapter = new MyOrderAdapter(getActivity(),complet);
-//        else
+        SegmentedButtonGroup segmentedButtonGroup = view.findViewById(R.id.segment);
+        segmentedButtonGroup.setOnClickedButtonListener(new SegmentedButtonGroup.OnClickedButtonListener() {
+            @Override
+            public void onClickedButton(int position) {
+                if (position==0)
+                {
+                    myOrderAdapter = new MyOrderAdapter(getActivity(), notcompleteOrders);
+                    recyclerView.setAdapter(myOrderAdapter);
+                }
+                else
+                {
+                    myOrderAdapter = new MyOrderAdapter(getActivity(), completOrders);
+                    recyclerView.setAdapter(myOrderAdapter);
+                }
+            }
+        });
 
-
-        recyclerView.setAdapter(myOrderAdapter);
         return view;
     }
 

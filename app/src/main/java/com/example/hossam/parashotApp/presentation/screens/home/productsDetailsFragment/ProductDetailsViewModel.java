@@ -3,6 +3,7 @@ package com.example.hossam.parashotApp.presentation.screens.home.productsDetails
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.dataLayer.repositories.ProductDetailsRepository;
 import com.example.hossam.parashotApp.entities.ProductDetailsModel;
 
@@ -40,6 +41,10 @@ public class ProductDetailsViewModel extends ViewModel {
         productDetailsRepository.getProductDetailsData();
     }
 
+
+    public void storeData(Product dataBeans) {
+        productDetailsRepository.saveDataInDB(dataBeans);
+    }
 
 
 }

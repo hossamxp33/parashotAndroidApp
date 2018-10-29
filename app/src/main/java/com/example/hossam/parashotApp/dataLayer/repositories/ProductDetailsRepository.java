@@ -3,11 +3,13 @@ package com.example.hossam.parashotApp.dataLayer.repositories;
 import android.os.AsyncTask;
 import android.support.v4.util.Consumer;
 import android.util.Log;
-
 import com.example.hossam.parashotApp.dataLayer.apiData.ApiInterface;
-import com.example.hossam.parashotApp.dataLayer.localDatabase.homePage.userCart.deo.ProductDeo;
-import com.example.hossam.parashotApp.dataLayer.localDatabase.homePage.userCart.entities.Product;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.deo.ProductDeo;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.entities.ProductDetailsModel;
+
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,10 +20,11 @@ public class ProductDetailsRepository {
     private ApiInterface apiService;
     private Consumer<ProductDetailsModel> onSuccess;
     private Consumer<Throwable> onError;
-
-    public ProductDetailsRepository(ApiInterface apiService1)
+    private ProductDeo productDeo;
+    public ProductDetailsRepository(ApiInterface apiService1, ProductDeo pDeo)
     {
         apiService = apiService1;
+        productDeo=pDeo;
     }
 
     public void getProductDetailsData() {
@@ -59,8 +62,7 @@ public class ProductDetailsRepository {
     }
 
     public void saveDataInDB(Product data) {
-
-     //   new ProductAsyncTask(footerDao).execute(data);
+        new ProductAsyncTask(productDeo).execute(data);
     }
 
     private static class ProductAsyncTask extends AsyncTask<Product, Void, Void> {
@@ -74,6 +76,9 @@ public class ProductDetailsRepository {
         @Override
         protected Void doInBackground(Product... products) {
             productdeo.insertProduct(products[0]);
+            Product product= productdeo.selectAll();
+             List<Product> Allproducts= productdeo.selectAllProductForStore(50);
+
             return null;
         }
     }

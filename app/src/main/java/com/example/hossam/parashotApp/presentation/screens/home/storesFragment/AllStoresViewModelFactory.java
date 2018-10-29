@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import com.example.hossam.parashotApp.dataLayer.apiData.ApiClient;
 import com.example.hossam.parashotApp.dataLayer.apiData.ApiClientLocal;
 import com.example.hossam.parashotApp.dataLayer.apiData.ApiInterface;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.LocalDatabase;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.deo.ProductDeo;
 import com.example.hossam.parashotApp.dataLayer.repositories.AllProductsRepository;
 import com.example.hossam.parashotApp.dataLayer.repositories.AllStoriesRepository;
 import com.example.hossam.parashotApp.dataLayer.repositories.MyOrderRepository;
@@ -62,19 +64,24 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
 
     @NonNull
     private ProductDetailsRepository getProductDetailsRepositry() {
-        return new ProductDetailsRepository(getApiServiceLocal());
+        return new ProductDetailsRepository(getApiServiceLocal(),getProductDeo());
     }
 
     @NonNull
     private MyOrderRepository getMyOrderRepositry() {
         return new MyOrderRepository(getApiServiceLocal());
     }
+
     private ApiInterface getApiService() {
         return ApiClient.getClient().create(ApiInterface.class);
     }
 
     private ApiInterface getApiServiceLocal() {
         return ApiClientLocal.getClient().create(ApiInterface.class);
+    }
+
+    private ProductDeo getProductDeo() {
+        return LocalDatabase.getInstance(application).productDeo();
     }
 
 }

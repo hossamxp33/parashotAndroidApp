@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import com.example.hossam.parashotApp.R;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.entities.ImageToShowModel;
 import com.example.hossam.parashotApp.entities.ProductDetailsModel;
 import com.example.hossam.parashotApp.helper.BroadcastHelper;
@@ -44,7 +45,7 @@ public class ProductDetailsFragment extends Fragment {
 
 
     private ProductDetailsViewModel productDetailsViewModel;
-    TextView description,name,markaname,storename,productrinfo,ratesnum,price;
+    TextView description,name,markaname,storename,productrinfo,ratesnum,price,addtoCart;
     ViewPager  viewPager;
     ImageView showmore,gotodet,imageZoom;
     LinearLayoutManager layoutManager;
@@ -60,9 +61,9 @@ public class ProductDetailsFragment extends Fragment {
     SliderPagerAdapter sliderPagerAdapter;
    TextAdapterForStorage textAdapterForStorage;
 
-   String productinfo; //////to goto next activity
-
+    String productinfo; //////to goto next activity
     RatingBar ratingBar;
+    ProductDetailsModel detailsModel;
     public ProductDetailsFragment() {
         // Required empty public constructor
     }
@@ -80,10 +81,7 @@ public class ProductDetailsFragment extends Fragment {
         findFromXml(view);
         productDetailsViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(ProductDetailsViewModel.class);
 
-        layoutManager =new LinearLayoutManager(getActivity());
-        recyclerViewforsideimages.setLayoutManager(layoutManager);
-        recyclerViewforsideimages.setNestedScrollingEnabled(true);
-        recyclerViewforsideimages.setHasFixedSize(false);
+
 
         productDetailsViewModel.productDetails_MutableLiveData.observe(this, new Observer<ProductDetailsModel>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -91,6 +89,8 @@ public class ProductDetailsFragment extends Fragment {
             public void onChanged(@Nullable ProductDetailsModel products) {
                 assert products != null;
                 setDatatoView(products);
+
+                detailsModel = products;
                 if (products.getData().get(0).getProductphotos()!=null)
                 sliderPagerAdapter = new SliderPagerAdapter(getActivity(),products.getData().get(0).getProductphotos());
                 imagesAdapterForSideImages = new ImagesAdapterForSideImages(getActivity(),products.getData().get(0).getProductphotos());
@@ -130,6 +130,18 @@ public class ProductDetailsFragment extends Fragment {
             Objects.requireNonNull(getActivity()).startActivity(intent);
         });
 
+        addtoCart.setOnClickListener(v -> {
+
+            Product product = new Product();
+            product.setName(detailsModel.getData().get(0).getName());
+            product.setPhoto(detailsModel.getData().get(0).getProductphotos().get(0).getPhoto());
+            product.setStor_id(Integer.parseInt(detailsModel.getData().get(0).getStore_id()));
+            product.setPrice(detailsModel.getData().get(0).getPrice());
+            product.setRateCount(detailsModel.getData().get(0).getTotal_rating().get(0).getCount());
+            product.setRateStars(detailsModel.getData().get(0).getTotal_rating().get(0).getStars());
+           productDetailsViewModel.storeData(product);
+        });
+
 
         return view;
     }
@@ -151,7 +163,6 @@ public class ProductDetailsFragment extends Fragment {
             imageModel.setUrl(products.getData().get(0).getProductphotos().get(i).getPhoto());
             images.add(imageModel);
         }
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
@@ -231,6 +242,12 @@ public class ProductDetailsFragment extends Fragment {
         gotodet = view.findViewById(R.id.gotodet);
         price = view.findViewById(R.id.price);
         imageZoom = view.findViewById(R.id.imageZoom);
+        addtoCart = view.findViewById(R.id.addtoCart);
+
+        layoutManager =new LinearLayoutManager(getActivity());
+        recyclerViewforsideimages.setLayoutManager(layoutManager);
+        recyclerViewforsideimages.setNestedScrollingEnabled(true);
+        recyclerViewforsideimages.setHasFixedSize(false);
 
     }
 

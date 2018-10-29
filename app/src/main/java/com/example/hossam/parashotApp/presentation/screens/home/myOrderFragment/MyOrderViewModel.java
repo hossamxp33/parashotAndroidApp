@@ -3,7 +3,10 @@ package com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.BindingAdapter;
+import android.graphics.Color;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.example.hossam.parashotApp.dataLayer.repositories.MyOrderRepository;
 import com.example.hossam.parashotApp.entities.MYOrdersModel;
@@ -15,16 +18,14 @@ import java.util.List;
 public class MyOrderViewModel extends ViewModel {
 
     private MyOrderRepository myOrder_repository;
-    MutableLiveData<List<MYOrdersModel.DataBean>> myordersComplete_MutableLiveData = new MutableLiveData<List<MYOrdersModel.DataBean>>();
-    MutableLiveData<List<MYOrdersModel.DataBean>> myordersNotComplete_MutableLiveData = new MutableLiveData<List<MYOrdersModel.DataBean>>();
-    private List<MYOrdersModel.DataBean> myordersComplete=new ArrayList<>();
-    private List<MYOrdersModel.DataBean> myordersNotComplete=new ArrayList<>();
-
+    MutableLiveData<FilterMyOrder> allMyOrders = new MutableLiveData<FilterMyOrder>();
     private MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
     private MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
     private String name, imagePath, item_description, storenamevalue,
-            capitainnamevalue, orderstatuesvalue, orderdatevalue, item_price, ratecount, ratestart;
+            capitainnamevalue, orderstatuesvalue, orderdatevalue, item_price, ratecount,dateValue;
+
+    private int ratestart;
 
 
     public MyOrderViewModel() {
@@ -33,20 +34,7 @@ public class MyOrderViewModel extends ViewModel {
     public MyOrderViewModel(final MyOrderRepository repository) {
 
         repository.setOnSuccess(orders -> {
-
-//            for (int i = 0; i < orders.getData().size(); i++) {
-//                if (orders.getData().get(i)!=null) {
-//                    if (orders.getData().get(i).getOrderdetails()!=null) {
-//                        if (orders.getData().get(i).getOrderdetails().get(0).getOrder_status().matches("1"))
-//                            myordersComplete.add(orders.getData().get(i));
-//                        else
-//                            myordersNotComplete.add(orders.getData().get(i));
-//                    }
-//                }
-//            }
-
-            myordersComplete_MutableLiveData.postValue(orders.getData());
-         ///   myordersNotComplete_MutableLiveData.postValue(orders.getData());
+            allMyOrders.postValue(orders);
             loading.postValue(false);
         });
 
@@ -60,6 +48,29 @@ public class MyOrderViewModel extends ViewModel {
     @BindingAdapter("bind:imageUrl")
     public static void loadImage(ImageView view, String url) {
         Glide.with(view.getContext()).load(url).into(view);
+    }
+
+
+    @BindingAdapter("bind:textcolorvalue")
+    public static void settextt(TextView view, String text) {
+
+        if (text.matches("3")) {
+            view.setText(" مكتمل");
+            view.setTextColor(Color.parseColor("#00FF00"));
+        }
+        else
+        {
+            view.setText("غير مكتمل");
+            view.setTextColor(Color.parseColor("#FF0000"));
+        }
+    }
+
+    public String getDateValue() {
+        return dateValue;
+    }
+
+    public void setDateValue(String dateValue) {
+        this.dateValue = dateValue;
     }
 
     public String getName() {
@@ -134,11 +145,11 @@ public class MyOrderViewModel extends ViewModel {
         this.ratecount = ratecount;
     }
 
-    public String getRatestart() {
+    public int getRatestart() {
         return ratestart;
     }
 
-    public void setRatestart(String ratestart) {
+    public void setRatestart(int ratestart) {
         this.ratestart = ratestart;
     }
 }

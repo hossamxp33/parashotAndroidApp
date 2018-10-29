@@ -6,6 +6,10 @@ import android.util.Log;
 import com.example.hossam.parashotApp.dataLayer.apiData.ApiInterface;
 import com.example.hossam.parashotApp.entities.MYOrdersModel;
 import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
+import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.FilterMyOrder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,7 +19,7 @@ import retrofit2.Response;
 public class MyOrderRepository {
 
     private ApiInterface apiService;
-    private Consumer<MYOrdersModel> onSuccess;
+    private Consumer<FilterMyOrder> onSuccess;
     private Consumer<Throwable> onError;
 
     public MyOrderRepository(ApiInterface apiService1)
@@ -32,7 +36,7 @@ public class MyOrderRepository {
                     if (response.body() != null) {
                         if (response.isSuccessful()) {
                             if (onSuccess != null) {
-                                onSuccess.accept(response.body());
+                                onSuccess.accept(filterData(response.body()));
                             }
                         }
 
@@ -61,8 +65,25 @@ public class MyOrderRepository {
         }
     }
 
+    private FilterMyOrder filterData(MYOrdersModel body) {
 
-    public void setOnSuccess(Consumer<MYOrdersModel> onSuccess) {
+        List<MYOrdersModel.DataBean> commpleteOrderData=new ArrayList<>();
+        List<MYOrdersModel.DataBean> notCommpleteOrderData=new ArrayList<>();
+
+        for (int i=0;i<body.getData().size();i++)
+        {
+            if (body.getData().get(i).getOrder_status().matches("3"))
+                commpleteOrderData.add(body.getData().get(i));
+            else
+                notCommpleteOrderData.add(body.getData().get(i));
+
+        }
+
+        return new FilterMyOrder(commpleteOrderData,notCommpleteOrderData);
+    }
+
+
+    public void setOnSuccess(Consumer<FilterMyOrder> onSuccess) {
         this.onSuccess = onSuccess;
     }
 

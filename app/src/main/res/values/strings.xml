@@ -60,6 +60,7 @@
     <string name="myorder">طلباتي</string>
     <string name="notcommplete">غير مكتملة</string>
     <string name="commplete">مكتملة</string>
+    <string name="orderagain">طلب مرة اخري</string>
 
 
 </resources>
