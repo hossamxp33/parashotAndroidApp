@@ -14,6 +14,10 @@ public class Product {
     @ColumnInfo(name = "stor_id")
     private int stor_id;
 
+    @ColumnInfo(name = "product_id")
+    private int product_id;
+
+
     public int getId() {
         return id;
     }
@@ -37,6 +41,14 @@ public class Product {
 
     @ColumnInfo(name = "rateCount")
     private int rateCount;
+
+    public int getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(int product_id) {
+        this.product_id = product_id;
+    }
 
     public int getStor_id() {
         return stor_id;

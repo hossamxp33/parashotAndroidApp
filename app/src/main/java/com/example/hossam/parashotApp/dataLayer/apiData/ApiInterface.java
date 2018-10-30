@@ -35,7 +35,6 @@ public interface ApiInterface {
             @Path(value = "userId") int userId
     );
 
-
     @GET("products/ProductList/{storid}.json")
     @Headers("Accept: Application/json")
     Call<Products_in_Stories_Model> getProductsData(
@@ -47,8 +46,6 @@ public interface ApiInterface {
     Call<ProductDetailsModel> getProductDetails(
             @Path(value = "storid") int storid
     );
-
-
 
     @GET("orders/getorders/{userid}.json")
     @Headers("Accept: Application/json")

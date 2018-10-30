@@ -1,10 +1,15 @@
 package com.example.hossam.parashotApp.dataLayer.repositories;
 
+import android.os.AsyncTask;
 import android.support.v4.util.Consumer;
 import android.util.Log;
 
 import com.example.hossam.parashotApp.dataLayer.apiData.ApiInterface;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.deo.ProductDeo;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,10 +21,13 @@ public class AllProductsRepository {
     private ApiInterface apiService;
     private Consumer<Products_in_Stories_Model> onSuccess;
     private Consumer<Throwable> onError;
+    private ProductDeo productDeo;
 
-    public AllProductsRepository(ApiInterface apiService1)
+
+    public AllProductsRepository(ApiInterface apiService1 , ProductDeo pDeo)
     {
         apiService = apiService1;
+        productDeo=pDeo;
         getAllCategryData();
     }
 
@@ -56,6 +64,28 @@ public class AllProductsRepository {
             onError.accept(e);
         }
     }
+
+    public void saveDataInDB(Product data) {
+        new AllProductsRepository.ProductAsyncTask(productDeo).execute(data);
+    }
+
+
+    private static class ProductAsyncTask extends AsyncTask<Product, Void, Void> {
+        private ProductDeo productdeo;
+        public ProductAsyncTask(ProductDeo productDeo) {
+            productdeo = productDeo;
+        }
+
+        @Override
+        protected Void doInBackground(Product... products) {
+            productdeo.insertProduct(products[0]);
+            Product product= productdeo.selectAll();
+            List<Product> Allproducts= productdeo.selectAllProductForStore(50);
+
+            return null;
+        }
+    }
+
 
 
     public void setOnSuccess(Consumer<Products_in_Stories_Model> onSuccess) {

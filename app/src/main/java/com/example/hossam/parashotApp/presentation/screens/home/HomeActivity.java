@@ -17,6 +17,7 @@ import com.example.hossam.parashotApp.databinding.HeaderFooterBinding;
 import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MYOrderFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.ProductDetailsFragment;
+import com.example.hossam.parashotApp.presentation.screens.home.userCart.UserCartFragment;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -68,6 +69,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void gotomorefragment(View view) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new UserCartFragment()).addToBackStack(null).commit();
 
     }
 

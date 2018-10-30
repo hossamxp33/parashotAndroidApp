@@ -39,7 +39,7 @@
             />
 
         <ImageView
-            android:id="@+id/st2"
+            android:id="@+id/gotocart"
             android:layout_width="35dp"
             android:layout_height="30dp"
             app:layout_constraintRight_toRightOf="parent"

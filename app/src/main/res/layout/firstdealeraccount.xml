@@ -42,7 +42,7 @@
                     />
 
             <ImageView
-                android:id="@+id/st2"
+                android:id="@+id/gotocart"
                 android:layout_width="30dp"
                 android:layout_height="35dp"
                 android:gravity="center"

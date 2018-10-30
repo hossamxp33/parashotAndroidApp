@@ -8,14 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.hossam.parashotApp.R;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.databinding.ProductBindings;
 import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
 import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.ProductDetailsFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.productsFragment.ProductsViewModel;
-import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.StoresFragment;
-
 import java.util.List;
 
 
@@ -25,9 +25,12 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     Context mcontext;
     RecycleImagesAdapter recycle_images_adapter;
     List<Products_in_Stories_Model.DataBean> productData;
-    public ProductsAdapter(FragmentActivity activity, List<Products_in_Stories_Model.DataBean> products_from_view) {
+    ProductsViewModel productsViewModel1;
+
+    public ProductsAdapter(FragmentActivity activity, List<Products_in_Stories_Model.DataBean> products_from_view,ProductsViewModel viewModel) {
         mcontext=activity;
         productData = products_from_view;
+        productsViewModel1 = viewModel;
     }
 
     @Override
@@ -71,6 +74,23 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
 ((FragmentActivity) mcontext).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new ProductDetailsFragment()).addToBackStack(null).commit();
 
+            }
+        });
+        holder.productBindings.addtoCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(mcontext,((FragmentActivity) mcontext).getResources().getString(R.string.addsuccess),Toast.LENGTH_SHORT).show();
+                Product product = new Product();
+                product.setName(productData.get(position).getName());
+                product.setProduct_id(productData.get(position).getId());
+                product.setPhoto(productData.get(position).getProductphotos().get(0).getPhoto());
+                product.setStor_id(Integer.parseInt(productData.get(position).getStore_id()));
+                product.setPrice(productData.get(position).getPrice());
+                product.setRateCount(productData.get(position).getTotal_rating().get(0).getCount());
+                product.setRateStars(productData.get(position).getTotal_rating().get(0).getStars());
+                ProductsViewModel  productsViewModel = new ProductsViewModel();
+                productsViewModel.storeData(product,productsViewModel1.allProducts_repository);
             }
         });
     }

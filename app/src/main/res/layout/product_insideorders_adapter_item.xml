@@ -4,7 +4,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-    <data class ="ProductBindings">
+    <data class ="ProductInsideOrdersBindings">
         <variable
             name="productdata"
             type="com.example.hossam.parashotApp.presentation.screens.home.productsFragment.ProductsViewModel"/>
@@ -17,6 +17,7 @@
     android:id="@+id/productview"
     android:orientation="horizontal"
     android:layout_margin="5dp"
+    android:paddingBottom="7dp"
     android:layoutDirection="rtl"
     android:background="@drawable/linear_background_for_subcat3">
 
@@ -117,6 +118,7 @@
         android:isIndicator="true" />
 
         <TextView
+        android:id="@+id/ratecount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -147,26 +149,7 @@
         />
 
 
-        <TextView
-        android:id="@+id/addtoCart"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="أضف للسلة "
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:paddingBottom="4dp"
-        android:paddingTop="7dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rates"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.5"
-        app:layout_constraintBottom_toTopOf="@+id/guidlinehorizental5"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:layout_gravity="center"
-        android:background="@drawable/addtocart_back"
-        />
+
 
     </android.support.constraint.ConstraintLayout>
 </layout>

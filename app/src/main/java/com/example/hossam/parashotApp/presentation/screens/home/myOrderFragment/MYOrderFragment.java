@@ -24,7 +24,7 @@ public class MYOrderFragment extends Fragment {
     MyOrderViewModel myOrderViewModel;
     private RecyclerView recyclerView;
     MyOrderAdapter myOrderAdapter;
-    int COMMPLET_ORDERS_FLAG=1;
+
 
     List<MYOrdersModel.DataBean> completOrders, notcompleteOrders;
     public MYOrderFragment() {
@@ -70,6 +70,7 @@ public class MYOrderFragment extends Fragment {
                 }
             }
         });
+        segmentedButtonGroup.setPosition(2, 0);
 
         return view;
     }

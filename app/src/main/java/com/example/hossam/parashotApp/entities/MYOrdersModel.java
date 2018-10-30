@@ -1,5 +1,6 @@
 package com.example.hossam.parashotApp.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class MYOrdersModel {
@@ -172,7 +173,7 @@ public class MYOrdersModel {
             }
         }
 
-        public static class OrderdetailsBean {
+        public static class OrderdetailsBean implements Serializable {
             /**
              * id : 59
              * product_id : 1
@@ -307,7 +308,7 @@ public class MYOrdersModel {
                 this.product = product;
             }
 
-            public static class ProductBean {
+            public static class ProductBean implements Serializable{
                 /**
                  * id : 1
                  * name : iphone

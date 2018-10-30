@@ -23,7 +23,7 @@ import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.deo.Produ
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 
 @Database(entities = {BodyTable.class, DesignTable.class, FooterEntity.class, HeaderTable.class, StoreTable.class,Product.class}
-        ,version = 1,exportSchema = false)
+        ,version = 2,exportSchema = false)
 public abstract class LocalDatabase extends RoomDatabase{
 
     public abstract BodyDao bodyDao ();

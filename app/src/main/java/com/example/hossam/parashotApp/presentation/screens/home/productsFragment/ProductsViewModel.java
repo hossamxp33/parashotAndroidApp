@@ -7,13 +7,14 @@ import android.support.v4.util.Consumer;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.dataLayer.repositories.AllProductsRepository;
 import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
 
 public class ProductsViewModel extends ViewModel {
 
 
-    private AllProductsRepository allProducts_repository;
+    public AllProductsRepository allProducts_repository;
     MutableLiveData<Products_in_Stories_Model> products_MutableLiveData = new MutableLiveData<>();
     MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
@@ -44,6 +45,9 @@ public class ProductsViewModel extends ViewModel {
     }
 
 
+    public void storeData(Product dataBeans, AllProductsRepository allProducts_repository) {
+        allProducts_repository.saveDataInDB(dataBeans);
+    }
 
     @BindingAdapter("bind:imageUrl")
     public static void loadImage(ImageView view, String url) {

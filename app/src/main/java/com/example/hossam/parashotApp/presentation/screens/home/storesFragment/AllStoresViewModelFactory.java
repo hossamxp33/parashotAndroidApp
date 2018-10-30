@@ -14,9 +14,11 @@ import com.example.hossam.parashotApp.dataLayer.repositories.AllProductsReposito
 import com.example.hossam.parashotApp.dataLayer.repositories.AllStoriesRepository;
 import com.example.hossam.parashotApp.dataLayer.repositories.MyOrderRepository;
 import com.example.hossam.parashotApp.dataLayer.repositories.ProductDetailsRepository;
+import com.example.hossam.parashotApp.dataLayer.repositories.UserCartRepository;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MyOrderViewModel;
 import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.ProductDetailsViewModel;
 import com.example.hossam.parashotApp.presentation.screens.home.productsFragment.ProductsViewModel;
+import com.example.hossam.parashotApp.presentation.screens.home.userCart.UserCartViewModel;
 
 public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
 
@@ -47,7 +49,10 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
         {
             return (T) new MyOrderViewModel(getMyOrderRepositry());
         }
-
+        else if (modelClass == UserCartViewModel.class)
+        {
+            return (T) new UserCartViewModel(getUserCartRepositry());
+        }
         throw new IllegalArgumentException("Invalid view model class type");
     }
 
@@ -58,13 +63,19 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
 
     @NonNull
     private AllProductsRepository getProductsRepositry() {
-        return new AllProductsRepository(getApiService());
+        return new AllProductsRepository(getApiService(),getProductDeo());
     }
 
 
     @NonNull
     private ProductDetailsRepository getProductDetailsRepositry() {
         return new ProductDetailsRepository(getApiServiceLocal(),getProductDeo());
+    }
+
+
+    @NonNull
+    private UserCartRepository getUserCartRepositry() {
+        return new UserCartRepository(getApiServiceLocal(),getProductDeo());
     }
 
     @NonNull

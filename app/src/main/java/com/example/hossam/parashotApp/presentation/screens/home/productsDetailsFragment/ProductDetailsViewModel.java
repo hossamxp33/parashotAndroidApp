@@ -21,7 +21,6 @@ public class ProductDetailsViewModel extends ViewModel {
 
     public ProductDetailsViewModel(final ProductDetailsRepository repository) {
 
-
         repository.setOnSuccess(products -> {
             productDetails_MutableLiveData.postValue(products);
             loading.postValue(false);
