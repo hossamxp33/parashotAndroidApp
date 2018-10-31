@@ -50,7 +50,7 @@
             />
 
         <ImageView
-            android:id="@+id/gotocart"
+            android:id="@+id/sale"
             android:layout_width="45dp"
             android:layout_height="40dp"
             app:layout_constraintStart_toStartOf="parent"

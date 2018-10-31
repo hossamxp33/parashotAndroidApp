@@ -59,7 +59,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/gotocart"
+                android:id="@+id/sale"
                 android:layout_width="30dp"
                 android:layout_height="35dp"
                 android:gravity="center"

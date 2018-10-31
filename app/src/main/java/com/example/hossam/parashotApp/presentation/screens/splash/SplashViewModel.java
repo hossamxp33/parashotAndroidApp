@@ -33,6 +33,7 @@ public class SplashViewModel extends ViewModel {
         splashRepository.setOnError(new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) {
+
                 errorLiveData.postValue(throwable);
                 loading.postValue(false);
             }

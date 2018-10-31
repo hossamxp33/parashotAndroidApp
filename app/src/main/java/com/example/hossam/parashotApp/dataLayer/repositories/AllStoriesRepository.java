@@ -25,7 +25,7 @@ public class AllStoriesRepository {
 
     private void getAllCategryData() {
         try {
-            apiService.getSubCategriesData(1,0).enqueue(new Callback<AllStoriesModel>() {
+            apiService.getSubCategriesData(1,1).enqueue(new Callback<AllStoriesModel>() {
                 @Override
                 public void onResponse(Call<AllStoriesModel> call, final Response<AllStoriesModel> response) {
                     if (response.body() != null) {

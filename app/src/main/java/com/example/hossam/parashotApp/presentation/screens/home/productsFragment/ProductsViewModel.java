@@ -16,6 +16,8 @@ public class ProductsViewModel extends ViewModel {
 
     public AllProductsRepository allProducts_repository;
     MutableLiveData<Products_in_Stories_Model> products_MutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<Boolean> stor_or_not_MutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<Integer> product_count_MutableLiveData = new MutableLiveData<>();
     MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
@@ -41,12 +43,35 @@ public class ProductsViewModel extends ViewModel {
                 loading.postValue(false);
             }
         });
+
+        repository.setbooleanConsumerForAdd(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) {
+                stor_or_not_MutableLiveData.postValue(aBoolean);
+            }
+        });
+
+        repository.setProductsCount(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) {
+                product_count_MutableLiveData.postValue(integer);
+            }
+        });
+
+
         this.allProducts_repository = repository;
+        getCount(1);
     }
+
 
 
     public void storeData(Product dataBeans, AllProductsRepository allProducts_repository) {
         allProducts_repository.saveDataInDB(dataBeans);
+    }
+
+
+    public void getCount(int storid) {
+        allProducts_repository.getProductCount(storid);
     }
 
     @BindingAdapter("bind:imageUrl")

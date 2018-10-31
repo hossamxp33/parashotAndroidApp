@@ -33,4 +33,8 @@ public interface ProductDeo {
     @Query("SELECT COUNT(id) FROM Product WHERE stor_id like :store_id")
     int getNumberOfRows(int store_id);
 
+
+    @Query("SELECT COUNT(*) FROM Product WHERE stor_id like :stor_id")
+    int chieckItemExists(int stor_id);
+
 }

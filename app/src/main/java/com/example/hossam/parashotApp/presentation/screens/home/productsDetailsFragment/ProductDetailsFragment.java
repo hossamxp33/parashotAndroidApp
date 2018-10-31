@@ -49,7 +49,7 @@ public class ProductDetailsFragment extends Fragment {
 
 
     private ProductDetailsViewModel productDetailsViewModel;
-    TextView description,name,markaname,storename,productrinfo,ratesnum,price,addtoCart,gotocart;
+    TextView description,name,markaname,storename,productrinfo,ratesnum,price,addtoCart,gotocart,cart_count,productcounttext;
     ViewPager  viewPager;
     ImageView showmore,gotodet,imageZoom;
     LinearLayoutManager layoutManager;
@@ -85,8 +85,6 @@ public class ProductDetailsFragment extends Fragment {
         findFromXml(view);
         productDetailsViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(ProductDetailsViewModel.class);
 
-
-
         productDetailsViewModel.productDetails_MutableLiveData.observe(this, new Observer<ProductDetailsModel>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -104,6 +102,15 @@ public class ProductDetailsFragment extends Fragment {
                 recyclerViewforsideimages.setAdapter(imagesAdapterForSideImages);
                 recyclerViewforitemcolors.setAdapter(imagesAdapterForColor);
                 recyclerViewforstorage.setAdapter(textAdapterForStorage);
+            }
+        });
+
+        productDetailsViewModel.product_count_MutableLiveData.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                cart_count.setText(integer+"");
+                productcounttext.setText(getText(R.string.youhave)+" "+integer+" "+getText(R.string.productincart));
+
             }
         });
 
@@ -136,7 +143,6 @@ public class ProductDetailsFragment extends Fragment {
 
         addtoCart.setOnClickListener(v -> {
 
-            Toast.makeText(getActivity(),getResources().getString(R.string.addsuccess),Toast.LENGTH_SHORT).show();
             Product product = new Product();
             product.setName(detailsModel.getData().get(0).getName());
             product.setProduct_id(detailsModel.getData().get(0).getId());
@@ -145,7 +151,24 @@ public class ProductDetailsFragment extends Fragment {
             product.setPrice(detailsModel.getData().get(0).getPrice());
             product.setRateCount(detailsModel.getData().get(0).getTotal_rating().get(0).getCount());
             product.setRateStars(detailsModel.getData().get(0).getTotal_rating().get(0).getStars());
-           productDetailsViewModel.storeData(product);
+            productDetailsViewModel.storeData(product);
+
+            productDetailsViewModel.stor_or_not_MutableLiveData.observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(@Nullable Boolean aBoolean) {
+
+                    if (aBoolean) {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.addsuccess), Toast.LENGTH_SHORT).show();
+                        int currentcount =Integer.parseInt(cart_count.getText().toString())+1;
+                        cart_count.setText(currentcount+"");
+                        productcounttext.setText(getText(R.string.youhave)+" "+currentcount+" "+getText(R.string.productincart));
+                    }
+
+                    else
+                        Toast.makeText(getActivity(),getResources().getString(R.string.aleadyfound),Toast.LENGTH_SHORT).show();
+
+                }
+            });
         });
 
 
@@ -251,7 +274,9 @@ public class ProductDetailsFragment extends Fragment {
         price = view.findViewById(R.id.price);
         imageZoom = view.findViewById(R.id.imageZoom);
         addtoCart = view.findViewById(R.id.addtoCart);
-        gotocart = view.findViewById(R.id.gotocart);
+        gotocart = view.findViewById(R.id.sale);
+        cart_count = view.findViewById(R.id.cart_count);
+        productcounttext = view.findViewById(R.id.productcounttext);
 
         layoutManager =new LinearLayoutManager(getActivity());
         recyclerViewforsideimages.setLayoutManager(layoutManager);

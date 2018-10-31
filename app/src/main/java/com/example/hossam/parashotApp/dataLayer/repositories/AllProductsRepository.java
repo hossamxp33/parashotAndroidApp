@@ -20,7 +20,12 @@ public class AllProductsRepository {
 
     private ApiInterface apiService;
     private Consumer<Products_in_Stories_Model> onSuccess;
+    private Consumer<Boolean> booleanConsumerForAdd;
+    private Consumer<Integer> productsCount;
     private Consumer<Throwable> onError;
+
+
+
     private ProductDeo productDeo;
 
 
@@ -69,8 +74,11 @@ public class AllProductsRepository {
         new AllProductsRepository.ProductAsyncTask(productDeo).execute(data);
     }
 
+    public void getProductCount(int storid) {
+        new AllProductsRepository.ProductCountAsyncTask(productDeo).execute(storid);
+    }
 
-    private static class ProductAsyncTask extends AsyncTask<Product, Void, Void> {
+    private  class ProductAsyncTask extends AsyncTask<Product, Void, Void> {
         private ProductDeo productdeo;
         public ProductAsyncTask(ProductDeo productDeo) {
             productdeo = productDeo;
@@ -78,10 +86,29 @@ public class AllProductsRepository {
 
         @Override
         protected Void doInBackground(Product... products) {
-            productdeo.insertProduct(products[0]);
-            Product product= productdeo.selectAll();
-            List<Product> Allproducts= productdeo.selectAllProductForStore(50);
+            int count = productdeo.chieckItemExists(products[0].getProduct_id());
+            if (count>0) {
+                booleanConsumerForAdd.accept(false);
 
+            }
+            else {
+                productdeo.insertProduct(products[0]);
+                booleanConsumerForAdd.accept(true);
+            }
+            return null;
+        }
+    }
+
+    private  class ProductCountAsyncTask extends AsyncTask<Integer, Void, Void> {
+        private ProductDeo productdeo;
+        public ProductCountAsyncTask(ProductDeo productDeo) {
+            productdeo = productDeo;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... products) {
+            int count = productdeo.getNumberOfRows(products[0]);
+            productsCount.accept(count);
             return null;
         }
     }
@@ -92,6 +119,13 @@ public class AllProductsRepository {
         this.onSuccess = onSuccess;
     }
 
+    public void setbooleanConsumerForAdd(Consumer<Boolean> booleanConsumerForAdd) {
+        this.booleanConsumerForAdd = booleanConsumerForAdd;
+    }
+
+    public void setProductsCount(Consumer<Integer> counter) {
+        this.productsCount = counter;
+    }
 
     public void setOnError(Consumer<Throwable> onError) {
         this.onError = onError;

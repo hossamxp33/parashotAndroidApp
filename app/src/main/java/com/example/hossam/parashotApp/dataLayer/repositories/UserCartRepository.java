@@ -62,7 +62,6 @@ public class UserCartRepository {
                 }
             }
         }
-
     }
 
     private static class DeleteProductAsyncTask extends AsyncTask<Product, Void, Void> {

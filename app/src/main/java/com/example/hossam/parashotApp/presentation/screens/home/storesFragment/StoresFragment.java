@@ -78,6 +78,8 @@ public class StoresFragment extends Fragment {
                     @Override
                     public void onChanged(@Nullable Throwable throwable) {
                         // todo show error
+
+                        assert throwable != null;
                         Toast.makeText(getActivity(),getResources().getString(R.string.erroroccur)+
                                 throwable.getCause().getMessage(),Toast.LENGTH_SHORT).show();
                     }

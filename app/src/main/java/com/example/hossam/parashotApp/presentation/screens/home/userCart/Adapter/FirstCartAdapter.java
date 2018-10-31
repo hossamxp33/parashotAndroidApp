@@ -12,6 +12,7 @@ import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.databinding.UserCartBinding;
 import com.example.hossam.parashotApp.presentation.screens.home.userCart.UserCartViewModel;
+import com.example.hossam.parashotApp.presentation.screens.home.userCart.helper.CartPrice;
 
 import java.util.List;
 
@@ -21,12 +22,13 @@ public class FirstCartAdapter extends RecyclerView.Adapter<FirstCartAdapter.Cust
     private List<Product> productList;
     private Context context;
     UserCartViewModel userCartViewModel1;
-
-    public FirstCartAdapter(Context context ,List<Product> productList,UserCartViewModel viewModel)
+    CartPrice  cartPrice;
+    public FirstCartAdapter(Context context ,List<Product> productList,UserCartViewModel viewModel,CartPrice c)
     {
         this.productList = productList;
         this.context =  context;
         this.userCartViewModel1= viewModel;
+        this.cartPrice=c;
     }
 
 
@@ -60,22 +62,28 @@ public class FirstCartAdapter extends RecyclerView.Adapter<FirstCartAdapter.Cust
             @Override
             public void onClick(View v) {
 
+                cartPrice.deleteItem(position,Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString()));
                 userCartViewModel.deleteProductFromDB(productList.get(position),userCartViewModel1.userCartRepository);
                 productList.remove(position);
                 notifyDataSetChanged();
-          //      context.getFragmentManager().findFragmentByTag(FRAGMENT_TAG)
+
             }
         });
 
         holder.userCartBinding.quintityPlus.setOnClickListener((View.OnClickListener) v ->
 
-                    holder.userCartBinding.quintityValue.setText((Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString())+1)+"")
+                {   holder.userCartBinding.quintityValue.setText((Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString())+1)+"");
+                    cartPrice.plusItem(position);
+                }
+
         );
 
         holder.userCartBinding.quintityMinus.setOnClickListener((View.OnClickListener) v ->
                 {
-                    if (Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString()) > 1)
-                    holder.userCartBinding.quintityValue.setText((Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString())-1)+"");
+                    if (Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString()) > 1) {
+                        holder.userCartBinding.quintityValue.setText((Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString()) - 1) + "");
+                        cartPrice.minusItem(position);
+                    }
                     else
                         holder.userCartBinding.quintityValue.setError("لا يمكن ان تكون الكمية اقل من واحد");
 
