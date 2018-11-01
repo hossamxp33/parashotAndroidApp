@@ -33,7 +33,7 @@ public class StoresFragment extends Fragment {
     StoreSettingEntity.DataBean.StoresettingsBean.DesignBean designBean;
 
     AllStoriesAdapter allStoriesAdapter;
-
+    int type,cate_or_sub_ID;
     public StoresFragment() {
         // Required empty public constructor
     }
@@ -51,6 +51,10 @@ public class StoresFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_first_resturant_list, container, false);
         recyclerView = view.findViewById(R.id.recylerview);
         ProgressDialogHelper.showSimpleProgressDialog(getActivity(), false);
+
+        assert getArguments() != null;
+        type=getArguments().getInt("type");
+         cate_or_sub_ID=getArguments().getInt("categryId");
 
         stores_viewModel = ViewModelProviders.of(this, getViewModelFactory()).get(StoresViewModel.class);
         stores_viewModel.loading.observe(this, new Observer<Boolean>() {
@@ -78,7 +82,6 @@ public class StoresFragment extends Fragment {
                     @Override
                     public void onChanged(@Nullable Throwable throwable) {
                         // todo show error
-
                         assert throwable != null;
                         Toast.makeText(getActivity(),getResources().getString(R.string.erroroccur)+
                                 throwable.getCause().getMessage(),Toast.LENGTH_SHORT).show();
@@ -89,10 +92,9 @@ public class StoresFragment extends Fragment {
         return view;
     }
 
-
     @NonNull
     private ViewModelProvider.Factory getViewModelFactory() {
-        return new AllStoresViewModelFactory(getActivity().getApplication());
+        return new AllStoresViewModelFactory(getActivity().getApplication(),type,cate_or_sub_ID);
     }
 
 }

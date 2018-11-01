@@ -24,8 +24,16 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
 
 
     private Application application;
+    int typeid,categry;
     public AllStoresViewModelFactory(@NonNull Application application1) {
         application = application1;
+
+    }
+
+    public AllStoresViewModelFactory(Application application1, int type, int cate_or_sub_id) {
+        application=application1;
+        typeid =type;
+        categry = cate_or_sub_id;
     }
 
     @SuppressWarnings("SingleStatementInBlock")
@@ -58,7 +66,7 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
 
     @NonNull
     private AllStoriesRepository getStoriesRepositry() {
-        return new AllStoriesRepository(getApiService());
+        return new AllStoriesRepository(getApiService(),typeid,categry);
     }
 
     @NonNull

@@ -17,7 +17,6 @@
     android:layoutDirection="rtl"
    >
 
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
