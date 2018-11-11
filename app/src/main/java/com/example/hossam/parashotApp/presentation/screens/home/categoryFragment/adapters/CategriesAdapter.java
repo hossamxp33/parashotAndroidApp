@@ -76,7 +76,15 @@ public class CategriesAdapter extends RecyclerView.Adapter<CategriesAdapter.Cust
                 }
 
                 else
-                    ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new StoresFragment()).addToBackStack(null).commit();
+                {
+
+                    Fragment fragment = new StoresFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("type",0);
+                    bundle.putInt("categryId",dataBeanArrayList.get(position).getId());
+                    ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).addToBackStack(null).commit();
+
+                }
 
             }
         });

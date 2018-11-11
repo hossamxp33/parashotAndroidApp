@@ -4,9 +4,11 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "Product")
 
-public class Product {
+public class Product implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;

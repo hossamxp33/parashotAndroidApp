@@ -6,10 +6,17 @@ import com.example.hossam.parashotApp.entities.ProductDetailsModel;
 import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
 import com.example.hossam.parashotApp.entities.StoreSettingEntity;
 import com.example.hossam.parashotApp.entities.AllStoriesModel;
+import com.example.hossam.parashotApp.presentation.screens.home.userCart.helper.ProductModel;
 
+import java.util.List;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 
@@ -27,12 +34,11 @@ public interface ApiInterface {
     Call<Categories> getCatigriesData(
     );
 
-
-    @GET("smallstores/getsmallstoredata/{storid}/{userId}.json")
+    @GET("smallstores/getsmallstoredata/{cate_subCat_id}/{type}.json")
     @Headers("Accept: Application/json")
     Call<AllStoriesModel> getSubCategriesData(
-            @Path(value = "storid") int storid,
-            @Path(value = "userId") int userId
+            @Path(value = "cate_subCat_id") int storid,
+            @Path(value = "type") int userId
     );
 
     @GET("products/ProductList/{storid}.json")
@@ -53,6 +59,12 @@ public interface ApiInterface {
             @Path(value = "userid") int userid
     );
 
+
+    @POST("orders/addorder.json")
+    @Headers("Accept: Application/json")
+    Call<ResponseBody> makeOrder(
+            @Body List<ProductModel> models
+            );
 
 }
 

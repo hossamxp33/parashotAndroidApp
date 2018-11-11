@@ -123,8 +123,7 @@
             android:layout_width="90dp"
             android:layout_height="80dp"
             android:background="@drawable/logoback"
-            android:scaleType="fitCenter"
-            android:src="@drawable/pizzalogo"
+            android:scaleType="center"
             app:imageUrl="@{resturantlistmodel.logo}"
             app:layout_constraintStart_toEndOf="@id/guidelinerightoflogo"
             app:layout_constraintTop_toBottomOf="@+id/storename" />

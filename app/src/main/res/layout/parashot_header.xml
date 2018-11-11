@@ -13,7 +13,7 @@
 
 
     <ImageView
-        android:id="@+id/gotocart"
+        android:id="@+id/sale"
         android:layout_width="45dp"
         android:layout_height="40dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
             android:layout_width="65dp"
             android:layout_height="40dp"
             app:layout_constraintEnd_toEndOf="@id/st1"
-            app:layout_constraintStart_toStartOf="@id/gotocart"
+            app:layout_constraintStart_toStartOf="@id/sale"
             android:src="@drawable/barashot_logo"
             />
     <ImageView

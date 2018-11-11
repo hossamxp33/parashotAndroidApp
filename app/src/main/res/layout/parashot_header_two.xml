@@ -12,7 +12,7 @@
 
 
     <ImageView
-        android:id="@+id/gotocart"
+        android:id="@+id/sale"
         android:layout_width="30dp"
         android:layout_height="35dp"
         android:src="@drawable/menu"
@@ -25,7 +25,7 @@
         android:layout_height="40dp"
         android:padding="5dp"
         android:src="@drawable/parashot"
-        app:layout_constraintEnd_toStartOf="@id/gotocart"
+        app:layout_constraintEnd_toStartOf="@id/sale"
         app:layout_constraintStart_toEndOf="@id/st1" />
 
     <ImageView

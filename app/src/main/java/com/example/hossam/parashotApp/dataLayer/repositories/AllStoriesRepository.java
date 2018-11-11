@@ -16,16 +16,18 @@ public class AllStoriesRepository {
     private ApiInterface apiService;
     private Consumer<AllStoriesModel> onSuccess;
     private Consumer<Throwable> onError;
-
-    public AllStoriesRepository(ApiInterface apiService1)
+    private int categry,type;
+    public AllStoriesRepository(ApiInterface apiService1, int typeid, int categryid)
     {
         apiService = apiService1;
+        categry = categryid;
+        type = typeid;
         getAllCategryData();
     }
 
     private void getAllCategryData() {
         try {
-            apiService.getSubCategriesData(1,0).enqueue(new Callback<AllStoriesModel>() {
+            apiService.getSubCategriesData(categry,type).enqueue(new Callback<AllStoriesModel>() {
                 @Override
                 public void onResponse(Call<AllStoriesModel> call, final Response<AllStoriesModel> response) {
                     if (response.body() != null) {

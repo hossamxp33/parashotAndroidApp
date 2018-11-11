@@ -62,6 +62,13 @@
     <string name="commplete">مكتملة</string>
     <string name="orderagain">طلب مرة اخري</string>
     <string name="addsuccess">تمت الاضافة للسلة  بنجاح</string>
+    <string name="are_you_accept">هل انت موافق علي اتمام عملية الشراء ؟!</string>
+    <string name="ok">موافق</string>
+    <string name="totalbill">الاجمالي</string>
+    <string name="noitem">لا يوجد منتجات بالسلة</string>
+    <string name="aleadyfound">المنتج موجود في السلة من قبل</string>
+    <string name="youhave">لديك الان</string>
+    <string name="productincart">منتجات بالسلة</string>
 
 
 </resources>

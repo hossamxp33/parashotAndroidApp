@@ -8,6 +8,7 @@ import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.deo.Produ
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.entities.ProductDetailsModel;
 
+import java.time.Instant;
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,6 +22,9 @@ public class ProductDetailsRepository {
     private Consumer<ProductDetailsModel> onSuccess;
     private Consumer<Throwable> onError;
     private ProductDeo productDeo;
+    private Consumer<Boolean> booleanConsumerForAdd;
+    private Consumer<Integer> counter;
+
     public ProductDetailsRepository(ApiInterface apiService1, ProductDeo pDeo)
     {
         apiService = apiService1;
@@ -65,24 +69,55 @@ public class ProductDetailsRepository {
         new ProductAsyncTask(productDeo).execute(data);
     }
 
-    private static class ProductAsyncTask extends AsyncTask<Product, Void, Void> {
+    public void getProductCount(int storid) {
+        new ProductCountAsyncTask(productDeo).execute(storid);
+    }
 
+    private  class ProductAsyncTask extends AsyncTask<Product, Void, Void> {
         private ProductDeo productdeo;
-
         public ProductAsyncTask(ProductDeo productDeo) {
             productdeo = productDeo;
         }
 
         @Override
         protected Void doInBackground(Product... products) {
-            productdeo.insertProduct(products[0]);
-            Product product= productdeo.selectAll();
-             List<Product> Allproducts= productdeo.selectAllProductForStore(50);
 
+            int count = productdeo.chieckItemExists(products[0].getProduct_id());
+            if (count>0) {
+                booleanConsumerForAdd.accept(false);
+            }
+            else {
+                productdeo.insertProduct(products[0]);
+                booleanConsumerForAdd.accept(true);
+            }
             return null;
         }
     }
 
+
+    private  class ProductCountAsyncTask extends AsyncTask<Integer, Void, Void> {
+        private ProductDeo productdeo;
+        public ProductCountAsyncTask(ProductDeo productDeo) {
+            productdeo = productDeo;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... products) {
+            int count = productdeo.getNumberOfRows(products[0]);
+            counter.accept(count);
+            return null;
+        }
+    }
+
+
+    public void setProductCount(Consumer<Integer> prod_count) {
+        this.counter= prod_count;
+    }
+
+
+    public void setbooleanConsumerForAdd(Consumer<Boolean> booleanConsumerForAdd) {
+        this.booleanConsumerForAdd = booleanConsumerForAdd;
+    }
 
     public void setOnSuccess(Consumer<ProductDetailsModel> onSuccess) {
         this.onSuccess = onSuccess;

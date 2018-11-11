@@ -60,6 +60,14 @@ public class UserCartViewModel extends ViewModel {
 
     public void deleteProductFromDB(Product product, UserCartRepository userCartRepository) {
         userCartRepository.deleteProductFromDB(product);
+        userCartRepository.setcartItemss(new Consumer<List<Product>>() {
+            @Override
+            public void accept(List<Product> products) {
+                ProductLiveData.postValue(products);
+                loading.postValue(false);
+            }
+        });
+
     }
 
     public ObservableField<String> resultImageUrl = new ObservableField<>();
