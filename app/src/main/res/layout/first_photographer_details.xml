@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                layout="@layout/header_for_first_subcat"/>
+                layout="@layout/parashot_header"/>
 
             <include
                 android:id="@+id/photographer_info"

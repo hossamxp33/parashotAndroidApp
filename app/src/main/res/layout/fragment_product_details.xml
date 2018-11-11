@@ -249,7 +249,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:gravity="start"
-                    android:text="اختر لون المنتج "
+                    android:text="@string/choice_color"
                     android:textColor="@color/textcolorinnenu"
                     android:textSize="16dp"
                     />
@@ -291,7 +291,7 @@
                     android:layout_marginStart="9dp"
                     android:textSize="16dp"
                     android:textColor="@color/textcolorinnenu"
-                    android:text="سعة التخزين "
+                    android:text="@string/storge"
                     />
 
                 <android.support.v7.widget.RecyclerView
@@ -329,7 +329,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:gravity="start"
-                    android:text="الوصف "
+                    android:text="@string/description"
                     android:textColor="@color/textcolorinnenu"
                     android:textSize="16dp"
                     />
@@ -373,7 +373,7 @@
                     android:layout_marginStart="9dp"
                     android:textSize="16dp"
                     android:textColor="@color/textcolorinnenu"
-                    android:text="مواصفات المنتج :"
+                    android:text="@string/product_description"
                     />
 
                 <TextView
@@ -432,7 +432,7 @@
                     app:layout_constraintWidth_percent="0.4"
                     android:layout_weight="1"
                     android:textColor="@color/textcolorinnenu"
-                    android:text="اسم الماركة"
+                    android:text="@string/marka_name"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -442,7 +442,7 @@
                     app:layout_constraintWidth_percent="0.4"
                     android:textSize="16dp"
                     android:textColor="@color/textcolorinnenu"
-                    android:text="اسم المتجر "
+                    android:text="@string/store_name"
                     />
 
                 <android.support.constraint.Guideline
@@ -492,23 +492,66 @@
             </android.support.constraint.ConstraintLayout>
 
 
-            <TextView
+            <RelativeLayout
                 android:id="@+id/addtoCart"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:text="أضف للسلة "
-                android:lines="1"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintWidth_percent="0.4"
+                android:layout_height="32dp"
+                android:layout_alignParentTop="true"
+                android:drawableStart="@drawable/cart"
                 app:layout_constraintTop_toBottomOf="@+id/stor_and_marka_details"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
                 android:background="@drawable/addtocart_back"
-                />
+                android:layout_marginTop="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="7dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.5"
+                >
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/addtocart"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textColor="@color/white"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivSetting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cart"
+                    android:layout_toStartOf="@+id/title"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    />
+
+            </RelativeLayout>
+
+
+
+
+            <!--<TextView-->
+                <!--android:id="@+id/addtoCart"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:text="أضف للسلة "-->
+                <!--android:lines="1"-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintWidth_percent="0.4"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/stor_and_marka_details"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:background="@drawable/addtocart_back"-->
+                <!--/>-->
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>

@@ -15,9 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hossam.parashotApp.R;
+import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MYOrderFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.paymentFragment.PaymentFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.AllStoresViewModelFactory;
+
+import java.util.Objects;
 
 
 public class FinishOrderFragment extends Fragment {
@@ -39,6 +42,8 @@ public class FinishOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.first_finish_order, container, false);
+        ((HomeActivity)Objects.requireNonNull(getActivity())).title.setText(getText(R.string.finish_order));
+
         gotodelivery = view.findViewById(R.id.gotodelivery);
         gotodelivery.setOnClickListener(v ->
    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new MYOrderFragment()).addToBackStack(null).commit()

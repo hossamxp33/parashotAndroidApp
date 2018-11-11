@@ -102,7 +102,8 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomVi
 
        holder.bind(myOrderViewModel);
        holder.myOrdersBinding.ordercard.setOnClickListener(v ->
-       {   Fragment fragment = new ProductsInsideOrderFragment();
+       {
+        Fragment fragment = new ProductsInsideOrderFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("allProduct", (Serializable) orderData.get(position).getOrderdetails());
         fragment.setArguments(bundle);

@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.65"
         app:sb_textColor_onSelection="@color/colorPrimary"
-        app:sbg_animateSelector="decelerate"
+        app:sbg_animateSelector="bounce"
         app:layout_constraintCircleRadius="5dp"
         app:sbg_animateSelectorDuration="1000"
         app:sbg_backgroundColor="@color/back_home3"

@@ -1,13 +1,15 @@
 package com.example.hossam.parashotApp.presentation.screens.home.productsFragment.adapter;
 
-import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -17,9 +19,9 @@ import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.
 import com.example.hossam.parashotApp.databinding.ProductBindings;
 import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
 import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.ProductDetailsFragment;
-import com.example.hossam.parashotApp.presentation.screens.home.productsFragment.ProductsFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.productsFragment.ProductsViewModel;
 import com.example.hossam.parashotApp.presentation.screens.home.productsFragment.helper.AddToCart;
+import com.example.hossam.parashotApp.presentation.screens.home.ratesOfProduct.RatesOfProductFragment;
 
 import java.util.List;
 
@@ -49,7 +51,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             layoutInflater = LayoutInflater.from(parent.getContext());
         }
 
-        ProductBindings productBindings = DataBindingUtil.inflate(layoutInflater, R.layout.third_subcategry_adapter_item,parent,false);
+        ProductBindings productBindings = DataBindingUtil.inflate(layoutInflater, R.layout.product_item_adapter,parent,false);
         return new ProductsAdapter.ViewHolder(productBindings);
     }
 
@@ -79,8 +81,26 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             @Override
             public void onClick(View v) {
 
-((FragmentActivity) mcontext).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new ProductDetailsFragment()).addToBackStack(null).commit();
+                Fragment fragment = new ProductDetailsFragment();
+                Bundle bundle =new Bundle();
+                bundle.putInt("store_id", Integer.parseInt(productData.get(position).getSmallstore_id()));
+                bundle.putInt("product_id",productData.get(position).getId());
+                fragment.setArguments(bundle);
+           ((FragmentActivity) mcontext).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,fragment).addToBackStack(null).commit();
 
+            }
+        });
+
+        holder.productBindings.rates.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                Fragment fragment = new RatesOfProductFragment();
+                Bundle bundle =new Bundle();
+                bundle.putInt("product_id",productData.get(position).getId());
+                fragment.setArguments(bundle);
+                ((FragmentActivity) mcontext).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,fragment).addToBackStack(null).commit();
+                return false;
             }
         });
         holder.productBindings.addtoCart.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +121,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
                 ProductsViewModel  productsViewModel = new ProductsViewModel();
                 productsViewModel.storeData(product,productsViewModel1.allProducts_repository);
-                productsViewModel1.stor_or_not_MutableLiveData.observe((FragmentActivity) mcontext, new Observer<Boolean>() {
+                productsViewModel1.storProductInDBResult.observe((FragmentActivity) mcontext, new Observer<Boolean>() {
                     @Override
                     public void onChanged(@Nullable Boolean aBoolean) {
                         if (aBoolean) {

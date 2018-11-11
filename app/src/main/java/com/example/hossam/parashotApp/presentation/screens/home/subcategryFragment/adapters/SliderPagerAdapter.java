@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.hossam.parashotApp.R;
+import com.example.hossam.parashotApp.entities.Categories;
 import com.example.hossam.parashotApp.entities.StoreSettingEntity;
 
 import java.util.List;
@@ -21,12 +22,10 @@ import java.util.List;
 
 public class SliderPagerAdapter extends PagerAdapter {
     private Context activity;
-
-
-    List<StoreSettingEntity.DataBean.StoresettingsBean.DesignBean.Sliders> slidersData;
-    public SliderPagerAdapter(FragmentActivity context, List<StoreSettingEntity.DataBean.StoresettingsBean.DesignBean.Sliders> sliders) {
+    List<Categories.SliderBean> sliders;
+    public SliderPagerAdapter(FragmentActivity context, List<Categories.SliderBean> sliders1) {
         activity=context;
-        slidersData = sliders;
+        sliders = sliders1;
     }
 
 
@@ -39,7 +38,7 @@ public class SliderPagerAdapter extends PagerAdapter {
         TextView name= view.findViewById(R.id.doctornametxt);
 
        Glide.with(activity.getApplicationContext())
-                .load("http://parashot.codesroots.com/library/"+slidersData.get(position).getPhoto())
+                .load(sliders.get(position).getPhoto())
                 .into(im_slider);
         container.addView(view);
         return view;
@@ -47,7 +46,7 @@ public class SliderPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-       return  slidersData.size();
+       return  sliders.size();
     }
 
     @Override

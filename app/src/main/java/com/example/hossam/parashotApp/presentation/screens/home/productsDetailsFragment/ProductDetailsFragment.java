@@ -14,17 +14,18 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,12 +34,13 @@ import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.
 import com.example.hossam.parashotApp.entities.ImageToShowModel;
 import com.example.hossam.parashotApp.entities.ProductDetailsModel;
 import com.example.hossam.parashotApp.helper.BroadcastHelper;
+import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
+import com.example.hossam.parashotApp.presentation.screens.home.allProductInsideOrderFragment.ProductsInsideOrderFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.adapters.ImagesAdapterForColor;
 import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.adapters.ImagesAdapterForSideImages;
 import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.adapters.SliderPagerAdapter;
 import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.adapters.TextAdapterForStorage;
-import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.AllStoresViewModelFactory;
-import com.example.hossam.parashotApp.presentation.screens.home.userCart.UserCartFragment;
+import com.example.hossam.parashotApp.presentation.screens.home.ratesOfProduct.RatesOfProductFragment;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -49,13 +51,12 @@ public class ProductDetailsFragment extends Fragment {
 
 
     private ProductDetailsViewModel productDetailsViewModel;
-    TextView description,name,markaname,storename,productrinfo,ratesnum,price,addtoCart,gotocart,cart_count,productcounttext;
+    TextView description,name,markaname,storename,productrinfo,ratesnum,price,gotocart, cartProductsCount, productcount;
     ViewPager  viewPager;
     ImageView showmore,gotodet,imageZoom;
     LinearLayoutManager layoutManager;
     ArrayList<ImageToShowModel> images = new ArrayList<>();
-
-
+    RelativeLayout addtoCart;
     ///////////////definition of all recycles
     private RecyclerView recyclerViewforsideimages,recyclerViewforstorage,recyclerViewforitemcolors;
 
@@ -68,6 +69,7 @@ public class ProductDetailsFragment extends Fragment {
     String productinfo; //////to goto next activity
     RatingBar ratingBar;
     ProductDetailsModel detailsModel;
+    int store_id,productid;
     public ProductDetailsFragment() {
         // Required empty public constructor
     }
@@ -83,6 +85,12 @@ public class ProductDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product_details, container, false);
         findFromXml(view);
+
+        ((HomeActivity)Objects.requireNonNull(getActivity())).title.setText(getText(R.string.product_details));
+
+        store_id = getArguments().getInt("store_id");
+        productid = getArguments().getInt("product_id");
+
         productDetailsViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(ProductDetailsViewModel.class);
 
         productDetailsViewModel.productDetails_MutableLiveData.observe(this, new Observer<ProductDetailsModel>() {
@@ -108,8 +116,8 @@ public class ProductDetailsFragment extends Fragment {
         productDetailsViewModel.product_count_MutableLiveData.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable Integer integer) {
-                cart_count.setText(integer+"");
-                productcounttext.setText(getText(R.string.youhave)+" "+integer+" "+getText(R.string.productincart));
+                cartProductsCount.setText(integer+"");
+                productcount.setText(getText(R.string.youhave)+" "+integer+" "+getText(R.string.productincart));
 
             }
         });
@@ -141,13 +149,26 @@ public class ProductDetailsFragment extends Fragment {
             Objects.requireNonNull(getActivity()).startActivity(intent);
         });
 
+
+        ratingBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                    Fragment fragment = new RatesOfProductFragment();
+                    Bundle bundle =new Bundle();
+                    bundle.putInt("product_id",detailsModel.getData().get(0).getId());
+                    fragment.setArguments(bundle);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,fragment).addToBackStack(null).commit();
+                return false;
+            }
+        });
         addtoCart.setOnClickListener(v -> {
 
             Product product = new Product();
             product.setName(detailsModel.getData().get(0).getName());
             product.setProduct_id(detailsModel.getData().get(0).getId());
             product.setPhoto(detailsModel.getData().get(0).getProductphotos().get(0).getPhoto());
-            product.setStor_id(Integer.parseInt(detailsModel.getData().get(0).getStore_id()));
+            product.setStor_id(detailsModel.getData().get(0).getSmallstore().getId());
             product.setPrice(detailsModel.getData().get(0).getPrice());
             product.setRateCount(detailsModel.getData().get(0).getTotal_rating().get(0).getCount());
             product.setRateStars(detailsModel.getData().get(0).getTotal_rating().get(0).getStars());
@@ -159,9 +180,9 @@ public class ProductDetailsFragment extends Fragment {
 
                     if (aBoolean) {
                         Toast.makeText(getActivity(), getResources().getString(R.string.addsuccess), Toast.LENGTH_SHORT).show();
-                        int currentcount =Integer.parseInt(cart_count.getText().toString())+1;
-                        cart_count.setText(currentcount+"");
-                        productcounttext.setText(getText(R.string.youhave)+" "+currentcount+" "+getText(R.string.productincart));
+                        int currentcount =Integer.parseInt(cartProductsCount.getText().toString())+1;
+                        cartProductsCount.setText(currentcount+"");
+                        productcount.setText(getText(R.string.youhave)+" "+currentcount+" "+getText(R.string.productincart));
                     }
 
                     else
@@ -180,7 +201,7 @@ public class ProductDetailsFragment extends Fragment {
         description.setText(products.getData().get(0).getDescription());
         name.setText(products.getData().get(0).getName());
         markaname.setText(products.getData().get(0).getBrand());
-        storename.setText(products.getData().get(0).getStore().getName());
+        storename.setText(products.getData().get(0).getSmallstore().getName());
         ratesnum.setText("("+products.getData().get(0).getTotal_rating().get(0).getCount()+")");
         ratingBar.setRating((float) products.getData().get(0).getTotal_rating().get(0).getStars());
         productinfo = products.getData().get(0).getProduct_info();
@@ -208,7 +229,14 @@ public class ProductDetailsFragment extends Fragment {
 //        productrinfo.setText(Html.fromHtml("<h2>Title</h2><br><p>Description here</p>"));
 
         gotocart.setOnClickListener(v ->
-          getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new UserCartFragment()).addToBackStack(null).commit()
+                {
+                    Fragment fragment = new ProductsInsideOrderFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("stor_id",store_id);
+                    fragment.setArguments(bundle);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,fragment)
+                            .addToBackStack(null).commit();
+                }
         );
     }
 
@@ -275,8 +303,8 @@ public class ProductDetailsFragment extends Fragment {
         imageZoom = view.findViewById(R.id.imageZoom);
         addtoCart = view.findViewById(R.id.addtoCart);
         gotocart = view.findViewById(R.id.sale);
-        cart_count = view.findViewById(R.id.cart_count);
-        productcounttext = view.findViewById(R.id.productcounttext);
+        cartProductsCount = view.findViewById(R.id.cart_count);
+        productcount = view.findViewById(R.id.productcounttext);
 
         layoutManager =new LinearLayoutManager(getActivity());
         recyclerViewforsideimages.setLayoutManager(layoutManager);
@@ -290,7 +318,7 @@ public class ProductDetailsFragment extends Fragment {
 
     @NonNull
     private ViewModelProvider.Factory getViewModelFactory() {
-        return new AllStoresViewModelFactory(getActivity().getApplication());
+        return new ProductDetailsModelFactory(getActivity().getApplication(),productid,store_id);
     }
 
 }

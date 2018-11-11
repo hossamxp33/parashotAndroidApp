@@ -3,14 +3,10 @@ package com.example.hossam.parashotApp.dataLayer.repositories;
 import android.os.AsyncTask;
 import android.support.v4.util.Consumer;
 import android.util.Log;
-
 import com.example.hossam.parashotApp.dataLayer.apiData.ApiInterface;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.deo.ProductDeo;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
-
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,22 +19,28 @@ public class AllProductsRepository {
     private Consumer<Boolean> booleanConsumerForAdd;
     private Consumer<Integer> productsCount;
     private Consumer<Throwable> onError;
-
+    private int store_id;
 
 
     private ProductDeo productDeo;
 
 
-    public AllProductsRepository(ApiInterface apiService1 , ProductDeo pDeo)
+    public AllProductsRepository(ApiInterface apiService1, ProductDeo pDeo, int storeid)
     {
         apiService = apiService1;
         productDeo=pDeo;
-        getAllCategryData();
+        store_id = storeid;
+        getAllProductData();
     }
 
-    private void getAllCategryData() {
+    public void getAllProduct()
+    {
+        this.getAllProductData();
+    }
+
+    private void getAllProductData() {
         try {
-            apiService.getProductsData(1).enqueue(new Callback<Products_in_Stories_Model>() {
+            apiService.getProductsData(store_id).enqueue(new Callback<Products_in_Stories_Model>() {
                 @Override
                 public void onResponse(Call<Products_in_Stories_Model> call, final Response<Products_in_Stories_Model> response) {
                     if (response.body() != null) {
@@ -74,8 +76,8 @@ public class AllProductsRepository {
         new AllProductsRepository.ProductAsyncTask(productDeo).execute(data);
     }
 
-    public void getProductCount(int storid) {
-        new AllProductsRepository.ProductCountAsyncTask(productDeo).execute(storid);
+    public void getProductCount() {
+        new AllProductsRepository.ProductCountAsyncTask(productDeo).execute(store_id);
     }
 
     private  class ProductAsyncTask extends AsyncTask<Product, Void, Void> {

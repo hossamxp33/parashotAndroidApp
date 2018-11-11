@@ -115,6 +115,7 @@
             android:layout_height="140dp"
             android:scaleType="fitXY"
             android:src="@drawable/bizza"
+            app:imageUrl="@{resturantlistmodel.cover}"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/storename" />

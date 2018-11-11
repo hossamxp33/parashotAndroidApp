@@ -8,9 +8,6 @@ import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.deo.Produ
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.entities.ProductDetailsModel;
 
-import java.time.Instant;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,18 +19,19 @@ public class ProductDetailsRepository {
     private Consumer<ProductDetailsModel> onSuccess;
     private Consumer<Throwable> onError;
     private ProductDeo productDeo;
-    private Consumer<Boolean> booleanConsumerForAdd;
+    private Consumer<Boolean> resultChieckForAdd;
     private Consumer<Integer> counter;
-
-    public ProductDetailsRepository(ApiInterface apiService1, ProductDeo pDeo)
+    private int productid;
+    public ProductDetailsRepository(ApiInterface apiService1, ProductDeo pDeo,int productid1)
     {
         apiService = apiService1;
         productDeo=pDeo;
+        productid = productid1;
     }
 
     public void getProductDetailsData() {
         try {
-            apiService.getProductDetails(1).enqueue(new Callback<ProductDetailsModel>() {
+            apiService.getProductDetails(productid).enqueue(new Callback<ProductDetailsModel>() {
                 @Override
                 public void onResponse(Call<ProductDetailsModel> call, final Response<ProductDetailsModel> response) {
                     if (response.body() != null) {
@@ -84,11 +82,11 @@ public class ProductDetailsRepository {
 
             int count = productdeo.chieckItemExists(products[0].getProduct_id());
             if (count>0) {
-                booleanConsumerForAdd.accept(false);
+                resultChieckForAdd.accept(false);
             }
             else {
                 productdeo.insertProduct(products[0]);
-                booleanConsumerForAdd.accept(true);
+                resultChieckForAdd.accept(true);
             }
             return null;
         }
@@ -116,7 +114,7 @@ public class ProductDetailsRepository {
 
 
     public void setbooleanConsumerForAdd(Consumer<Boolean> booleanConsumerForAdd) {
-        this.booleanConsumerForAdd = booleanConsumerForAdd;
+        this.resultChieckForAdd = booleanConsumerForAdd;
     }
 
     public void setOnSuccess(Consumer<ProductDetailsModel> onSuccess) {

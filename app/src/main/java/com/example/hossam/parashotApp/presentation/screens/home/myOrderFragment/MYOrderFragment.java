@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.entities.MYOrdersModel;
+import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.adapters.MyOrderAdapter;
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.AllStoresViewModelFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 import co.ceryle.segmentedbutton.SegmentedButtonGroup;
 
@@ -41,6 +43,9 @@ public class MYOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_myorders, container, false);
+
+        ((HomeActivity)Objects.requireNonNull(getActivity())).title.setText(getText(R.string.myorder));
+
         recyclerView = view.findViewById(R.id.recylerview);
 
         myOrderViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(MyOrderViewModel.class);

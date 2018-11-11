@@ -3,6 +3,7 @@ package com.example.hossam.parashotApp.presentation.screens.home.categoryFragmen
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,6 +20,8 @@ import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.StoresFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.subcategryFragment.SubCategoriesFragment;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategriesAdapter extends RecyclerView.Adapter<CategriesAdapter.CustomView> {
@@ -27,14 +30,13 @@ public class CategriesAdapter extends RecyclerView.Adapter<CategriesAdapter.Cust
     private LayoutInflater layoutInflater;
     private List<Categories.DataBean> dataBeanArrayList;
     private Context context;
-    private StoreSettingEntity.DataBean.StoresettingsBean.DesignBean designBean;
+    private List<Categories.SliderBean> slides;
 
 
-    public CategriesAdapter(FragmentActivity activity, List<Categories.DataBean> data,
-                            StoreSettingEntity.DataBean.StoresettingsBean.DesignBean design) {
+    public CategriesAdapter(FragmentActivity activity, List<Categories.DataBean> data,List<Categories.SliderBean> slides1) {
         this.dataBeanArrayList = data;
         this.context =  activity;
-        this.designBean = design;
+        slides = slides1;
     }
 
     @NonNull
@@ -57,8 +59,7 @@ public class CategriesAdapter extends RecyclerView.Adapter<CategriesAdapter.Cust
         category_viewModel.setName(dataBeanArrayList.get(position).getName());
         category_viewModel.setImagePath(dataBeanArrayList.get(position).getPhoto());
         category_viewModel.imageUrlUpdated(dataBeanArrayList.get(position).getPhoto());
-        category_viewModel.setBackColor(designBean.getBody().getCategorybackground());;
-        category_viewModel.setTextColor(designBean.getBody().getFont_color());;
+
 
         holder.bind(category_viewModel);
 
@@ -69,8 +70,8 @@ public class CategriesAdapter extends RecyclerView.Adapter<CategriesAdapter.Cust
                 if (dataBeanArrayList.get(position).getSubcats().size()>0) {
                     Fragment fragment = new SubCategoriesFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("subcategries", dataBeanArrayList.get(position));
-                    bundle.putSerializable("design", designBean);
+                    bundle.putParcelable("subcategries",  dataBeanArrayList.get(position));
+                    bundle.putParcelableArrayList("sliders", (ArrayList<? extends Parcelable>) slides);
                     fragment.setArguments(bundle);
                     ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).addToBackStack(null).commit();
                 }
@@ -82,6 +83,7 @@ public class CategriesAdapter extends RecyclerView.Adapter<CategriesAdapter.Cust
                     Bundle bundle = new Bundle();
                     bundle.putInt("type",0);
                     bundle.putInt("categryId",dataBeanArrayList.get(position).getId());
+                    fragment.setArguments(bundle);
                     ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).addToBackStack(null).commit();
 
                 }
