@@ -111,5 +111,6 @@
     <string name="fb_login_protocol_scheme">fb455625514963624</string>
     <string name="makeorder">اضافة طلب</string>
     <string name="writeorderdetails">اكتب هنا طلبك</string>
+    <string name="findlocation">ايجاد موقع المستخدم</string>
 
 </resources>

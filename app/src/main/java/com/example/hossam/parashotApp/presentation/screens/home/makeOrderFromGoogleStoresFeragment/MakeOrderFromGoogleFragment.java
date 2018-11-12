@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.helper.FileUtils;
 import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
+import com.example.hossam.parashotApp.presentation.screens.home.findLocation.FindLocationFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.paymentFragment.PaymentFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.helper.ProductInfoToPost;
 import java.io.File;
@@ -44,7 +46,8 @@ public class MakeOrderFromGoogleFragment extends Fragment {
     EditText description;
     TextView store_name,makeOrder;
     List<ProductInfoToPost> products=new ArrayList<>();
-    LinearLayout add_deliverythrough;
+    LinearLayout add_deliverythrough,getLocation;
+    View firstcart;
     View addImageLayout;
     Uri uri;
     MultipartBody.Part photo_part;
@@ -84,6 +87,10 @@ public class MakeOrderFromGoogleFragment extends Fragment {
         });
         addImageLayout.setOnClickListener(v ->
                 addimage()
+        );
+
+        firstcart.setOnClickListener(v ->
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,new FindLocationFragment()).addToBackStack(null).commit()
         );
 
         deleted_img.setOnClickListener(v ->
@@ -152,6 +159,7 @@ public class MakeOrderFromGoogleFragment extends Fragment {
         makeOrder =view.findViewById(R.id.confirm);
         added_img =view.findViewById(R.id.added_img);
         add_deliverythrough =view.findViewById(R.id.secondcart);
+        firstcart =view.findViewById(R.id.firstcart);
         deleted_img =view.findViewById(R.id.deleted_img);
         spinner =  view.findViewById(R.id.deliverythrough);
         addImageLayout =view.findViewById(R.id.addImageLayout);

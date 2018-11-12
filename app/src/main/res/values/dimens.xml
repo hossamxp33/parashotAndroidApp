@@ -13,4 +13,5 @@
     <dimen name="menuimg_width">30dp</dimen>
     <dimen name="imagefooterwidth">40dp</dimen>
     <dimen name="imagefooterheight">40dp</dimen>
+    <dimen name="image_width">80dp</dimen>
 </resources>

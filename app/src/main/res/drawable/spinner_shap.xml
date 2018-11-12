@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item>
 
@@ -7,21 +7,15 @@
 
             <item>
                 <shape>
-                    <gradient android:angle="90" android:endColor="@color/colorbackinorderconf"
-                        android:startColor="@color/colorbackinorderconf" android:type="sweep" />
+                    <gradient android:angle="90" android:endColor="@color/colorbackinorderconf" android:startColor="@color/colorbackinorderconf" android:type="sweep" />
 
-                    <corners android:radius="0dp" />
-                    <padding android:bottom="3dp"
-                        android:left="8dp"
-                        android:right="3dp"
-                        android:top="3dp" />
+                    <padding android:bottom="3dp" android:left="8dp" android:right="3dp" android:top="3dp" />
                 </shape>
             </item>
 
             <item android:right="5dp">
 
-                <bitmap
-                    android:gravity="center_vertical|left" android:src="@drawable/prev" />
+                <bitmap android:gravity="center_vertical|left" android:src="@drawable/prev" />
 
             </item>
 
