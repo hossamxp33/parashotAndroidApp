@@ -1,19 +1,18 @@
 package com.example.hossam.parashotApp.presentation.screens.home;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.HeaderFooterViewModel;
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.entities.StoreSettingEntity;
 import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryFragment;
+import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.HeaderFooterViewModel;
 import com.example.hossam.parashotApp.presentation.screens.home.loginFragment.LoginFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MYOrderFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.UserCartFragment;
@@ -22,7 +21,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class HomeActivity extends AppCompatActivity {
-    private static final String TAG ="hash" ;
+    private static final String TAG = "hash";
     public HeaderFooterViewModel headerFooter;
     StoreSettingEntity storeSettingEntity;
     public TextView title;
@@ -39,16 +38,8 @@ public class HomeActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
         setContentView(R.layout.activity_home);
-        title = findViewById(R.id.title);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,  new CategoryFragment()).commit();
-        }
 
-       // printHashKey(this);
-       // initDataBinding(storeSettingEntity);
     }
 
     @Override

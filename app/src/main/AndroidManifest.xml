@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <application
         android:name=".helper.MyApplication"
         android:allowBackup="true"
@@ -38,9 +38,9 @@
             android:value="b1a071ee6c852956ac6fd3305a4c7c10ca07e420" />
 
         <activity android:name=".presentation.screens.home.HomeActivity" />
-        <activity android:name=".presentation.screens.home.productsDetailsFragment.ProductInfoActivity"></activity>
-
+        <activity android:name=".presentation.screens.home.productsDetailsFragment.ProductInfoActivity" />
         <activity android:name=".presentation.screens.home.productsDetailsFragment.DetailImageActivity" />
+        <activity android:name=".presentation.screens.getUserLocation.GetUserLOcationActivity"></activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
