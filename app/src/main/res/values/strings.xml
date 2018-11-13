@@ -117,6 +117,11 @@
     <string name="cannot_fetch_address">غير قادر علي ايجاد العنوان</string>
     <string name="send">تم</string>
     <string name="details_adress">رقم البيت/العمارة/الشقة</string>
+    <string name="map">خريطة</string>
+    <string name="hagin">هجين</string>
+    <string name="Satellite">صورة قمر صناعي</string>
+    <string name="search">بحث</string>
+    <string name="noaddress">لم يتم اختيار العنوان بعد</string>
 
 
 </resources>
