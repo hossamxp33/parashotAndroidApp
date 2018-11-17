@@ -1,0 +1,50 @@
+package com.example.hossam.parashotApp.presentation.screens.home.paymentFragment;
+
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
+import android.support.v4.util.Consumer;
+import com.example.hossam.parashotApp.dataLayer.repositories.PaymentRepository;
+import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.helper.ProductModel;
+import java.util.List;
+import okhttp3.MultipartBody;
+
+
+public class PaymentViewModel extends ViewModel {
+
+    private PaymentRepository paymentRepository;
+    MutableLiveData<Boolean> saveResultLiveData = new MutableLiveData<>();
+    MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
+    MutableLiveData<Boolean> loading = new MutableLiveData<>();
+   // List<ProductModel> ProductModels;
+    public PaymentViewModel() {
+
+    }
+
+    public void saveData (List<ProductModel> ProductModels,MultipartBody.Part file)
+    {
+        paymentRepository.addOrder(ProductModels,file);
+
+    }
+
+    public PaymentViewModel(final PaymentRepository paymentRepository) {
+
+        paymentRepository.setOnSuccess(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) {
+                saveResultLiveData.postValue(aBoolean);
+                loading.postValue(false);
+            }
+        });
+
+        paymentRepository.setOnError(new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) {
+                errorLiveData.postValue(throwable);
+                loading.postValue(false);
+            }
+        });
+        this.paymentRepository = paymentRepository;
+    }
+
+
+}

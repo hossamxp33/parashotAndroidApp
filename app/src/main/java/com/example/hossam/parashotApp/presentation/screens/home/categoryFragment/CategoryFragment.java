@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.bumptech.glide.Glide;
+import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.adapters.CategriesAdapter;
 import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.adapters.SliderPagerAdapter;
 import com.example.hossam.parashotApp.R;
@@ -26,6 +28,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -64,8 +67,11 @@ public class CategoryFragment extends Fragment {
         viewPager = view.findViewById(R.id.vp_slider);
         progress = view.findViewById(R.id.progress);
 
+
         assert getArguments() != null;
-        designBean = (StoreSettingEntity.DataBean.StoresettingsBean.DesignBean) getArguments().getSerializable("design");
+       // designBean = (StoreSettingEntity.DataBean.StoresettingsBean.DesignBean) getArguments().getSerializable("design");
+
+        ((HomeActivity)Objects.requireNonNull(getActivity())).title.setText(getText(R.string.categry));
 
         categoryViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(CategoryViewModel.class);
 
@@ -75,24 +81,22 @@ public class CategoryFragment extends Fragment {
         categoryViewModel.categoriesLiveData.observe(this, new Observer<Categories>() {
             @Override
             public void onChanged(@Nullable Categories categories) {
-                customAdapter = new CategriesAdapter(getActivity(), categories.getData(), designBean);
+                customAdapter = new CategriesAdapter(getActivity(), categories.getData(),categories.getSlider());
                 recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+                sliderPagerAdapter = new SliderPagerAdapter(getActivity(), categories.getSlider());
+                viewPager.setAdapter(sliderPagerAdapter);
+                viewPager.setClipToPadding(false);
+                viewPager.setPadding(100, 0, 100, 0);
+                viewPager.setPageMargin(40);
+                indicator = view.findViewById(R.id.indicator);
+                indicator.setViewPager(viewPager);
+                init(categories.getSlider().size());
                 recyclerView.setAdapter(customAdapter);
             }
         });
 
         categoryViewModel.errorLiveData.observe(this, throwable ->
                 showSnackBar(view, throwable.getMessage()));
-
-        sliderPagerAdapter = new SliderPagerAdapter(getActivity(), designBean.getSliders());
-        viewPager.setAdapter(sliderPagerAdapter);
-        viewPager.setClipToPadding(false);
-        viewPager.setPadding(100, 0, 100, 0);
-        viewPager.setPageMargin(40);
-
-        indicator = view.findViewById(R.id.indicator);
-        indicator.setViewPager(viewPager);
-        init();
 
         return view;
     }
@@ -101,12 +105,12 @@ public class CategoryFragment extends Fragment {
         Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
 
-    private void init() {
+    private void init(int size) {
 
         final float density = getResources().getDisplayMetrics().density;
         //Set circle indicator radius
         indicator.setRadius(4 * density);
-        NUM_PAGES = designBean.getSliders().size();
+        NUM_PAGES = size;
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
             public void run() {
@@ -142,9 +146,7 @@ public class CategoryFragment extends Fragment {
 
             }
         });
-
     }
-
 
     @NonNull
     private ViewModelProvider.Factory getViewModelFactory() {

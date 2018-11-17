@@ -4,7 +4,6 @@ import java.util.List;
 
 public class ProductDetailsModel {
 
-
     private List<DataBean> data;
 
     public List<DataBean> getData() {
@@ -24,13 +23,10 @@ public class ProductDetailsModel {
          * price : 10
          * last_price : 15
          * description : iphone is a line of smartphones designed and marketed by Apple Inc
-         * store_id : 50
+         * smallstore_id : 1
          * brand : apple
-         * product_info : <!DOCTYPE html>
-         <html>
+         * product_info : <html>
          <head>
-
-
          </head>
          <body>
          <ul>
@@ -53,12 +49,12 @@ public class ProductDetailsModel {
          * guarantee : 1
          * created : 2018-09-17T16:37:29+0000
          * modified : 2018-09-17T16:38:03+0000
-         * visible : false
-         * store : {"id":50,"name":"ahmed12345"}
-         * productrates : [{"id":1,"rate":3,"product_id":1,"user_id":1,"created":"2018-09-19T09:29:00+0000","modified":"2018-09-18T09:32:08+0000"},{"id":2,"rate":2,"product_id":1,"user_id":1,"created":"2018-10-03T09:29:00+0000","modified":"2018-09-18T09:32:08+0000"},{"id":6,"rate":1,"product_id":1,"user_id":1,"created":"2018-10-08T09:29:00+0000","modified":"2018-09-18T09:32:08+0000"}]
+         * visible : true
+         * smallstore : {"id":1,"name":"متجرك"}
+         * productrates : [{"id":1,"rate":3,"product_id":1,"user_id":113,"created":"2018-09-19T09:29:00+0000","modified":"2018-09-18T09:32:08+0000","comment":"hazem","user":{"photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","username":"sssasss"}},{"id":2,"rate":2,"product_id":1,"user_id":113,"created":"2018-10-03T09:29:00+0000","modified":"2018-09-18T09:32:08+0000","comment":null,"user":{"photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","username":"sssasss"}},{"id":6,"rate":1,"product_id":1,"user_id":113,"created":"2018-10-08T09:29:00+0000","modified":"2018-09-18T09:32:08+0000","comment":null,"user":{"photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","username":"sssasss"}}]
          * productsizes : [{"id":1,"product_id":1,"size":"400","created":"2018-09-18T11:06:14+0000","modified":"2018-09-18T11:06:32+0000"}]
          * productcolors : [{"id":1,"product_id":1,"color_hex":"#000000","red":"255","blue":"255","green":"255","created":"2018-09-18T13:08:38+0000","modified":"2018-09-18T13:26:03+0000"},{"id":2,"product_id":1,"color_hex":"#4286f4","red":"66","blue":"134","green":"244","created":"2018-09-18T13:08:38+0000","modified":"2018-09-18T13:26:03+0000"},{"id":3,"product_id":1,"color_hex":"#111214","red":"17","blue":"18","green":"20","created":"2018-09-18T13:08:38+0000","modified":"2018-09-18T13:26:03+0000"},{"id":4,"product_id":1,"color_hex":"#1058cc","red":"16","blue":"88","green":"204","created":"2018-09-18T13:08:38+0000","modified":"2018-09-18T13:26:03+0000"}]
-         * productphotos : [{"id":1,"photo":"http://parashot.codesroots.com/library/default/35768252.jpg","main":"ahmed2","product_id":1,"created":"2018-09-18T14:47:31+0000","modified":"2018-10-15T13:59:48+0000"},{"id":2,"photo":"http://parashot.codesroots.com/library/default/35768252.jpg","main":"ahmed5","product_id":1,"created":"2018-09-19T17:10:00+0000","modified":"2018-09-21T19:45:41+0000"},{"id":3,"photo":"http://parashot.codesroots.com/library/default/35768252.jpg","main":"ahmed7","product_id":1,"created":"2018-09-21T19:48:22+0000","modified":"2018-09-21T19:48:22+0000"}]
+         * productphotos : [{"id":1,"photo":"http://parashot.codesroots.com/library/default/35768252.jpeg","main":"ahmed2","product_id":1,"created":"2018-09-18T14:47:31+0000","modified":"2018-10-15T13:59:48+0000"},{"id":2,"photo":"http://parashot.codesroots.com/library/default/35768252.jpeg","main":"ahmed5","product_id":1,"created":"2018-09-19T17:10:00+0000","modified":"2018-09-21T19:45:41+0000"},{"id":3,"photo":"http://parashot.codesroots.com/library/default/35768252.jpeg","main":"ahmed7","product_id":1,"created":"2018-09-21T19:48:22+0000","modified":"2018-09-21T19:48:22+0000"}]
          * total_rating : [{"product_id":1,"stars":6,"count":3}]
          */
 
@@ -69,7 +65,7 @@ public class ProductDetailsModel {
         private String price;
         private String last_price;
         private String description;
-        private String store_id;
+        private int smallstore_id;
         private String brand;
         private String product_info;
         private int amount;
@@ -77,7 +73,7 @@ public class ProductDetailsModel {
         private String created;
         private String modified;
         private String visible;
-        private StoreBean store;
+        private SmallstoreBean smallstore;
         private List<ProductratesBean> productrates;
         private List<ProductsizesBean> productsizes;
         private List<ProductcolorsBean> productcolors;
@@ -140,12 +136,12 @@ public class ProductDetailsModel {
             this.description = description;
         }
 
-        public String getStore_id() {
-            return store_id;
+        public int getSmallstore_id() {
+            return smallstore_id;
         }
 
-        public void setStore_id(String store_id) {
-            this.store_id = store_id;
+        public void setSmallstore_id(int smallstore_id) {
+            this.smallstore_id = smallstore_id;
         }
 
         public String getBrand() {
@@ -204,12 +200,12 @@ public class ProductDetailsModel {
             this.visible = visible;
         }
 
-        public StoreBean getStore() {
-            return store;
+        public SmallstoreBean getSmallstore() {
+            return smallstore;
         }
 
-        public void setStore(StoreBean store) {
-            this.store = store;
+        public void setSmallstore(SmallstoreBean smallstore) {
+            this.smallstore = smallstore;
         }
 
         public List<ProductratesBean> getProductrates() {
@@ -252,10 +248,10 @@ public class ProductDetailsModel {
             this.total_rating = total_rating;
         }
 
-        public static class StoreBean {
+        public static class SmallstoreBean {
             /**
-             * id : 50
-             * name : ahmed12345
+             * id : 1
+             * name : متجرك
              */
 
             private int id;
@@ -283,9 +279,11 @@ public class ProductDetailsModel {
              * id : 1
              * rate : 3
              * product_id : 1
-             * user_id : 1
+             * user_id : 113
              * created : 2018-09-19T09:29:00+0000
              * modified : 2018-09-18T09:32:08+0000
+             * comment : hazem
+             * user : {"photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","username":"sssasss"}
              */
 
             private int id;
@@ -294,6 +292,8 @@ public class ProductDetailsModel {
             private int user_id;
             private String created;
             private String modified;
+            private String comment;
+            private UserBean user;
 
             public int getId() {
                 return id;
@@ -341,6 +341,48 @@ public class ProductDetailsModel {
 
             public void setModified(String modified) {
                 this.modified = modified;
+            }
+
+            public String getComment() {
+                return comment;
+            }
+
+            public void setComment(String comment) {
+                this.comment = comment;
+            }
+
+            public UserBean getUser() {
+                return user;
+            }
+
+            public void setUser(UserBean user) {
+                this.user = user;
+            }
+
+            public static class UserBean {
+                /**
+                 * photo : http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png
+                 * username : sssasss
+                 */
+
+                private String photo;
+                private String username;
+
+                public String getPhoto() {
+                    return photo;
+                }
+
+                public void setPhoto(String photo) {
+                    this.photo = photo;
+                }
+
+                public String getUsername() {
+                    return username;
+                }
+
+                public void setUsername(String username) {
+                    this.username = username;
+                }
             }
         }
 
@@ -489,7 +531,7 @@ public class ProductDetailsModel {
         public static class ProductphotosBean {
             /**
              * id : 1
-             * photo : http://parashot.codesroots.com/library/default/35768252.jpg
+             * photo : http://parashot.codesroots.com/library/default/35768252.jpeg
              * main : ahmed2
              * product_id : 1
              * created : 2018-09-18T14:47:31+0000

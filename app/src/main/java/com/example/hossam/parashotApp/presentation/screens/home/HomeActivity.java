@@ -1,31 +1,31 @@
 package com.example.hossam.parashotApp.presentation.screens.home;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.HeaderFooterViewModel;
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.entities.StoreSettingEntity;
-import com.example.hossam.parashotApp.databinding.HeaderFooterBinding;
 import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryFragment;
+import com.example.hossam.parashotApp.presentation.screens.home.loginFragment.LoginFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MYOrderFragment;
-import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.ProductDetailsFragment;
-import com.example.hossam.parashotApp.presentation.screens.home.userCart.UserCartFragment;
+import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.UserCartFragment;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class HomeActivity extends AppCompatActivity {
+    private static final String TAG ="hash" ;
     public HeaderFooterViewModel headerFooter;
     StoreSettingEntity storeSettingEntity;
-
+    public TextView title;
     ///////// defind attachBaseContext to install font
 
     @Override
@@ -40,17 +40,15 @@ public class HomeActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_home1);
-       storeSettingEntity = (StoreSettingEntity) getIntent().getSerializableExtra("AllData");
 
+        setContentView(R.layout.activity_home);
+        title = findViewById(R.id.title);
         if (savedInstanceState == null) {
-            Fragment fragment = new CategoryFragment();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("design", storeSettingEntity.getData().get(0).getStoresettings().get(0).getDesign());
-            fragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,  new CategoryFragment()).commit();
         }
-        initDataBinding(storeSettingEntity);
+
+       // printHashKey(this);
+       // initDataBinding(storeSettingEntity);
     }
 
     @Override
@@ -59,14 +57,6 @@ public class HomeActivity extends AppCompatActivity {
         //getSupportFragmentManager().popBackStack();
     }
 
-    public void initDataBinding(StoreSettingEntity storeSettingEntity) {
-        HeaderFooterBinding headerfooterBinding = DataBindingUtil.setContentView(this, R.layout.activity_home1);
-        StoreSettingEntity.DataBean.StoresettingsBean.DesignBean.FooterBean footer = storeSettingEntity.getData().get(0).getStoresettings().get(0).getDesign().getFooter();
-        StoreSettingEntity.DataBean.StoresettingsBean.DesignBean.HeaderBean header = storeSettingEntity.getData().get(0).getStoresettings().get(0).getDesign().getHeader();
-        headerFooter = ViewModelProviders.of(this).get(HeaderFooterViewModel.class);
-        headerFooter.init(header, footer);
-        headerfooterBinding.setFooterSetting(headerFooter);
-    }
 
     public void gotomorefragment(View view) {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new UserCartFragment()).addToBackStack(null).commit();
@@ -77,8 +67,14 @@ public class HomeActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new MYOrderFragment()).addToBackStack(null).commit();
     }
 
+    public void gotoregister(View view) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new LoginFragment()).addToBackStack(null).commit();
+    }
+
     public void gotomainfragment(View view) {
-    //    getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).addToBackStack(null).commit();
+      getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).addToBackStack(null).commit();
 
     }
+
+
 }

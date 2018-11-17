@@ -18,19 +18,21 @@ import retrofit2.Response;
 
 public class UserCartRepository {
 
-    private ApiInterface apiService;
+
     private Consumer<List<Product>> cartItems;
     private Consumer<Throwable> cartItemsError;
     private Consumer<Throwable> onError;
     private ProductDeo productDeo;
-    public UserCartRepository(ApiInterface apiService1, ProductDeo pDeo)
+    int storid;
+    public UserCartRepository( ProductDeo pDeo, int storeid)
     {
-        apiService = apiService1;
+
         productDeo=pDeo;
+        storid =storeid;
     }
 
 
-    public void GetProductsFromDB(int storid) {
+    public void GetProductsFromDB() {
         new ProductAsyncTask(productDeo).execute(storid);
     }
 
@@ -64,7 +66,7 @@ public class UserCartRepository {
         }
     }
 
-    private static class DeleteProductAsyncTask extends AsyncTask<Product, Void, Void> {
+    private  class DeleteProductAsyncTask extends AsyncTask<Product, Void, Void> {
         private ProductDeo productdeo;
         public DeleteProductAsyncTask(ProductDeo productDeo) {
             productdeo = productDeo;
@@ -74,7 +76,7 @@ public class UserCartRepository {
         protected Void doInBackground(Product... products) {
             productdeo.deleteProduct(products[0]);
             Product product= productdeo.selectAll();
-            List<Product> Allproducts= productdeo.selectAllProductForStore(50);
+            List<Product> Allproducts= productdeo.selectAllProductForStore(storid);
             return null;
         }
     }
