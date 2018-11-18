@@ -22,15 +22,15 @@ public class MyOrderRepository {
     private Consumer<FilterMyOrder> onSuccess;
     private Consumer<Throwable> onError;
 
-    public MyOrderRepository(ApiInterface apiService1)
+    public MyOrderRepository(ApiInterface apiService1, int userid)
     {
         apiService = apiService1;
-        getMyProductData();
+        getMyProductData(userid);
     }
 
-    private void getMyProductData() {
+    private void getMyProductData(int userid) {
         try {
-            apiService.getMyOrders(1).enqueue(new Callback<MYOrdersModel>() {
+            apiService.getMyOrders(userid).enqueue(new Callback<MYOrdersModel>() {
                 @Override
                 public void onResponse(Call<MYOrdersModel> call, final Response<MYOrdersModel> response) {
                     if (response.body() != null) {

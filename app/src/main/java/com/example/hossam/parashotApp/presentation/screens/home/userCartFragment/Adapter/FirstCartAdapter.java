@@ -18,7 +18,7 @@ import java.util.List;
 public class FirstCartAdapter extends RecyclerView.Adapter<FirstCartAdapter.CustomView> {
 
     private LayoutInflater layoutInflater;
-    private List<Product> productList;
+     public List<Product> productList;
     private Context context;
     UserCartViewModel userCartViewModel1;
     CartPrice  cartPrice;
@@ -73,6 +73,7 @@ public class FirstCartAdapter extends RecyclerView.Adapter<FirstCartAdapter.Cust
 
                 {   holder.userCartBinding.quintityValue.setText((Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString())+1)+"");
                     cartPrice.plusItem(position);
+                    productList.get(position).setProduct_count( productList.get(position).getProduct_count()+1);
                 }
 
         );
@@ -82,6 +83,8 @@ public class FirstCartAdapter extends RecyclerView.Adapter<FirstCartAdapter.Cust
                     if (Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString()) > 1) {
                         holder.userCartBinding.quintityValue.setText((Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString()) - 1) + "");
                         cartPrice.minusItem(position);
+                        productList.get(position).setProduct_count( productList.get(position).getProduct_count()-1);
+
                     }
                     else
                         holder.userCartBinding.quintityValue.setError("لا يمكن ان تكون الكمية اقل من واحد");

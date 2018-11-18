@@ -1,7 +1,9 @@
 package com.example.hossam.parashotApp.presentation.screens.home.storesFragment.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -50,7 +52,8 @@ public class AllStoriesAdapter extends RecyclerView.Adapter<AllStoriesAdapter.Cu
         StoresViewModel storesViewModel = new StoresViewModel();
 
         storesViewModel.setName(arrayList.get(position).getName());
-        storesViewModel.setPlace(arrayList.get(position).getPlace());
+        storesViewModel.setPlace(arrayList.get(position).getAddress());
+
         if (arrayList.get(position).isFrom_google()) {
             storesViewModel.setCover("https://maps.googleapis.com/maps/api/place/photo?maxwidth=" + arrayList.get(position).getMaxwidth() +
                     "&photoreference=" + arrayList.get(position).getCover() +
@@ -103,12 +106,20 @@ public class AllStoriesAdapter extends RecyclerView.Adapter<AllStoriesAdapter.Cu
                     bundle.putString("store_lat", String.valueOf(arrayList.get(position).getLatitude()));
                     bundle.putString("store_lang", String.valueOf(arrayList.get(position).getLongitude()));
                     bundle.putString("description","title");
+                    bundle.putString("store_address",arrayList.get(position).getAddress());
+                    bundle.putFloat("store_rate",arrayList.get(position).getRate());
                     fragment.setArguments(bundle);
                     ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().
                             replace(R.id.main_frame, fragment).addToBackStack(null).commit();
                 }
             }
 
+        });
+
+        holder.resturantMenu1Binding.location.setOnClickListener(v -> {
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                    Uri.parse("geo:0,0?q="+arrayList.get(position).getLatitude()+","+arrayList.get(position).getLongitude()));
+            context.startActivity(intent);
         });
     }
 

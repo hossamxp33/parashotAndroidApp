@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -110,7 +111,10 @@ public class MakeOrderFromGoogleFragment extends Fragment {
 
         makeOrder.setOnClickListener(v ->
                 {
-                    products.add(new ProductInfoToPost(0, 1));
+
+                    if (!description.getText().toString().matches(""))
+                    {
+                    products.add(new ProductInfoToPost(0,1));
                     Fragment fragment = new PaymentFragment();
                     Bundle bundle = new Bundle();
                     ImagePass imagePass = new ImagePass();
@@ -134,7 +138,12 @@ public class MakeOrderFromGoogleFragment extends Fragment {
                     fragment.setArguments(bundle);
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).addToBackStack(null).commit();
                 }
+                    else
+                        Snackbar.make(description,getActivity().getText(R.string.nodescription),Snackbar.LENGTH_SHORT).show();
+                }
+
         );
+
         Glide.with(getActivity()).load(getArguments().getString("image")).into(image);
         Glide.with(getActivity()).load(getArguments().getString("logo")).into(logo);
         store_name.setText(getArguments().getString("name"));

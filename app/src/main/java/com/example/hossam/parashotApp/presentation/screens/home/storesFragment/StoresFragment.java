@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.entities.StoresList;
+import com.example.hossam.parashotApp.helper.GpsTracker;
+import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.adapter.AllStoriesAdapter;
 import com.google.gson.annotations.Expose;
@@ -40,6 +42,9 @@ public class StoresFragment extends Fragment {
     private FrameLayout progress;
     AllStoriesAdapter storesAdapter;
     int type,cate_or_sub_ID;
+    PreferenceHelper preferenceHelper;
+    GpsTracker gpsTracker;
+    String location,categrytype;
     public StoresFragment() {
         // Required empty public constructor
     }
@@ -58,7 +63,27 @@ public class StoresFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recylerview);
         progress = view.findViewById(R.id.progress);
 
+        preferenceHelper = new PreferenceHelper(getActivity());
         ((HomeActivity)Objects.requireNonNull(getActivity())).title.setText(getText(R.string.stores));
+
+        categrytype = preferenceHelper.getCURRENTCATEGRY();
+        ///////////// if user location not exists get it again
+        if (preferenceHelper.getCURRENTLAT()!=null)
+        {
+            location= preferenceHelper.getCURRENTLAT()+","+preferenceHelper.getCURRENTLONG();
+        }
+
+        else
+        {
+            if(gpsTracker.canGetLocation())
+            {
+                double latitude  =  gpsTracker.getLatitude();
+                double longitude =  gpsTracker.getLongitude();
+                preferenceHelper.setCURRENTLAT(String.valueOf(latitude));
+                preferenceHelper.setCURRENTLONG(String.valueOf(longitude));
+                location= preferenceHelper.getCURRENTLAT()+","+preferenceHelper.getCURRENTLONG();
+            }
+        }
 
          assert getArguments() != null;
          type=getArguments().getInt("type");
@@ -69,6 +94,7 @@ public class StoresFragment extends Fragment {
 
         stores_viewModel.loading.observe(this, loading ->
                 progress.setVisibility(loading ? View.VISIBLE : View.GONE));
+
 
         stores_viewModel.allStoriesLiveData.observe(getActivity(),storeslistData ->
             {
@@ -94,7 +120,7 @@ public class StoresFragment extends Fragment {
 
     @NonNull
     private ViewModelProvider.Factory getViewModelFactory() {
-        return new AllStoresViewModelFactory(getActivity().getApplication(),type,cate_or_sub_ID);
+        return new AllStoresViewModelFactory(getActivity().getApplication(),type,cate_or_sub_ID,location,categrytype);
     }
 
 }

@@ -52,7 +52,7 @@ public class StoresList {
         private String bank_accounts;
         private String phone;
         private String cover;
-        private String place;
+        private String address;
         private String alternative_phone;
         private String commercial_register_photo;
         private int commercial_register_number;
@@ -77,6 +77,15 @@ public class StoresList {
         private List<LikesBean> likes;
         private boolean from_google;
         private int maxwidth;
+        private  float rate;
+
+        public float getRate() {
+            return rate;
+        }
+
+        public void setRate(float rate) {
+            this.rate = rate;
+        }
 
         public int getMaxwidth() {
             return maxwidth;
@@ -102,12 +111,12 @@ public class StoresList {
             this.from_google = from_google;
         }
 
-        public String getPlace() {
-            return place;
+        public String getAddress() {
+            return address;
         }
 
-        public void setPlace(String place) {
-            this.place = place;
+        public void setAddress(String address) {
+            this.address = address;
         }
 
         public int getId() {

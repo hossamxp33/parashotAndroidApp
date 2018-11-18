@@ -41,9 +41,8 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomVi
     private Context context;
     List<MYOrdersModel.DataBean> orderData;
 
-    public MyOrderAdapter(Context context, List<MYOrdersModel.DataBean> data)
-    {
-        this.context =  context;
+    public MyOrderAdapter(Context context, List<MYOrdersModel.DataBean> data) {
+        this.context = context;
         orderData = data;
     }
 
@@ -51,12 +50,11 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomVi
     @Override
     public CustomView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        if(layoutInflater == null)
-        {
+        if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(parent.getContext());
         }
 
-        MyOrdersBinding myOrdersBinding = DataBindingUtil.inflate(layoutInflater, R.layout.myorder_adapter_item,parent,false);
+        MyOrdersBinding myOrdersBinding = DataBindingUtil.inflate(layoutInflater, R.layout.myorder_adapter_item, parent, false);
         return new CustomView(myOrdersBinding);
 
     }
@@ -64,72 +62,104 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomVi
     @Override
     public void onBindViewHolder(@NonNull CustomView holder, int position) {
 
-        MyOrderViewModel myOrderViewModel =new MyOrderViewModel();
-        if (orderData.get(position).getOrderdetails().size()>0) {
-            myOrderViewModel.setName(orderData.get(position).getOrderdetails().get(0).getProduct().getName());
-            myOrderViewModel.setItem_price(orderData.get(position).getOrderdetails().get(0).getProduct().getPrice() + " ريال ");
+        MyOrderViewModel myOrderViewModel = new MyOrderViewModel();
+
+        if (orderData.get(position).getStore_id() == 0) {
+            if (orderData.get(position).getPhoto() != null)
+                myOrderViewModel.setImagePath("http://parashot.codesroots.com/library/orderphoto/" + orderData.get(position).getPhoto());
+            else
+                myOrderViewModel.setImagePath(orderData.get(position).getStore_icon());
+
+            myOrderViewModel.setName(orderData.get(position).getStorename());
+            myOrderViewModel.setStorenamevalue(orderData.get(position).getStorename());
+
         }
 
-       myOrderViewModel.setStorenamevalue(orderData.get(position).getStore().getName());
-       if (orderData.get(position).getDelivry()!=null)
-       myOrderViewModel.setCapitainnamevalue(orderData.get(position).getDelivry().getName());
-       myOrderViewModel.setOrderstatuesvalue(orderData.get(position).getOrder_status());
-       myOrderViewModel.setDateValue(getdate(orderData.get(position).getCreated()));
+        if (orderData.get(position).getRate()>0)
+        {
+            myOrderViewModel.setRatestart(orderData.get(position).getRate());
+        }
 
-         try {
-             if (orderData.get(position).getOrderdetails().get(0).getProduct().getTotal_rating()!=null) {
-                 if (orderData.get(position).getOrderdetails().get(0).getProduct().getTotal_rating().size()>0)
-                 { myOrderViewModel.setRatecount("(" + orderData.get(position).getOrderdetails().get(0).getProduct().getTotal_rating().get(0).getCount() + ")");
-                     myOrderViewModel.setRatestart(orderData.get(position).getOrderdetails().get(0).getProduct().getTotal_rating().get(0).getStars());}
-                 else
-                     myOrderViewModel.setRatecount("(0)");
+        else {
+            if (orderData.get(position).getOrderdetails().size() > 0) {
+                myOrderViewModel.setName(orderData.get(position).getOrderdetails().get(0).getProduct().getName());
+                myOrderViewModel.setItem_price(orderData.get(position).getOrderdetails().get(0).getProduct().getPrice() + " ريال ");
+            }
 
-             }
-             else
-                 myOrderViewModel.setRatecount("(0)");
+            try {
+                if (orderData.get(position).getOrderdetails().get(0).getProduct().getTotal_rating() != null) {
+                    if (orderData.get(position).getOrderdetails().get(0).getProduct().getTotal_rating().size() > 0) {
+                        myOrderViewModel.setRatecount("(" + orderData.get(position).getOrderdetails().get(0).getProduct().getTotal_rating().get(0).getCount() + ")");
+                        myOrderViewModel.setRatestart(orderData.get(position).getOrderdetails().get(0).getProduct().getTotal_rating().get(0).getStars());
+                    } else
+                        myOrderViewModel.setRatecount("(0)");
 
-             if (orderData.get(position).getOrderdetails().size()>0) {
-                 if (orderData.get(position).getOrderdetails().get(0).getProduct().getProductphotos() != null)
-                     myOrderViewModel.setImagePath(orderData.get(position).getOrderdetails().get(0).getProduct().getProductphotos().get(0).getPhoto());
-             }
-         }
-         catch (Exception e)
-         {
-             Log.d("fg",e.getMessage());
-         }
+                } else
+                    myOrderViewModel.setRatecount("(0)");
+
+                if (orderData.get(position).getOrderdetails().size() > 0) {
+                    if (orderData.get(position).getOrderdetails().get(0).getProduct().getProductphotos() != null)
+                        myOrderViewModel.setImagePath(orderData.get(position).getOrderdetails().get(0).getProduct().getProductphotos().get(0).getPhoto());
+                }
+            } catch (Exception e) {
+                Log.d("fg", e.getMessage());
+            }
+
+        }
 
 
+        if (orderData.get(position).getStore() != null)
+        {
+            if (!orderData.get(position).getStore().getName().matches(""))
+                myOrderViewModel.setStorenamevalue(orderData.get(position).getStore().getName());
+        }
 
-       holder.bind(myOrderViewModel);
-       holder.myOrdersBinding.ordercard.setOnClickListener(v ->
-       {
-        Fragment fragment = new ProductsInsideOrderFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("allProduct", (Serializable) orderData.get(position).getOrderdetails());
-        fragment.setArguments(bundle);
-        ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).addToBackStack(null).commit();
+        if (orderData.get(position).getDelivry() != null) {
+            if (!orderData.get(position).getDelivry().getName().matches(""))
+                myOrderViewModel.setCapitainnamevalue(orderData.get(position).getDelivry().getName());
+            else
+                myOrderViewModel.setCapitainnamevalue(context.getString(R.string.nodelivery));
+        }
+        else
+            myOrderViewModel.setCapitainnamevalue(context.getString(R.string.nodelivery));
 
-       } );
+        if (orderData.get(position).getOrder_status()!=null)
+            myOrderViewModel.setOrderstatuesvalue(orderData.get(position).getOrder_status());
+
+        if (orderData.get(position).getCreated()!=null)
+            myOrderViewModel.setDateValue(getdate(orderData.get(position).getCreated()));
+
+
+        holder.bind(myOrderViewModel);
+        holder.myOrdersBinding.ordercard.setOnClickListener(v ->
+        {
+            if (orderData.get(position).getStore_id() != 0) {
+                Fragment fragment = new ProductsInsideOrderFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("allProduct", (Serializable) orderData.get(position).getOrderdetails());
+                fragment.setArguments(bundle);
+                ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).addToBackStack(null).commit();
+            }
+
+        });
     }
-    private String  getdate(String date)
-    {
+
+    private String getdate(String date) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
         try {
-            Date dateObj= sdf.parse(date);
-            Log.d("newdatein",dateObj.getTime()+"");
+            Date dateObj = sdf.parse(date);
+            Log.d("newdatein", dateObj.getTime() + "");
             String timestamp = String.valueOf(dateObj.getTime());//  //Example -> in ms
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             String dateString = formatter.format(new Date(Long.parseLong(timestamp)));
-           return dateString;
-        }
-        catch (ParseException e) {
+            return dateString;
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
         return null;
     }
-
 
 
     @Override
@@ -143,18 +173,16 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomVi
 
         public CustomView(@NonNull MyOrdersBinding ordersBinding) {
             super(ordersBinding.getRoot());
-            this.myOrdersBinding=ordersBinding;
+            this.myOrdersBinding = ordersBinding;
         }
 
-        public void bind(MyOrderViewModel myOrderViewModel)
-        {
+        public void bind(MyOrderViewModel myOrderViewModel) {
             this.myOrdersBinding.setOrdermodel(myOrderViewModel);
             myOrdersBinding.executePendingBindings();
         }
 
-        public MyOrdersBinding  getCardBinding()
-        {
-            return  myOrdersBinding;
+        public MyOrdersBinding getCardBinding() {
+            return myOrdersBinding;
         }
     }
 

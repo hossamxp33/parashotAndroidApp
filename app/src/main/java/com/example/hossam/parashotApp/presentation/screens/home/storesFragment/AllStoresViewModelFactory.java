@@ -32,17 +32,19 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
     private Application application;
     int typeid,categry;
     int storeid;//// for getProducts in that store
-
+    String userlocation,categrytype;
     List<ProductModel> productList; ///// alldata of product send to serever when user parches
     public AllStoresViewModelFactory(@NonNull Application application1) {
         application = application1;
     }
 
-    public AllStoresViewModelFactory(Application application1, int type, int cate_or_sub_id) {
+    public AllStoresViewModelFactory(Application application1, int type, int cate_or_sub_id,String userlocation1
+            ,String categrytype1) {
         application=application1;
         typeid =type;
         categry = cate_or_sub_id;
-
+        userlocation = userlocation1;
+        categrytype =categrytype1;
     }
 
     public AllStoresViewModelFactory(Application application1, int stor_id) {
@@ -67,15 +69,7 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
         {
             return (T) new ProductsViewModel(getProductsRepositry());
         }
-//        else if (modelClass == ProductDetailsViewModel.class)
-//        {
-//            return (T) new ProductDetailsViewModel(getProductDetailsRepositry());
-//        }
 
-        else if (modelClass == MyOrderViewModel.class)
-        {
-            return (T) new MyOrderViewModel(getMyOrderRepositry());
-        }
         else if (modelClass == UserCartViewModel.class)
         {
             return (T) new UserCartViewModel(getUserCartRepositry());
@@ -98,7 +92,7 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
 
     @NonNull
     private AllStorsRepository getStoriesRepositry() {
-        return new AllStorsRepository(getApiService(),typeid,categry);
+        return new AllStorsRepository(getApiService(),typeid,categry,userlocation,categrytype);
     }
 
     @NonNull
@@ -107,11 +101,6 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
         return new AllProductsRepository(getApiService(),getProductDeo(),storeid);
     }
 
-
-//    @NonNull
-//    private ProductDetailsRepository getProductDetailsRepositry() {
-//        return new ProductDetailsRepository(getApiService(),getProductDeo());
-//    }
 
     @NonNull
     private PaymentRepository getPaymentRepositry() {
@@ -124,10 +113,7 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
         return new UserCartRepository(getProductDeo(),storeid);
     }
 
-    @NonNull
-    private MyOrderRepository getMyOrderRepositry() {
-        return new MyOrderRepository(getApiService());
-    }
+
 
     @NonNull
     private RegisterRepository getRegisterRepositry() {
@@ -142,10 +128,6 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
         return ApiClient.getClientForGoogle().create(ApiInterface.class);
     }
 
-
-//    private ApiInterface getApiServiceLocal() {
-//        return ApiClientLocal.getClient().create(ApiInterface.class);
-//    }
 
     private ProductDeo getProductDeo() {
         return LocalDatabase.getInstance(application).productDeo();

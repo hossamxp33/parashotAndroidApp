@@ -20,6 +20,10 @@ public class Product implements Serializable {
     private int product_id;
 
 
+    private int product_count=1;
+
+
+
     public int getId() {
         return id;
     }
@@ -43,6 +47,14 @@ public class Product implements Serializable {
 
     @ColumnInfo(name = "rateCount")
     private int rateCount;
+
+    public int getProduct_count() {
+        return product_count;
+    }
+
+    public void setProduct_count(int product_count) {
+        this.product_count = product_count;
+    }
 
     public int getProduct_id() {
         return product_id;
