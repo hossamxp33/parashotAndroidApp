@@ -119,7 +119,7 @@
     <string name="details_adress">رقم البيت/العمارة/الشقة</string>
     <string name="map">خريطة</string>
     <string name="hagin">هجين</string>
-    <string name="Satellite">صورة قمر صناعي</string>
+    <string name="Satellite">قمر صناعي</string>
     <string name="search">بحث</string>
     <string name="noaddress">لم يتم اختيار العنوان بعد</string>
 

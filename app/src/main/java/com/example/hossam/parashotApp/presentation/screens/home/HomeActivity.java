@@ -4,6 +4,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,11 +15,16 @@ import android.widget.TextView;
 
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.entities.StoreSettingEntity;
+import com.example.hossam.parashotApp.databinding.HeaderFooterBinding;
+import com.example.hossam.parashotApp.entities.StoreSettingEntity;
+import com.example.hossam.parashotApp.presentation.screens.getUserLocation.GetUserLOcationActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.HeaderFooterViewModel;
 import com.example.hossam.parashotApp.presentation.screens.home.loginFragment.LoginFragment;
+import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.HeaderFooterViewModel;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MYOrderFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.UserCartFragment;
+import com.example.hossam.parashotApp.presentation.screens.home.userCart.UserCartFragment;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
