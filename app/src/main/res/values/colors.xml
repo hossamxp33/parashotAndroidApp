@@ -21,4 +21,9 @@
     <color name="colortwo">#DC214C</color>
     <color name="colorbackinorderconf">#D91368</color>
     <color name="maptextcolor">#D91368</color>
+    <color name="bg_chip_state_list">#D91368</color>
+    <color name="darkgrey">#514F4F</color>
+    <color name="lightPurple">#D482DF</color>
+
+
 </resources>

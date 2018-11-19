@@ -3,6 +3,7 @@ package com.example.hossam.parashotApp.presentation.screens.home.userCartFragmen
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
@@ -23,7 +23,6 @@ import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment
 import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.helper.ProductInfoToPost;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,11 +76,12 @@ public class UserCartFragment extends Fragment implements CartPrice {
             firstCartAdapter = new FirstCartAdapter(getActivity(),products,userCartViewModel,this);
             recyclerView.setAdapter(firstCartAdapter);
 
+            total = 0;
             for (int i=0;i<products.size();i++)
             {
-                total+=Double.parseDouble(products.get(i).getPrice());
-
+                total+=(Integer.valueOf(products.get(i).getPrice())*firstCartAdapter.productList.get(i).getProduct_count());
             }
+
             totalprice.setText(total+"ريال ");
         }
         );
@@ -94,12 +94,12 @@ public class UserCartFragment extends Fragment implements CartPrice {
                     {
                         for (int i=0;i<productList.size();i++)
                         {
-                            products.add(new ProductInfoToPost(productList.get(i).getProduct_id(),2));
+                            products.add(new ProductInfoToPost(productList.get(i).getProduct_id(),firstCartAdapter.productList.get(i).getProduct_count()));
                         }
 
                         Fragment fragment = new PaymentFragment();
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("products", (Serializable) products);
+                        bundle.putParcelableArrayList("products", (ArrayList<? extends Parcelable>) products);
                         bundle.putBoolean("fromgoogle",false);
                         bundle.putInt("storid",stor_id);
                         fragment.setArguments(bundle);

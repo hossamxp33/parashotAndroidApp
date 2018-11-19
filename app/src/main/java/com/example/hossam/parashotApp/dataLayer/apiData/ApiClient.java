@@ -38,15 +38,15 @@ public class ApiClient {
         }
         return retrofit;
     }
-
-    public static Retrofit getClientForGoogle() {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL_Google)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(getOkHttpClient())
-                    .build();
-        }
-        return retrofit;
-    }
+//
+//    public static Retrofit getClientForGoogle() {
+//        if (retrofit == null) {
+//            retrofit = new Retrofit.Builder()
+//                    .baseUrl(BASE_URL_Google)
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .client(getOkHttpClient())
+//                    .build();
+//        }
+//        return retrofit;
+//    }
 }

@@ -19,11 +19,14 @@ public class AllStorsRepository {
     private Consumer<StoresFromGoogleModel> onSuccessGooglePlaces;
     private Consumer<Throwable> onError;
     private int categryId,type;
-    public AllStorsRepository(ApiInterface apiService1, int typeid, int categryid)
+    private  String userlocation,categrytype;
+    public AllStorsRepository(ApiInterface apiService1, int typeid, int categryid, String userlocation1, String categrytype1)
     {
         apiService = apiService1;
         categryId = categryid;
         type = typeid;
+        userlocation = userlocation1;
+        categrytype = categrytype1;
         getAllStoriesData();
         getAllStoresFromGoogleData();
     }
@@ -65,7 +68,7 @@ public class AllStorsRepository {
 
     private void getAllStoresFromGoogleData() {
         try {
-            apiService.getStoresfroomgooglesData().enqueue(new Callback<StoresFromGoogleModel>() {
+            apiService.getStoresfroomgooglesData("AIzaSyD8z2lWzm896P2g8VhaBfrVam0JL1BaiW0",userlocation,categrytype).enqueue(new Callback<StoresFromGoogleModel>() {
                 @Override
                 public void onResponse(Call<StoresFromGoogleModel> call, final Response<StoresFromGoogleModel> response) {
                     if (response.body() != null) {

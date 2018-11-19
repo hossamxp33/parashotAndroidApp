@@ -18,12 +18,14 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 
 public interface ApiInterface {
@@ -48,10 +50,12 @@ public interface ApiInterface {
     );
 
 
-    @GET("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670,151.1957&radius=500&types=food&name=cruise&key=AIzaSyDFi45bBEn44Oh7dNIryAZ5FBvEnKPqrz0")
+    @GET("https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=3000")
     @Headers("Accept: Application/json")
     Call<StoresFromGoogleModel> getStoresfroomgooglesData(
-
+            @Query("key")String key ,
+            @Query("location")String location,
+            @Query("types")String types
     );
 
 
@@ -74,12 +78,17 @@ public interface ApiInterface {
     );
 
     @Multipart
-    @POST("orders/androidorder.json")
+    @POST("orders/androidorder/2.json")
     Call<ResponseBody> makeOrder(
             @Part ("orders")List<ProductModel> models,
             @Part MultipartBody.Part file
     );
 
+    @POST("orders/androidorder/1.json")
+    Call<ResponseBody> makeOrderProduct(
+            @Body List<ProductModel> models
+
+    );
 
     @Multipart
     @POST("users/add.json")

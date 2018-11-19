@@ -33,7 +33,7 @@
                 android:scaleType="fitXY"
                 app:imageUrl="@{categriesmodelbinding.resultImageUrl}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/item_delimeter"

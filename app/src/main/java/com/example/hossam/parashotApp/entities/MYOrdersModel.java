@@ -37,9 +37,46 @@ public class MYOrdersModel {
         private int delivry_id;
         private String created;
         private String modified;
+        private String photo;
+        private String store_icon;
         private StoreBean store;
+        private String storename;
+        private float rate;
         private DelivryBean delivry;
+
         private List<OrderdetailsBean> orderdetails;
+
+        public float getRate() {
+            return rate;
+        }
+
+        public void setRate(float rate) {
+            this.rate = rate;
+        }
+
+        public String getStorename() {
+            return storename;
+        }
+
+        public void setStorename(String storename) {
+            this.storename = storename;
+        }
+
+        public String getStore_icon() {
+            return store_icon;
+        }
+
+        public void setStore_icon(String store_icon) {
+            this.store_icon = store_icon;
+        }
+
+        public String getPhoto() {
+            return photo;
+        }
+
+        public void setPhoto(String photo) {
+            this.photo = photo;
+        }
 
         public int getId() {
             return id;

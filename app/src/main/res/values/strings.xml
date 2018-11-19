@@ -123,5 +123,7 @@
     <string name="search">بحث</string>
     <string name="noaddress">لم يتم اختيار العنوان بعد</string>
 
+    <string name="nodelivery">لم يحدد بعد</string>
+    <string name="nodescription">اكتب وصف الطلب</string>
 
 </resources>

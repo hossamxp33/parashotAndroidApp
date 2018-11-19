@@ -9,10 +9,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.hossam.parashotApp.dataLayer.repositories.MyOrderRepository;
-import com.example.hossam.parashotApp.entities.MYOrdersModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MyOrderViewModel extends ViewModel {
@@ -25,8 +21,7 @@ public class MyOrderViewModel extends ViewModel {
     private String name, imagePath, item_description, storenamevalue,
             capitainnamevalue, orderstatuesvalue, orderdatevalue, item_price, ratecount,dateValue;
 
-    private int ratestart;
-
+    private float ratestart;
 
     public MyOrderViewModel() {
     }
@@ -145,11 +140,11 @@ public class MyOrderViewModel extends ViewModel {
         this.ratecount = ratecount;
     }
 
-    public int getRatestart() {
+    public float getRatestart() {
         return ratestart;
     }
 
-    public void setRatestart(int ratestart) {
+    public void setRatestart(float ratestart) {
         this.ratestart = ratestart;
     }
 }

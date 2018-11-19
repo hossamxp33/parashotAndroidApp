@@ -16,6 +16,7 @@ import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.databinding.CategriesBinding;
 import com.example.hossam.parashotApp.entities.Categories;
 import com.example.hossam.parashotApp.entities.StoreSettingEntity;
+import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryViewModel;
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.StoresFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.subcategryFragment.SubCategoriesFragment;
@@ -31,12 +32,13 @@ public class CategriesAdapter extends RecyclerView.Adapter<CategriesAdapter.Cust
     private List<Categories.DataBean> dataBeanArrayList;
     private Context context;
     private List<Categories.SliderBean> slides;
-
+    PreferenceHelper preferenceHelper;
 
     public CategriesAdapter(FragmentActivity activity, List<Categories.DataBean> data,List<Categories.SliderBean> slides1) {
         this.dataBeanArrayList = data;
         this.context =  activity;
         slides = slides1;
+        preferenceHelper =new PreferenceHelper(context);
     }
 
     @NonNull
@@ -67,6 +69,7 @@ public class CategriesAdapter extends RecyclerView.Adapter<CategriesAdapter.Cust
             @Override
             public void onClick(View v) {
 
+                preferenceHelper.setCURRENTCATEGRY(dataBeanArrayList.get(position).getType());
                 if (dataBeanArrayList.get(position).getSubcats().size()>0) {
                     Fragment fragment = new SubCategoriesFragment();
                     Bundle bundle = new Bundle();

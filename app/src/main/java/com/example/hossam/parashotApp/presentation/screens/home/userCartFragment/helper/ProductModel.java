@@ -21,7 +21,7 @@ public class ProductModel {
     @Expose
     private int product_id;
 
-    @SerializedName("address")
+    @SerializedName("store_address")
     @Expose
     private String address;
 
@@ -81,14 +81,30 @@ public class ProductModel {
     @Expose
     private String store_long;
 
+    @SerializedName("order_status")
+    @Expose
+    private int order_status;
+
+
+    @SerializedName("rate")
+    @Expose
+    private float rate;
+
+
     @SerializedName("delivry_id")
     @Expose
     private int delivry_id;
 
 
+    @SerializedName("count")
+    @Expose
+    private String count;
+
+
+
     public ProductModel(int user_id, int store_id,
-                        int product_id, String address, String type,
-                        String user_lat, String user_long, int payment_id, String notes, String price) {
+                        int product_id,String count1, String address, String type,
+                        String user_lat, String user_long, int payment_id, String notes, String price, int statues) {
         this.user_id = user_id;
         this.store_id = store_id;
         this.product_id = product_id;
@@ -99,12 +115,16 @@ public class ProductModel {
         this.payment_id = payment_id;
         this.notes = notes;
         this.price = price;
+        this.order_status = statues;
+        this.count=count1;
+
     }
 
     public ProductModel(int user_id, int store_id,
                         int product_id, String address, String type,
                         String user_lat, String user_long, int payment_id, String notes, String price, MultipartBody.Part photo, String store_icon,
-                        String storename, String delivery_price, int delivry_id, String delivery_time, String store_long, String store_lat)
+                        String storename, String delivery_price, int delivry_id, String delivery_time, String store_long, String store_lat,
+                        int statues, float store_rate)
     {
         this.user_id = user_id;
         this.store_id = store_id;
@@ -124,6 +144,57 @@ public class ProductModel {
         this.delivery_time= delivery_time;
         this.store_lat = store_lat;
         this.store_long = store_long;
+        this.order_status=statues;
+        this.rate=store_rate;
+    }
+
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getStore_lat() {
+        return store_lat;
+    }
+
+    public void setStore_lat(String store_lat) {
+        this.store_lat = store_lat;
+    }
+
+    public String getStore_long() {
+        return store_long;
+    }
+
+    public void setStore_long(String store_long) {
+        this.store_long = store_long;
+    }
+
+    public int getOrder_status() {
+        return order_status;
+    }
+
+    public void setOrder_status(int order_status) {
+        this.order_status = order_status;
+    }
+
+    public float getRate() {
+        return rate;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
     }
 
     public String getDelivery_time() {

@@ -19,18 +19,14 @@ import java.util.List;
 
 public class StoresViewModel extends ViewModel {
 
-
     private AllStorsRepository allStorsRepository;
     List<StoresList.DataBean> allStories=new ArrayList<>();
     MutableLiveData<List<StoresList.DataBean>> allStoriesLiveData=new MutableLiveData<List<StoresList.DataBean>>();
-    MutableLiveData<StoresList> allStoriesModelMutableLiveData = new MutableLiveData<>();
-    MutableLiveData<StoresFromGoogleModel> allStoriesFromGoogleModelMutableLiveData = new MutableLiveData<>();
     MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
-
     String place,ratecount,chat,like,name, cover,logo,ratenum;
-
     int ratestar;
+
 
     public StoresViewModel() {
     }
@@ -41,36 +37,40 @@ public class StoresViewModel extends ViewModel {
             @Override
             public void accept(StoresList storesList) {
                 allStories.addAll( storesList.getData());
-                allStoriesModelMutableLiveData.postValue(storesList);
-
-                allStorsRepository.setOnSuccessGooglePlaces(new Consumer<StoresFromGoogleModel>() {
-                    @Override
-                    public void accept(StoresFromGoogleModel storesFromGoogleModel) {
-                        for (int i=0;i<storesFromGoogleModel.getResults().size();i++)
-                        {
-                            StoresList.DataBean store = new StoresList.DataBean();
-                            store.setName(storesFromGoogleModel.getResults().get(i).getName());
-                            store.setLogo(storesFromGoogleModel.getResults().get(i).getIcon());
-                            store.setLatitude(storesFromGoogleModel.getResults().get(i).getGeometry().getLocation().getLat());
-                            store.setLongitude(storesFromGoogleModel.getResults().get(i).getGeometry().getLocation().getLng());
-                            StoresList.DataBean.StoreratesBean storeratesBean = new StoresList.DataBean.StoreratesBean();
-                            storeratesBean.setStars((int) storesFromGoogleModel.getResults().get(i).getRating());
-                            List<StoresList.DataBean.StoreratesBean> storeratesBeans= new ArrayList<>();
-                            storeratesBeans.add(storeratesBean);
-                            store.setStorerates(storeratesBeans);
-                            if (storesFromGoogleModel.getResults().get(i).getPhotos()!=null) {
-                                store.setCover(storesFromGoogleModel.getResults().get(i).getPhotos().get(0).getPhoto_reference());
-                                store.setMaxwidth(storesFromGoogleModel.getResults().get(i).getPhotos().get(0).getWidth());
-                            }
-                            store.setFrom_google(true);
-                            allStories.add(store);
-                        }
-                        allStoriesLiveData.postValue(allStories);
-
-                    }
-                });
-
+                allStoriesLiveData.postValue(allStories);
                 loading.postValue(false);
+            }
+        });
+
+
+        allStorsRepository.setOnSuccessGooglePlaces(new Consumer<StoresFromGoogleModel>() {
+            @Override
+            public void accept(StoresFromGoogleModel storesFromGoogleModel) {
+                for (int i=0;i<storesFromGoogleModel.getResults().size();i++)
+                {
+                    StoresList.DataBean store = new StoresList.DataBean();
+                    store.setName(storesFromGoogleModel.getResults().get(i).getName());
+                    store.setLogo(storesFromGoogleModel.getResults().get(i).getIcon());
+                    store.setLatitude(storesFromGoogleModel.getResults().get(i).getGeometry().getLocation().getLat());
+                    store.setLongitude(storesFromGoogleModel.getResults().get(i).getGeometry().getLocation().getLng());
+                    store.setAddress(storesFromGoogleModel.getResults().get(i).getVicinity());
+                    StoresList.DataBean.StoreratesBean storeratesBean = new StoresList.DataBean.StoreratesBean();
+                    storeratesBean.setStars((int) storesFromGoogleModel.getResults().get(i).getRating());
+                    List<StoresList.DataBean.StoreratesBean> storeratesBeans= new ArrayList<>();
+                    storeratesBeans.add(storeratesBean);
+                    store.setStorerates(storeratesBeans);
+                    store.setRate((float) storesFromGoogleModel.getResults().get(i).getRating());
+
+                    if (storesFromGoogleModel.getResults().get(i).getPhotos()!=null) {
+                        store.setCover(storesFromGoogleModel.getResults().get(i).getPhotos().get(0).getPhoto_reference());
+                        store.setMaxwidth(storesFromGoogleModel.getResults().get(i).getPhotos().get(0).getWidth());
+                    }
+
+                    store.setFrom_google(true);
+                    allStories.add(store);
+                }
+                allStoriesLiveData.postValue(allStories);
+
             }
         });
 
