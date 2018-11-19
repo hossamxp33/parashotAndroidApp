@@ -25,15 +25,10 @@ import com.example.hossam.parashotApp.presentation.screens.home.makeOrderFromGoo
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.AllStoresViewModelFactory;
 import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.helper.ProductInfoToPost;
 import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.helper.ProductModel;
-import com.google.gson.JsonArray;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import okhttp3.MultipartBody;
 
 
 public class PaymentFragment extends Fragment {
@@ -69,26 +64,9 @@ public class PaymentFragment extends Fragment {
         paymentViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(PaymentViewModel.class);
 
         assert getArguments() != null;
-        productList =  getArguments().getParcelableArrayList("products");
+        productList = getArguments().getParcelableArrayList("products");
         imagePass = getArguments().getParcelable("photo");
         isFromGoogle = getArguments().getBoolean("fromgoogle");
-
-         if (isFromGoogle)
-         {
-             if (imagePass!=null)
-            ProductModels.add(new ProductModel(2,getArguments().getInt("storid"),0,
-                    "asdf","jk",
-                    "","",1,getArguments().getString("notes"),"",
-                    imagePass.getPhoto_part(), getArguments().getString("store_icon"),
-                    getArguments().getString("store_name"),"0",0,getArguments().getString("delivery_time"),
-                    getArguments().getString("store_lat"),getArguments().getString("store_lang")));
-             else
-                 ProductModels.add(new ProductModel(2,getArguments().getInt("storid"),0,
-                         getArguments().getString("user_adress"),"jk",
-                         "","",1,getArguments().getString("notes"),"",
-                         null, getArguments().getString("store_icon"),
-                         getArguments().getString("store_name"),"0",0,getArguments().getString("delivery_time"),
-                         getArguments().getString("store_lat"),getArguments().getString("store_lang")));
 
         master = view.findViewById(R.id.master);
         mada = view.findViewById(R.id.mada);
@@ -163,7 +141,7 @@ public class PaymentFragment extends Fragment {
                 for (int i = 0; i < productList.size(); i++) {
                     Log.i("forin", "showDialog: hossam");
                     ProductModels.add(new ProductModel(3, getArguments().getInt("storid"), productList.get(i).getProductId(),
-                           String.valueOf(productList.get(i).getProductCount()),
+                            String.valueOf(productList.get(i).getProductCount()),
                             "sohage", "jk",
                             "", "", paymentway, "saied is here", "125", 0
                     ));
@@ -174,10 +152,10 @@ public class PaymentFragment extends Fragment {
 
             paymentViewModel.saveResultLiveData.observe(getActivity(), aBoolean ->
                     {
-                        if (getActivity()!=null)
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FinishOrderFragment()).addToBackStack(null).commit();
+                        if (getActivity() != null)
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FinishOrderFragment()).addToBackStack(null).commit();
                         FragmentManager fm = getActivity().getSupportFragmentManager();
-                        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
                             fm.popBackStack();
                         }
                         alertDialog.cancel();
