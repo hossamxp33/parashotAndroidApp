@@ -70,7 +70,7 @@ public class AllStorsRepository {
                 public void onResponse(Call<StoresFromGoogleModel> call, final Response<StoresFromGoogleModel> response) {
                     if (response.body() != null) {
                         if (response.isSuccessful()) {
-                            if (onSuccess != null) {
+                            if (onSuccessGooglePlaces != null) {
                                 onSuccessGooglePlaces.accept(response.body());
                             }
                         } else {

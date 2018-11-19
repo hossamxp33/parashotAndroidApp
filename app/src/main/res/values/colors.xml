@@ -20,4 +20,5 @@
     <color name="text_numbers">#DC214C</color>
     <color name="colortwo">#DC214C</color>
     <color name="colorbackinorderconf">#D91368</color>
+    <color name="maptextcolor">#D91368</color>
 </resources>
