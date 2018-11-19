@@ -24,8 +24,9 @@ public class HomeActivity extends AppCompatActivity {
     public TextView title;
     GpsTracker gpsTracker;
     PreferenceHelper preferenceHelper;
-    ///////// defind attachBaseContext to install font
 
+
+    ///////// defind attachBaseContext to install font
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -40,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         title = findViewById(R.id.title);
-        gotomainfragment(null);
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).addToBackStack(null).commit();
 
         preferenceHelper = new PreferenceHelper(this);
         //////// get current user location
@@ -79,8 +80,6 @@ public class HomeActivity extends AppCompatActivity {
         for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
             fm.popBackStack();
         }
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).addToBackStack(null).commit();
 
     }
 

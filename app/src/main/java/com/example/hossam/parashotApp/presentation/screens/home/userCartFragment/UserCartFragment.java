@@ -76,10 +76,10 @@ public class UserCartFragment extends Fragment implements CartPrice {
             firstCartAdapter = new FirstCartAdapter(getActivity(),products,userCartViewModel,this);
             recyclerView.setAdapter(firstCartAdapter);
 
+            total = 0;
             for (int i=0;i<products.size();i++)
             {
-                total+=Double.parseDouble(products.get(i).getPrice());
-
+                total+=(Integer.valueOf(products.get(i).getPrice())*firstCartAdapter.productList.get(i).getProduct_count());
             }
 
             totalprice.setText(total+"ريال ");

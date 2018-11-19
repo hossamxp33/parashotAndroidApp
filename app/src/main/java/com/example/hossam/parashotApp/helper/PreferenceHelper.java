@@ -46,12 +46,12 @@ public class PreferenceHelper {
 	public void setCURRENTCATEGRY(String currentcategry) {
 
 		Editor edit = app_prefs.edit();
-		edit.putString(CURRENTLONG, currentcategry);
+		edit.putString(CURRENTCATEGRY, currentcategry);
 		edit.apply();
 	}
 
 	public String getCURRENTCATEGRY() {
-		return app_prefs.getString(CURRENTCATEGRY, "food");
+		return app_prefs.getString(CURRENTCATEGRY, null);
 	}
 
 	public String getCURRENTLAT() {
@@ -61,8 +61,6 @@ public class PreferenceHelper {
 	public String getCURRENTLONG()  {
 		return app_prefs.getString(CURRENTLONG, "0");
 	}
-
-
 
 	public String getToken() {
 		return app_prefs.getString(Token,null);

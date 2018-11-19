@@ -50,7 +50,7 @@ public interface ApiInterface {
     );
 
 
-    @GET("https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=1500&name=cruise")
+    @GET("https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=3000")
     @Headers("Accept: Application/json")
     Call<StoresFromGoogleModel> getStoresfroomgooglesData(
             @Query("key")String key ,

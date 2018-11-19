@@ -22,8 +22,8 @@ public class UserCartViewModel extends ViewModel {
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
     String name,imagepath,retecount,price;
-    float ratestart;
-
+    float rateStart;
+    int quentity = 1;
     public UserCartViewModel() {
     }
 
@@ -52,7 +52,6 @@ public class UserCartViewModel extends ViewModel {
                 loading.postValue(false);
             }
         });
-
     }
 
     public ObservableField<String> resultImageUrl = new ObservableField<>();
@@ -65,6 +64,14 @@ public class UserCartViewModel extends ViewModel {
     @BindingAdapter("bind:imageUrl")
     public static void loadImage(ImageView view, String url) {
         Glide.with(view.getContext()).load(url).into(view);
+    }
+
+    public String getQuentity() {
+        return String.valueOf(quentity);
+    }
+
+    public void setQuentity(int quentity) {
+        this.quentity = quentity;
     }
 
     public String getName() {
@@ -99,11 +106,11 @@ public class UserCartViewModel extends ViewModel {
         this.price = price;
     }
 
-    public float getRatestart() {
-        return ratestart;
+    public float getRateStart() {
+        return rateStart;
     }
 
-    public void setRatestart(float ratestart) {
-        this.ratestart = ratestart;
+    public void setRateStart(float rateStart) {
+        this.rateStart = rateStart;
     }
 }

@@ -125,7 +125,7 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
         return new LoginRepository(getApiService());
     }
     private ApiInterface getApiService() {
-        return ApiClient.getClientForGoogle().create(ApiInterface.class);
+        return ApiClient.getClient().create(ApiInterface.class);
     }
 
 

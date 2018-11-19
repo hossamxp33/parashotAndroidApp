@@ -47,7 +47,7 @@ public class MyOrderViewModelFactory implements ViewModelProvider.Factory {
 
 
     private ApiInterface getApiService() {
-        return ApiClient.getClientForGoogle().create(ApiInterface.class);
+        return ApiClient.getClient().create(ApiInterface.class);
     }
 
 
