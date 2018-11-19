@@ -47,12 +47,15 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class GetUserLOcationActivity extends AppCompatActivity implements
+public class GetUserLocationActivity extends AppCompatActivity implements
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
     private static final String TAG = "tag";
+    public static final String FULL_ADDRESS = "full_address";
+    public static final String USER_LAT = "user_lat";
+    public static final String USER_LANG = "user_lang";
     protected Location location, myLocation;
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -278,7 +281,7 @@ public class GetUserLOcationActivity extends AppCompatActivity implements
             address = getLocationAddress(latitude, longitude);
             //  address = LocationAddressHelper.getLocationAddress(getBaseContext(), cameraPosition.target.latitude, cameraPosition.target.longitude);
             if (address == null) {
-                Toast.makeText(GetUserLOcationActivity.this, getString(R.string.cannot_fetch_address), Toast.LENGTH_SHORT).show();
+                Toast.makeText(GetUserLocationActivity.this, getString(R.string.cannot_fetch_address), Toast.LENGTH_SHORT).show();
             } else {
                 address_txt.setText(address);
             }
@@ -311,9 +314,9 @@ public class GetUserLOcationActivity extends AppCompatActivity implements
     public void finish(View view) {
         if (!address.matches("")) {
             Intent data = new Intent();
-            data.putExtra("full_address", address);
-            data.putExtra("user_late", latitude + "");
-            data.putExtra("user_lang", longitude + "");
+            data.putExtra(FULL_ADDRESS, address);
+            data.putExtra(USER_LAT, latitude + "");
+            data.putExtra(USER_LANG, longitude + "");
             setResult(RESULT_OK, data);
             finish();
         }

@@ -34,6 +34,9 @@ public class HomeActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home);
 
+        title =findViewById(R.id.title);
+        gotomainfragment(null);
+
     }
 
     @Override
@@ -58,8 +61,6 @@ public class HomeActivity extends AppCompatActivity {
 
     public void gotomainfragment(View view) {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).addToBackStack(null).commit();
-
     }
-
 
 }

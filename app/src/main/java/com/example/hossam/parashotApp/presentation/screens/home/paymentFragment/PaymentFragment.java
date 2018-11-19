@@ -74,7 +74,7 @@ public class PaymentFragment extends Fragment {
                     getArguments().getString("store_lat"),getArguments().getString("store_lang")));
              else
                  ProductModels.add(new ProductModel(2,getArguments().getInt("storid"),0,
-                         "asdf","jk",
+                         getArguments().getString("user_adress"),"jk",
                          "","",1,getArguments().getString("notes"),"",
                          null, getArguments().getString("store_icon"),
                          getArguments().getString("store_name"),"0",0,getArguments().getString("delivery_time"),
