@@ -2,7 +2,9 @@ package com.example.hossam.parashotApp.presentation.screens.home.subcategryFragm
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -60,7 +62,13 @@ public class SubCategoriesAdapter extends RecyclerView.Adapter<SubCategoriesAdap
             @Override
             public void onClick(View v) {
 
-     ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,new StoresFragment()).
+                Fragment fragment = new StoresFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("type",1);
+                bundle.putInt("categryId",dataBeanArrayList.get(position).getId());
+                fragment.setArguments(bundle);
+                ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().
+                                    replace(R.id.main_frame,fragment).
                                         addToBackStack(null).commit();
             }
         });
@@ -78,7 +86,6 @@ public class SubCategoriesAdapter extends RecyclerView.Adapter<SubCategoriesAdap
             super(cardBinding.getRoot());
             this.cardBinding = cardBinding;
         }
-
 
         public void bind(SubCategoryViewModel categoryViewModel)
         {

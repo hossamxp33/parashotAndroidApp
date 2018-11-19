@@ -43,6 +43,7 @@ public class MyOrderViewModel extends ViewModel {
             loading.postValue(false);
         });
         this.myOrder_repository = repository;
+
     }
 
     @BindingAdapter("bind:imageUrl")

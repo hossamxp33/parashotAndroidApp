@@ -24,22 +24,24 @@ public class ProductDetailsRepository {
     private ProductDeo productDeo;
     private Consumer<Boolean> booleanConsumerForAdd;
     private Consumer<Integer> counter;
-
-    public ProductDetailsRepository(ApiInterface apiService1, ProductDeo pDeo)
+    private int productid;
+    public ProductDetailsRepository(ApiInterface apiService1, ProductDeo pDeo,int productid1)
     {
         apiService = apiService1;
         productDeo=pDeo;
+        productid = productid1;
     }
 
     public void getProductDetailsData() {
         try {
-            apiService.getProductDetails(1).enqueue(new Callback<ProductDetailsModel>() {
+            apiService.getProductDetails(productid).enqueue(new Callback<ProductDetailsModel>() {
                 @Override
                 public void onResponse(Call<ProductDetailsModel> call, final Response<ProductDetailsModel> response) {
                     if (response.body() != null) {
                         if (response.isSuccessful()) {
                             if (onSuccess != null) {
                                 onSuccess.accept(response.body());
+                                Log.d( "response " ,String.valueOf(response.body().getData().size()));
                             }
                         } else {
                             // TODO: return error
@@ -73,7 +75,7 @@ public class ProductDetailsRepository {
         new ProductCountAsyncTask(productDeo).execute(storid);
     }
 
-    private  class ProductAsyncTask extends AsyncTask<Product, Void, Void> {
+    class ProductAsyncTask extends AsyncTask<Product, Void, Void> {
         private ProductDeo productdeo;
         public ProductAsyncTask(ProductDeo productDeo) {
             productdeo = productDeo;

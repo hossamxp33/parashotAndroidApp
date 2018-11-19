@@ -1,6 +1,5 @@
 package com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -8,34 +7,24 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 
 import com.example.hossam.parashotApp.R;
-import com.example.hossam.parashotApp.databinding.CategriesBinding;
 import com.example.hossam.parashotApp.databinding.MyOrdersBinding;
 import com.example.hossam.parashotApp.entities.MYOrdersModel;
 import com.example.hossam.parashotApp.presentation.screens.home.allProductInsideOrderFragment.ProductsInsideOrderFragment;
-import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryFragment;
-import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryViewModel;
-import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.adapters.CategriesAdapter;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MyOrderViewModel;
-import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.adapters.TextAdapterForStorage;
 
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomView> {
+public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.Offer> {
 
     private LayoutInflater layoutInflater;
     private Context context;
@@ -49,7 +38,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomVi
 
     @NonNull
     @Override
-    public CustomView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Offer onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         if(layoutInflater == null)
         {
@@ -57,12 +46,12 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomVi
         }
 
         MyOrdersBinding myOrdersBinding = DataBindingUtil.inflate(layoutInflater, R.layout.myorder_adapter_item,parent,false);
-        return new CustomView(myOrdersBinding);
+        return new Offer(myOrdersBinding);
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomView holder, int position) {
+    public void onBindViewHolder(@NonNull Offer holder, int position) {
 
         MyOrderViewModel myOrderViewModel =new MyOrderViewModel();
         if (orderData.get(position).getOrderdetails().size()>0) {
@@ -102,7 +91,8 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomVi
 
        holder.bind(myOrderViewModel);
        holder.myOrdersBinding.ordercard.setOnClickListener(v ->
-       {   Fragment fragment = new ProductsInsideOrderFragment();
+       {
+        Fragment fragment = new ProductsInsideOrderFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("allProduct", (Serializable) orderData.get(position).getOrderdetails());
         fragment.setArguments(bundle);
@@ -136,11 +126,11 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomVi
         return orderData.size();
     }
 
-    class CustomView extends RecyclerView.ViewHolder {
+    class Offer extends RecyclerView.ViewHolder {
 
         MyOrdersBinding myOrdersBinding;
 
-        public CustomView(@NonNull MyOrdersBinding ordersBinding) {
+        public Offer(@NonNull MyOrdersBinding ordersBinding) {
             super(ordersBinding.getRoot());
             this.myOrdersBinding=ordersBinding;
         }

@@ -60,18 +60,17 @@ public class ProductsViewModel extends ViewModel {
 
 
         this.allProducts_repository = repository;
-        getCount(1);
+        allProducts_repository.getAllProduct();
+        getCount();
     }
-
-
 
     public void storeData(Product dataBeans, AllProductsRepository allProducts_repository) {
         allProducts_repository.saveDataInDB(dataBeans);
     }
 
 
-    public void getCount(int storid) {
-        allProducts_repository.getProductCount(storid);
+    public void getCount() {
+        allProducts_repository.getProductCount();
     }
 
     @BindingAdapter("bind:imageUrl")

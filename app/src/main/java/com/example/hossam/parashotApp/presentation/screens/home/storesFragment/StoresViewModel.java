@@ -10,14 +10,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.dataLayer.repositories.AllStoriesRepository;
 import com.example.hossam.parashotApp.entities.AllStoriesModel;
+import com.example.hossam.parashotApp.entities.StoresFromGoogleModel;
 
 public class StoresViewModel extends ViewModel {
 
 
     private AllStoriesRepository allStoriesRepository;
     MutableLiveData<AllStoriesModel> allStoriesModelMutableLiveData = new MutableLiveData<>();
+    MutableLiveData<StoresFromGoogleModel> allStoriesFromGoogleModelMutableLiveData = new MutableLiveData<>();
     MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
@@ -38,6 +41,12 @@ public class StoresViewModel extends ViewModel {
             }
         });
 
+        allStoriesRepository.setOnSuccessGooglePlaces(new Consumer<StoresFromGoogleModel>() {
+            @Override
+            public void accept(StoresFromGoogleModel storesFromGoogleModel) {
+                allStoriesFromGoogleModelMutableLiveData.postValue(storesFromGoogleModel);
+            }
+        });
         allStoriesRepository.setOnError(new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) {
@@ -56,6 +65,11 @@ public class StoresViewModel extends ViewModel {
 
     @BindingAdapter("bind:imageUrl")
     public static void loadImage(ImageView view, String url) {
+
+       // RequestOptions requestOptions = new RequestOptions();
+        //        requestOptions.placeholder(R.drawable.ic_placeholder);
+        //        requestOptions.error(R.drawable.ic_error);
+
         Glide.with(view.getContext()).load(url).into(view);
     }
 

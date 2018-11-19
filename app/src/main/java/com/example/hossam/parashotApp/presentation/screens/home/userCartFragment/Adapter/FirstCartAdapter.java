@@ -1,6 +1,5 @@
-package com.example.hossam.parashotApp.presentation.screens.home.userCart.Adapter;
+package com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.Adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
@@ -11,8 +10,8 @@ import android.view.ViewGroup;
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.databinding.UserCartBinding;
-import com.example.hossam.parashotApp.presentation.screens.home.userCart.UserCartViewModel;
-import com.example.hossam.parashotApp.presentation.screens.home.userCart.helper.CartPrice;
+import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.UserCartViewModel;
+import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.helper.CartPrice;
 
 import java.util.List;
 
@@ -23,11 +22,13 @@ public class FirstCartAdapter extends RecyclerView.Adapter<FirstCartAdapter.Cust
     private Context context;
     UserCartViewModel userCartViewModel1;
     CartPrice  cartPrice;
+    String count ;
     public FirstCartAdapter(Context context ,List<Product> productList,UserCartViewModel viewModel,CartPrice c)
     {
         this.productList = productList;
         this.context =  context;
         this.userCartViewModel1= viewModel;
+        count=viewModel.getCount().getValue();
         this.cartPrice=c;
     }
 
@@ -56,38 +57,48 @@ public class FirstCartAdapter extends RecyclerView.Adapter<FirstCartAdapter.Cust
         userCartViewModel.setPrice(productList.get(position).getPrice()+"ريال ");
         userCartViewModel.setRetecount("("+productList.get(position).getRateCount()+")");
         userCartViewModel.setRatestart(productList.get(position).getRateStars());
+
         holder.bind(userCartViewModel);
 
         holder.userCartBinding.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (productList.get(position).getId()!=0){
+                    userCartViewModel.deleteProductFromDB(productList.get(position),userCartViewModel1.userCartRepository);
+                }
                 cartPrice.deleteItem(position,Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString()));
-                userCartViewModel.deleteProductFromDB(productList.get(position),userCartViewModel1.userCartRepository);
                 productList.remove(position);
                 notifyDataSetChanged();
 
             }
         });
+if (productList.get(position).getId()==0){
+    holder.userCartBinding.quintityPlus.setEnabled(false);
+    holder.userCartBinding.quintityMinus.setEnabled(false);
+    holder.userCartBinding.quintityValue.setText(String.valueOf(productList.get(position).getCount()));
+    holder.userCartBinding.quintityValue.setEnabled(false);
+}else{
 
-        holder.userCartBinding.quintityPlus.setOnClickListener((View.OnClickListener) v ->
+    holder.userCartBinding.quintityPlus.setOnClickListener((View.OnClickListener) v ->
 
-                {   holder.userCartBinding.quintityValue.setText((Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString())+1)+"");
-                    cartPrice.plusItem(position);
-                }
+            {   holder.userCartBinding.quintityValue.setText((Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString())+1)+"");
+                cartPrice.plusItem(position);
+            }
 
-        );
+    );
 
-        holder.userCartBinding.quintityMinus.setOnClickListener((View.OnClickListener) v ->
-                {
-                    if (Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString()) > 1) {
-                        holder.userCartBinding.quintityValue.setText((Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString()) - 1) + "");
-                        cartPrice.minusItem(position);
-                    }
-                    else
-                        holder.userCartBinding.quintityValue.setError("لا يمكن ان تكون الكمية اقل من واحد");
+    holder.userCartBinding.quintityMinus.setOnClickListener((View.OnClickListener) v ->
+    {
+        if (Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString()) > 1) {
+            holder.userCartBinding.quintityValue.setText((Integer.parseInt(holder.userCartBinding.quintityValue.getText().toString()) - 1) + "");
+            cartPrice.minusItem(position);
+        }
+        else
+            holder.userCartBinding.quintityValue.setError("لا يمكن ان تكون الكمية اقل من واحد");
 
-                });
+    });
+}
+
     }
 
     @Override

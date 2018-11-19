@@ -63,7 +63,7 @@
 
 
         <android.support.v7.widget.RecyclerView
-        android:id="@+id/viewpager"
+        android:id="@+id/recyclerImages"
         android:layout_width="0dp"
         android:orientation="horizontal"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
@@ -84,13 +84,13 @@
         android:textSize="14dp"
         android:lines="2"
         android:ellipsize="end"
-        app:layout_constraintTop_toBottomOf="@+id/viewpager"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerImages"
         android:textColor="@color/black"
         android:text="@{productdata.name}"
         />
 
         <TextView
-        android:id="@+id/item_price"
+        android:id="@+id/tv_old_price"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textSize="14dp"
@@ -98,7 +98,7 @@
         android:lines="2"
         android:ellipsize="end"
         app:layout_constraintWidth_percent="0.4"
-        app:layout_constraintTop_toBottomOf="@+id/viewpager"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerImages"
         app:layout_constraintEnd_toStartOf="@id/guidlinevertical4"
         android:gravity="center"
         android:textColor="@color/black"
@@ -142,7 +142,7 @@
             android:paddingTop="5dp"
             android:gravity="center"
             android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@+id/item_price"
+            app:layout_constraintTop_toBottomOf="@+id/tv_old_price"
             app:layout_constraintEnd_toStartOf="@id/guidlinevertical4"
             android:layout_gravity="end"
             android:background="@drawable/salefromstor_back"

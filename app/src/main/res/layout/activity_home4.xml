@@ -8,7 +8,7 @@
     android:layoutDirection="rtl"
     tools:context=".presentation.screens.home.HomeActivity">
 
-    <include layout="@layout/parashot_header"
+    <include layout="@layout/header_for_chat"
         android:id="@+id/header"
         app:layout_constraintTop_toTopOf="parent"
         />

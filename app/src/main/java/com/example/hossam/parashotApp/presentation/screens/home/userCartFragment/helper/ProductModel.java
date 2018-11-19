@@ -1,4 +1,4 @@
-package com.example.hossam.parashotApp.presentation.screens.home.userCart.helper;
+package com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.helper;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

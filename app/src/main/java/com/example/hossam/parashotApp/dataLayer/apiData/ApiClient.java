@@ -14,6 +14,7 @@ public class ApiClient {
 
 
     private static final String BASE_URL = "http://parashot.codesroots.com/api/";
+    private static final String BASE_URL_Google = "";
     private static final int TIMEOUT = 30;
     private static Retrofit retrofit = null;
 
@@ -31,6 +32,17 @@ public class ApiClient {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(getOkHttpClient())
+                    .build();
+        }
+        return retrofit;
+    }
+
+    public static Retrofit getClientForGoogle() {
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL_Google)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(getOkHttpClient())
                     .build();

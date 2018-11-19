@@ -17,6 +17,7 @@ import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.entities.Categories;
 import com.example.hossam.parashotApp.entities.StoreSettingEntity;
 
+import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryViewModel;
 import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryViewModelFactory;
 import com.example.hossam.parashotApp.presentation.screens.home.subcategryFragment.adapters.SliderPagerAdapter;
@@ -25,6 +26,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,10 +42,10 @@ public class SubCategoriesFragment extends Fragment {
     ViewPager viewPager;
     private SliderPagerAdapter sliderPagerAdapter;  /// slider adapter
     private CategoryViewModel categoryViewModel;
-    StoreSettingEntity.DataBean.StoresettingsBean.DesignBean designBean;
     CirclePageIndicator indicator;
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
+    private List<Categories.SliderBean> slides;
 
 
     Categories.DataBean subcatsBean;
@@ -63,9 +66,11 @@ public class SubCategoriesFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recylerview);
         viewPager=view.findViewById(R.id.vp_slider);
 
+        ((HomeActivity)Objects.requireNonNull(getActivity())).title.setText(getText(R.string.sub_categry));
+
         assert getArguments() != null;
         subcatsBean = (Categories.DataBean) getArguments().getSerializable("subcategries");
-        designBean = (StoreSettingEntity.DataBean.StoresettingsBean.DesignBean) getArguments().getSerializable("design");
+        slides = (List<Categories.SliderBean>) getArguments().getSerializable("sliders");
 
         categoryViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(CategoryViewModel.class);
 
@@ -74,7 +79,7 @@ public class SubCategoriesFragment extends Fragment {
 
         recyclerView.setAdapter(customAdapter);
 
-       sliderPagerAdapter=new SliderPagerAdapter(getActivity(),designBean.getSliders());
+        sliderPagerAdapter=new SliderPagerAdapter(getActivity(),slides);
         viewPager.setAdapter(sliderPagerAdapter);
         viewPager.setClipToPadding(false);
         viewPager.setPadding(100, 0, 100, 0);
@@ -91,7 +96,7 @@ public class SubCategoriesFragment extends Fragment {
         final float density = getResources().getDisplayMetrics().density;
         //Set circle indicator radius
         indicator.setRadius(4 * density);
-        NUM_PAGES =3;
+        NUM_PAGES =slides.size();
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
             public void run() {

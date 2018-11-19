@@ -1,22 +1,15 @@
-package com.example.hossam.parashotApp.presentation.screens.home.userCart;
+package com.example.hossam.parashotApp.presentation.screens.home.userCartFragment;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
-import android.graphics.Color;
 import android.support.v4.util.Consumer;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.hossam.parashotApp.dataLayer.apiData.ApiInterface;
-import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.deo.ProductDeo;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
-import com.example.hossam.parashotApp.dataLayer.repositories.CategoryRepository;
 import com.example.hossam.parashotApp.dataLayer.repositories.UserCartRepository;
-import com.example.hossam.parashotApp.entities.Categories;
 
 import java.util.List;
 
@@ -27,35 +20,39 @@ public class UserCartViewModel extends ViewModel {
     MutableLiveData<List<Product>> ProductLiveData = new MutableLiveData<>();
     MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
+    MutableLiveData<String> count = new MutableLiveData<>();
+    public MutableLiveData<String> getCount() {
+        return count;
+    }
+
+
+
+
+
 
     String name,imagepath,retecount,price;
     float ratestart;
 
     public UserCartViewModel() {
+        count = new MutableLiveData<>();
     }
-
 
     public UserCartViewModel(final UserCartRepository userCartRepository) {
 
-        userCartRepository.setcartItemss(new Consumer<List<Product>>() {
-            @Override
-            public void accept(List<Product> products) {
-                ProductLiveData.postValue(products);
-                loading.postValue(false);
-            }
+        userCartRepository.setcartItemss(products -> {
+            ProductLiveData.postValue(products);
+            loading.postValue(false);
         });
 
-        userCartRepository.setOnError(new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) {
-                errorLiveData.postValue(throwable);
-                loading.postValue(false);
-            }
+        userCartRepository.setOnError(throwable -> {
+            errorLiveData.postValue(throwable);
+            loading.postValue(false);
         });
 
         this.userCartRepository = userCartRepository;
+        userCartRepository.GetProductsFromDB();
 
-        userCartRepository.GetProductsFromDB(1);
+        count = new MutableLiveData<>();
     }
 
     public void deleteProductFromDB(Product product, UserCartRepository userCartRepository) {

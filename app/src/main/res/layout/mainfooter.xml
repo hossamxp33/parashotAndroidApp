@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -34,6 +35,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:onClick="gotoregister"
                         android:gravity="center|center_vertical"
                         android:layoutDirection="rtl"
                         android:orientation="vertical">
@@ -69,7 +71,7 @@
                             android:textColor="@color/textcolorinnenu"
                             android:textStyle="bold"
                             android:textSize="@dimen/textsizeinmenu"
-                            android:text="@string/mainpage"
+                            android:text="@string/favorit"
 
                             />
                     </LinearLayout>
@@ -160,7 +162,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:onClick="gotomorefragment"
+                        android:onClick="gotoOffersFragment"
                         android:layoutDirection="rtl"
                         android:orientation="vertical">
 
@@ -204,7 +206,7 @@
                             android:textColor="@color/textcolorinnenu"
                             android:textStyle="bold"
                             android:textSize="@dimen/textsizeinmenu"
-                            android:text="@string/mainpage"
+                            android:text="@string/deals"
 
                             />
                     </LinearLayout>
@@ -252,7 +254,7 @@
                             android:textColor="@color/textcolorinnenu"
                             android:textStyle="bold"
                             android:textSize="@dimen/textsizeinmenu"
-                            android:text="@string/mainpage"
+                            android:text="@string/notification"
 
                             />
                     </LinearLayout>

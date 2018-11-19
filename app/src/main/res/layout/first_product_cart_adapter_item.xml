@@ -7,14 +7,14 @@
     <data class ="UserCartBinding">
         <variable
             name="cartmodel"
-            type="com.example.hossam.parashotApp.presentation.screens.home.userCart.UserCartViewModel"/>
+            type="com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.UserCartViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layoutDirection="rtl"
         android:layout_marginTop="10dp"
-        android:background="@drawable/linear_background_for_photographer"
+        android:background="@drawable/white_back_no_rad"
     >
 
         <android.support.constraint.Guideline
@@ -159,7 +159,7 @@
 
 
         <TextView
-            android:id="@+id/item_price"
+            android:id="@+id/tv_old_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#4A4A4A"
@@ -182,7 +182,7 @@
             android:ellipsize="end"
             android:textSize="12dp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/item_price"
+            app:layout_constraintStart_toEndOf="@+id/tv_old_price"
             app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
 
@@ -190,7 +190,7 @@
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.28"
+            app:layout_constraintWidth_percent="0.25"
             android:maxLines="2"
             android:ellipsize="end"
             android:background="@drawable/salefromstor_back"
@@ -201,7 +201,7 @@
             android:textSize="10dp"
             app:layout_constraintBottom_toTopOf="@+id/guidhorizental33"
             app:layout_constraintStart_toEndOf="@+id/guidvertical2"
-            app:layout_constraintTop_toBottomOf="@+id/item_price" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_old_price" />
 
         <TextView
             android:id="@+id/delete_item"
@@ -218,7 +218,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guidhorizental33"
             app:layout_constraintEnd_toEndOf="@+id/guidverticallast"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/item_price"
+            app:layout_constraintTop_toBottomOf="@+id/tv_old_price"
             app:layout_constraintWidth_percent="0.25" />
 
 

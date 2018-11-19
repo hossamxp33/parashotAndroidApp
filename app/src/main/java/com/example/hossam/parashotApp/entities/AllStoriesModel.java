@@ -49,6 +49,7 @@ public class AllStoriesModel {
         private String name;
         private String bank_accounts;
         private String phone;
+        private String photo;
         private String place;
         private String alternative_phone;
         private String commercial_register_photo;
@@ -72,6 +73,32 @@ public class AllStoriesModel {
         private CategoryBean category;
         private List<StoreratesBean> storerates;
         private List<LikesBean> likes;
+        private boolean from_google;
+        private int maxwidth;
+
+        public int getMaxwidth() {
+            return maxwidth;
+        }
+
+        public void setMaxwidth(int maxwidth) {
+            this.maxwidth = maxwidth;
+        }
+
+        public String getPhoto() {
+            return photo;
+        }
+
+        public void setPhoto(String photo) {
+            this.photo = photo;
+        }
+
+        public boolean isFrom_google() {
+            return from_google;
+        }
+
+        public void setFrom_google(boolean from_google) {
+            this.from_google = from_google;
+        }
 
         public String getPlace() {
             return place;

@@ -4,58 +4,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-
-    <co.ceryle.segmentedbutton.SegmentedButtonGroup
-        android:id="@+id/segment"
+    <android.support.design.chip.ChipGroup
+        android:id="@+id/chipGroup"
         android:layout_width="0dp"
-        android:layout_height="25dp"
-        android:layout_margin="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:chipSpacingHorizontal="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.65"
-        app:sb_textColor_onSelection="@color/colorPrimary"
-        app:sbg_animateSelector="decelerate"
-        app:layout_constraintCircleRadius="5dp"
-        app:sbg_animateSelectorDuration="1000"
-        app:sbg_backgroundColor="@color/back_home3"
-        app:sbg_borderColor="@color/gray"
-        app:sbg_borderSize="1dp"
-        app:sbg_dividerColor="@color/back_home3"
-        app:sbg_dividerPadding="20dp"
-        app:sbg_dividerRadius="30dp"
-        app:sbg_dividerSize="1dp"
-        app:sbg_position="0"
-        app:sbg_radius="5dp"
-        app:sbg_ripple="true"
-        app:sbg_rippleColor="@color/back_home3"
-        app:sbg_selectorColor="@color/colorPrimary">
+        app:singleSelection="true">
 
-        <co.ceryle.segmentedbutton.SegmentedButton
-            android:layout_width="0dp"
+        <android.support.design.chip.Chip
+            android:id="@+id/chipOffers"
+
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:padding="3dp"
-            android:saveEnabled="true"
+            android:layout_margin="10dp"
+            android:layout_marginTop="15dp"
+
+            android:checked="true"
+            android:text="مكتملة"
             android:textAlignment="center"
-            app:sb_text=" not commplete  "
-            app:sb_textGravity="center" />
+            android:textColor="@drawable/text_color_chip"
+            app:chipBackgroundColor="@color/bg_chip_state_list"
+            app:chipCornerRadius="10dp"
 
+            app:chipStrokeColor="@color/purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:rippleColor="@color/purple" />
 
-        <co.ceryle.segmentedbutton.SegmentedButton
-            android:layout_width="0dp"
+        <android.support.design.chip.Chip
+            android:id="@+id/chipDeals"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="80dp"
+
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:padding="3dp"
-            app:sbg_dividerRadius="30dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="حالية"
             android:textAlignment="center"
-            app:sb_text="commplete"
-            app:sb_textGravity="center"/>
+            android:textColor="@drawable/text_color_chip"
+            app:chipBackgroundColor="@color/bg_chip_state_list"
 
+            app:chipCornerRadius="10dp"
+            app:chipStrokeColor="@color/purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:rippleColor="@color/purple"
 
-    </co.ceryle.segmentedbutton.SegmentedButtonGroup>
-
+            />
+    </android.support.design.chip.ChipGroup>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
@@ -63,7 +67,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginRight="7dp"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/segment"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="5dp"
             android:id="@+id/recylerview"/>

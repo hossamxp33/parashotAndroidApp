@@ -3,14 +3,11 @@ package com.example.hossam.parashotApp.presentation.screens.home.paymentFragment
 import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,28 +16,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hossam.parashotApp.R;
-import com.example.hossam.parashotApp.dataLayer.apiData.ApiClientLocal;
-import com.example.hossam.parashotApp.dataLayer.apiData.ApiInterface;
-import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
-import com.example.hossam.parashotApp.entities.Categories;
-import com.example.hossam.parashotApp.helper.ProgressDialogHelper;
+import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.finishMakeOrderFragment.FinishOrderFragment;
-import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MYOrderFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.AllStoresViewModelFactory;
-import com.example.hossam.parashotApp.presentation.screens.home.userCart.Adapter.FirstCartAdapter;
-import com.example.hossam.parashotApp.presentation.screens.home.userCart.UserCartViewModel;
-import com.example.hossam.parashotApp.presentation.screens.home.userCart.helper.ProductInfoToPost;
-import com.example.hossam.parashotApp.presentation.screens.home.userCart.helper.ProductModel;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.helper.ProductInfoToPost;
+import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.helper.ProductModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.Objects;
 
 
 public class PaymentFragment extends Fragment {
@@ -54,6 +38,7 @@ public class PaymentFragment extends Fragment {
     ImageView master,mada,cach;
     List<ProductInfoToPost> productList;
     List<ProductModel> ProductModels=new ArrayList<>();
+    PaymentViewModel paymentViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +51,8 @@ public class PaymentFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.payment_fragment, container, false);
 
+        ((HomeActivity)Objects.requireNonNull(getActivity())).title.setText(getText(R.string.paymenpage));
+        paymentViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(PaymentViewModel.class);
 
         productList = (List<ProductInfoToPost>) getArguments().getSerializable("products");
 
@@ -79,24 +66,18 @@ public class PaymentFragment extends Fragment {
         mada = view.findViewById(R.id.mada);
         cach = view.findViewById(R.id.cash);
 
-
         master.setOnClickListener(v ->
-                {
-                    showDialog();
-                }
+                showDialog()
         );
 
         mada.setOnClickListener(v ->
-                {
-                    showDialog();
-                }
+                    showDialog()
         );
 
         cach.setOnClickListener(v ->
-                {
-                    showDialog();
-                }
+                showDialog()
         );
+
         return view;
     }
 
@@ -113,48 +94,23 @@ public class PaymentFragment extends Fragment {
 
         alertDialog.show();
         save =dialogView.findViewById(R.id.save);
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FinishOrderFragment()).addToBackStack(null).commit();
-                alertDialog.cancel();
-                addPost();
+                paymentViewModel.saveData(ProductModels);
+                paymentViewModel.saveResultLiveData.observe(getActivity(),aBoolean ->
+                        {
+                           getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FinishOrderFragment()).addToBackStack(null).commit();
+                            alertDialog.cancel();
+                        }
+                );
+
             }
         });
     }
 
 
-
-    private void addPost() {
-
-        ProgressDialogHelper.showSimpleProgressDialog(getActivity(), false);
-        ApiInterface apiService =
-                ApiClientLocal.getClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiService.makeOrder(ProductModels);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
-                ProgressDialogHelper.removeSimpleProgressDialog();
-                if (response.body() != null) {
-
-                    if (response.isSuccessful())
-                    {
-                    }
-                }
-
-                else {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                ProgressDialogHelper.removeSimpleProgressDialog();
-                Log.d("fail",call.toString());
-                // Toast.makeText(getActivity(), getString(R.string.something_wrong), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
 
     @NonNull
     private ViewModelProvider.Factory getViewModelFactory() {

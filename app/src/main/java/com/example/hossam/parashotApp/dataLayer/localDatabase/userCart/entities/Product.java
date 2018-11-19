@@ -19,15 +19,6 @@ public class Product implements Serializable {
     @ColumnInfo(name = "product_id")
     private int product_id;
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @ColumnInfo(name = "price")
     private String price;
 
@@ -43,6 +34,29 @@ public class Product implements Serializable {
 
     @ColumnInfo(name = "rateCount")
     private int rateCount;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    @ColumnInfo(name = "count")
+    private int count;
+
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
 
     public int getProduct_id() {
         return product_id;
@@ -98,5 +112,19 @@ public class Product implements Serializable {
 
     public void setRateCount(int rateCount) {
         this.rateCount = rateCount;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", stor_id=" + stor_id +
+                ", product_id=" + product_id +
+                ", price='" + price + '\'' +
+                ", photo='" + photo + '\'' +
+                ", name='" + name + '\'' +
+                ", rateStars=" + rateStars +
+                ", rateCount=" + rateCount +
+                '}';
     }
 }

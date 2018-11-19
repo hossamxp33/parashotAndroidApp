@@ -120,7 +120,7 @@
         android:layout_height="0dp"
         android:text="@{ordermodel.item_price}"
         android:textSize="14dp"
-        android:id="@+id/item_price"
+        android:id="@+id/tv_old_price"
         app:layout_constraintTop_toBottomOf="@+id/rates"
         app:layout_constraintStart_toEndOf="@id/guidvertical1"
         app:layout_constraintBottom_toBottomOf="parent"

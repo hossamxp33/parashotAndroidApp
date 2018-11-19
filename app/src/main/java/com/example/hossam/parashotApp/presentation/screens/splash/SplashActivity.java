@@ -25,40 +25,44 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        ProgressDialogHelper.showSimpleProgressDialog(SplashActivity.this, false);
+        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
 
-        splashViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(SplashViewModel.class);
-        splashViewModel.loading.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean isLoading) {
-                if (isLoading != null && isLoading) {
-                    ProgressDialogHelper.showSimpleProgressDialog(SplashActivity.this, false);
-                } else {
-                    ProgressDialogHelper.removeSimpleProgressDialog();
-                }
-            }
-        });
-
-        splashViewModel.storeSettingLiveData.observe(this, new Observer<StoreSettingEntity>() {
-                    @Override
-                    public void onChanged(@Nullable StoreSettingEntity storeSettingEntity) {
-                        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-                        intent.putExtra("AllData",  storeSettingEntity);
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-               );
-
-        splashViewModel.errorLiveData.observe(this, new Observer<Throwable>() {
-                    @Override
-                    public void onChanged(@Nullable Throwable throwable) {
-                        // todo show error
-         Toast.makeText(SplashActivity.this,getResources().getString(R.string.erroroccur)+
-                        throwable.getCause().getMessage(),Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
+//        ProgressDialogHelper.showSimpleProgressDialog(SplashActivity.this, false);
+//
+//        splashViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(SplashViewModel.class);
+//        splashViewModel.loading.observe(this, new Observer<Boolean>() {
+//            @Override
+//            public void onChanged(@Nullable Boolean isLoading) {
+//                if (isLoading != null && isLoading) {
+//                    ProgressDialogHelper.showSimpleProgressDialog(SplashActivity.this, false);
+//                } else {
+//                    ProgressDialogHelper.removeSimpleProgressDialog();
+//                }
+//            }
+//        });
+//
+//        splashViewModel.storeSettingLiveData.observe(this, new Observer<StoreSettingEntity>() {
+//                    @Override
+//                    public void onChanged(@Nullable StoreSettingEntity storeSettingEntity) {
+//                        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+//                        intent.putExtra("AllData",  storeSettingEntity);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                }
+//               );
+//
+//        splashViewModel.errorLiveData.observe(this, new Observer<Throwable>() {
+//                    @Override
+//                    public void onChanged(@Nullable Throwable throwable) {
+//                        // todo show error
+//         Toast.makeText(SplashActivity.this,getResources().getString(R.string.erroroccur)+
+//                        throwable.getCause().getMessage(),Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//        );
     }
 
     @NonNull

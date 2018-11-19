@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
 
-        <include layout="@layout/header_for_first_subcat"
+        <include layout="@layout/parashot_header"
             android:id="@+id/header"/>
 
         <android.support.constraint.ConstraintLayout

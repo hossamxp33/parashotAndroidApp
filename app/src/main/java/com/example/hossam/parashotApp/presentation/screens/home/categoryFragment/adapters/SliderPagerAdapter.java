@@ -8,26 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
 import com.bumptech.glide.Glide;
 import com.example.hossam.parashotApp.R;
+import com.example.hossam.parashotApp.entities.Categories;
 import com.example.hossam.parashotApp.entities.StoreSettingEntity;
-
 import java.util.List;
 
-/**
- * Created by hossam on 21/07/2018.
- */
+
 
 public class SliderPagerAdapter extends PagerAdapter {
     private Context activity;
+    List<Categories.SliderBean> slides;
 
-
-    List<StoreSettingEntity.DataBean.StoresettingsBean.DesignBean.Sliders> slidersData;
-    public SliderPagerAdapter(FragmentActivity context, List<StoreSettingEntity.DataBean.StoresettingsBean.DesignBean.Sliders> sliders) {
+    public SliderPagerAdapter(FragmentActivity context, List<Categories.SliderBean> sliders) {
         activity=context;
-        slidersData = sliders;
+        slides = sliders;
     }
 
     @Override
@@ -36,18 +31,20 @@ public class SliderPagerAdapter extends PagerAdapter {
         assert layoutInflater != null;
         View view = layoutInflater.inflate(R.layout.viewpagerslide_home1, container, false);
         ImageView im_slider =  view.findViewById(R.id.im_slider);
+
         TextView name= view.findViewById(R.id.doctornametxt);
 
        Glide.with(activity.getApplicationContext())
-                .load("http://parashot.codesroots.com/library/"+slidersData.get(position).getPhoto())
+                .load(slides.get(position).getPhoto())
                 .into(im_slider);
+
         container.addView(view);
         return view;
     }
 
     @Override
     public int getCount() {
-       return  slidersData.size();
+       return  slides.size();
     }
 
     @Override
@@ -61,7 +58,5 @@ public class SliderPagerAdapter extends PagerAdapter {
         View view = (View) object;
         container.removeView(view);
     }
-
-
 }
 
