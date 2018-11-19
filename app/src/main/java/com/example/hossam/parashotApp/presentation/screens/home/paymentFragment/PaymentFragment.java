@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
+import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.finishMakeOrderFragment.FinishOrderFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.makeOrderFromGoogleStoresFeragment.ImagePass;
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.AllStoresViewModelFactory;
@@ -150,15 +151,19 @@ public class PaymentFragment extends Fragment {
                 paymentViewModel.saveData(ProductModels);
             }
 
-            paymentViewModel.saveResultLiveData.observe(getActivity(), aBoolean ->
+            paymentViewModel.saveResultLiveData.observe(this, aBoolean ->
                     {
-                        if (getActivity() != null)
+                        if (getActivity() != null) {
+                            FragmentManager fm = getActivity().getSupportFragmentManager();
+                            for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                                Fragment fragment = fm.findFragmentById(R.id.main_frame);
+                                if (!(fragment instanceof CategoryFragment))
+                                    fm.popBackStack();
+                            }
+
+                            alertDialog.cancel();
                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FinishOrderFragment()).addToBackStack(null).commit();
-                        FragmentManager fm = getActivity().getSupportFragmentManager();
-                        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-                            fm.popBackStack();
                         }
-                        alertDialog.cancel();
                     }
             );
         });
