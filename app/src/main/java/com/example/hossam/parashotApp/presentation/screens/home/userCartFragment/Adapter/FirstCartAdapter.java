@@ -49,6 +49,14 @@ public class FirstCartAdapter extends RecyclerView.Adapter<FirstCartAdapter.Cust
     @Override
     public void onBindViewHolder(@NonNull CustomView holder, int position) {
         holder.bind(productList.get(position));
+
+        if (productList.get(position).getId()==0){
+            holder.userCartBinding.quintityPlus.setEnabled(false);
+            holder.userCartBinding.quintityMinus.setEnabled(false);
+            holder.userCartBinding.quintityValue.setText(String.valueOf(productList.get(position).getProduct_count()));
+            holder.userCartBinding.quintityValue.setEnabled(false);
+        }
+
     }
 
     @Override
@@ -66,15 +74,19 @@ public class FirstCartAdapter extends RecyclerView.Adapter<FirstCartAdapter.Cust
             super(cartBinding.getRoot());
             this.userCartBinding = cartBinding;
             userCartViewModel = new UserCartViewModel();
+
+
             userCartBinding.deleteItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-
                     cartPrice.deleteItem(position, Integer.parseInt(userCartBinding.quintityValue.getText().toString()));
-                    userCartViewModel.deleteProductFromDB(product, userCartViewModel1.userCartRepository);
+                    if (productList.get(position).getId()!=0){
+                        userCartViewModel.deleteProductFromDB(productList.get(position),userCartViewModel1.userCartRepository);
+                    }
                     productList.remove(position);
                     notifyItemRemoved(position);
+
                 }
             });
 

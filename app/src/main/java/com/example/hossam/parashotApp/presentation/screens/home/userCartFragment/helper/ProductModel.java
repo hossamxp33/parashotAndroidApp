@@ -25,6 +25,10 @@ public class ProductModel {
     @Expose
     private String address;
 
+    @SerializedName("user_address")
+    @Expose
+    private String user_address;
+
     @SerializedName("type")
     @Expose
     private String type;
@@ -108,7 +112,7 @@ public class ProductModel {
         this.user_id = user_id;
         this.store_id = store_id;
         this.product_id = product_id;
-        this.address = address;
+        this.user_address = address;
         this.type = type;
         this.user_lat = user_lat;
         this.user_long = user_long;
@@ -121,7 +125,7 @@ public class ProductModel {
     }
 
     public ProductModel(int user_id, int store_id,
-                        int product_id, String address, String type,
+                        int product_id, String address, String user_address1,
                         String user_lat, String user_long, int payment_id, String notes, String price, MultipartBody.Part photo, String store_icon,
                         String storename, String delivery_price, int delivry_id, String delivery_time, String store_long, String store_lat,
                         int statues, float store_rate)
@@ -130,7 +134,7 @@ public class ProductModel {
         this.store_id = store_id;
         this.product_id = product_id;
         this.address = address;
-        this.type = type;
+        this.user_address = user_address1;
         this.user_lat = user_lat;
         this.user_long = user_long;
         this.payment_id = payment_id;
@@ -148,6 +152,13 @@ public class ProductModel {
         this.rate=store_rate;
     }
 
+    public String getUser_address() {
+        return user_address;
+    }
+
+    public void setUser_address(String user_address) {
+        this.user_address = user_address;
+    }
 
     public String getCount() {
         return count;

@@ -1,6 +1,8 @@
 package com.example.hossam.parashotApp.dataLayer.apiData;
 
 import com.example.hossam.parashotApp.entities.Categories;
+import com.example.hossam.parashotApp.entities.DealsModel;
+import com.example.hossam.parashotApp.entities.OffersModel;
 import com.example.hossam.parashotApp.entities.RatessOfProductModel;
 import com.example.hossam.parashotApp.entities.LoginResponseModel;
 import com.example.hossam.parashotApp.entities.MYOrdersModel;
@@ -113,6 +115,13 @@ public interface ApiInterface {
     Call<RatessOfProductModel> getProductsRate(
             @Path(value = "productid") int productid
     );
+
+
+    @GET("offers/getoffers.json")
+    Call<OffersModel> getOffers();
+
+    @GET("deals/getdeals.json")
+    Call<DealsModel> getDeals();
 
 }
 

@@ -6,17 +6,20 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +29,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hossam.parashotApp.R;
+import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
+import com.example.hossam.parashotApp.presentation.screens.home.dealsOffersFragment.DealsOffersFragment;
+import com.example.hossam.parashotApp.presentation.screens.home.paymentFragment.PaymentFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -44,8 +50,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class GetUserLocationActivity extends AppCompatActivity implements
         OnMapReadyCallback,
@@ -75,9 +84,15 @@ public class GetUserLocationActivity extends AppCompatActivity implements
     private RadioGroup rgMapType;
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_user_location);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // Make to run your application only in portrait mode
 
         address_txt = findViewById(R.id.address_txt);
         rgMapType = findViewById(R.id.rg_map_type);
@@ -109,20 +124,22 @@ public class GetUserLocationActivity extends AppCompatActivity implements
         }
 
         rgMapType.setOnCheckedChangeListener((group, checkedId) -> {
-            int currentMapType = mMap.getMapType();
-            int newMapType;
-            switch (checkedId) {
-                case R.id.rb_satalite:
-                    newMapType = GoogleMap.MAP_TYPE_SATELLITE;
-                    break;
-                case R.id.rb_hagin:
-                    newMapType = GoogleMap.MAP_TYPE_HYBRID;
-                    break;
-                default:
-                    newMapType = GoogleMap.MAP_TYPE_NORMAL;
-            }
-            if (newMapType != currentMapType) {
-                mMap.setMapType(newMapType);
+            if (mMap!=null) {
+                int currentMapType = mMap.getMapType();
+                int newMapType;
+                switch (checkedId) {
+                    case R.id.rb_satalite:
+                        newMapType = GoogleMap.MAP_TYPE_SATELLITE;
+                        break;
+                    case R.id.rb_hagin:
+                        newMapType = GoogleMap.MAP_TYPE_HYBRID;
+                        break;
+                    default:
+                        newMapType = GoogleMap.MAP_TYPE_NORMAL;
+                }
+                if (newMapType != currentMapType) {
+                    mMap.setMapType(newMapType);
+                }
             }
         });
     }
@@ -312,11 +329,13 @@ public class GetUserLocationActivity extends AppCompatActivity implements
     }
 
     public void finish(View view) {
+
+
         if (!address.matches("")) {
             Intent data = new Intent();
             data.putExtra(FULL_ADDRESS, address);
-            data.putExtra(USER_LAT, latitude + "");
-            data.putExtra(USER_LANG, longitude + "");
+            data.putExtra(USER_LAT, String.valueOf(latitude));
+            data.putExtra(USER_LANG, String.valueOf(longitude));
             setResult(RESULT_OK, data);
             finish();
         }

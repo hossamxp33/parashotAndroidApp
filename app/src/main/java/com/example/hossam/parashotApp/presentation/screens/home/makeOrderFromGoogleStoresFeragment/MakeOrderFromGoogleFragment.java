@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.helper.FileUtils;
+import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.getUserLocation.GetUserLocationActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.paymentFragment.PaymentFragment;
@@ -41,6 +42,7 @@ import okhttp3.RequestBody;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.hossam.parashotApp.presentation.screens.getUserLocation.GetUserLocationActivity.FULL_ADDRESS;
+import static com.example.hossam.parashotApp.presentation.screens.getUserLocation.GetUserLocationActivity.USER_LAT;
 
 
 public class MakeOrderFromGoogleFragment extends Fragment {
@@ -60,8 +62,9 @@ public class MakeOrderFromGoogleFragment extends Fragment {
     Spinner spinner;
     String spinnerValue = "";
     List<String> Stringlist = new ArrayList<String>();
-
+    TextView userloc;
     String USER_ADRESS,USER_LAT,USER_LANG;
+    PreferenceHelper preferenceHelper;
     public MakeOrderFromGoogleFragment() {
         // Required empty public constructor
     }
@@ -127,9 +130,11 @@ public class MakeOrderFromGoogleFragment extends Fragment {
                     bundle.putString("delivery_time", spinnerValue);
                     bundle.putString("store_lat", getArguments().getString("store_lat"));
                     bundle.putString("store_lang", getArguments().getString("store_lang"));
+                    bundle.putString("store_address", getArguments().getString("store_address"));
                     bundle.putString("user_adress",USER_ADRESS);
                     bundle.putString("user_lat",USER_LAT);
                     bundle.putString("user_lang",USER_LANG);
+                    bundle.putFloat("store_rate",getArguments().getFloat("store_rate"));
                     if (photo_part != null) {
                         imagePass.setPhoto_part(photo_part);
                         bundle.putParcelable("photo", imagePass);
@@ -182,6 +187,7 @@ public class MakeOrderFromGoogleFragment extends Fragment {
         deleted_img = view.findViewById(R.id.deleted_img);
         spinner = view.findViewById(R.id.deliverythrough);
         addImageLayout = view.findViewById(R.id.addImageLayout);
+        userloc = view.findViewById(R.id.userloc);
 
     }
 
@@ -205,8 +211,10 @@ public class MakeOrderFromGoogleFragment extends Fragment {
         if (reqCode == ADDRESS_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 USER_ADRESS = data.getExtras().getString(FULL_ADDRESS);
-                USER_LAT = data.getExtras().getString(USER_LAT);
-                USER_LANG = data.getExtras().getString(USER_LANG);
+
+                USER_LAT = data.getExtras().getString("user_lat");
+                USER_LANG = data.getExtras().getString("user_lang");
+                userloc.setText(USER_ADRESS);
             } else {
                 Toast.makeText(getActivity(), "You haven't selected address", Toast.LENGTH_LONG).show();
             }

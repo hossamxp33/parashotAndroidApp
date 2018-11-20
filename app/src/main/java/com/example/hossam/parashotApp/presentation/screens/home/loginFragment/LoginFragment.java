@@ -18,7 +18,9 @@ import android.widget.Toast;
 
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.entities.User;
+import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
+import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.registerFragment.RegisterFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.AllStoresViewModelFactory;
 import com.facebook.CallbackManager;
@@ -46,7 +48,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private static final String EMAIL = "email";
     CallbackManager callbackManager;
     LoginButton loginButton;
-
+    PreferenceHelper preferenceHelper;
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -65,6 +67,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         ((HomeActivity) Objects.requireNonNull(getActivity())).title.setText(getText(R.string.logintitle));
         loginViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(LoginViewModel.class);
 
+        preferenceHelper = new PreferenceHelper(getActivity());
         username = view.findViewById(R.id.username);
         password = view.findViewById(R.id.password);
         login = view.findViewById(R.id.login);
@@ -138,15 +141,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         loginViewModel.loginLiveData.observe(getActivity(), model ->
                 {
                     if (model.isSuccess()) {
+                        preferenceHelper.setUserId(model.getData().getId());
+                        preferenceHelper.setToken(model.getData().getToken());
                         FragmentManager fm = getActivity().getSupportFragmentManager();
                         for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
                             fm.popBackStack();
                         }
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).addToBackStack(null).commit();
+
                         Toast.makeText(getActivity(), getString(R.string.loginsuccess), Toast.LENGTH_LONG).show();
-
-                        //   getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).addToBackStack(null).commit();
-
-                    } else {
+                    }
+                    else {
                         Toast.makeText(getActivity(), getString(R.string.usererror), Toast.LENGTH_LONG).show();
 
                     }

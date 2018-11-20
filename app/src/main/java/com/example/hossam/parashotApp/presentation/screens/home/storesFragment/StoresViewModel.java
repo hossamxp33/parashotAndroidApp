@@ -24,9 +24,9 @@ public class StoresViewModel extends ViewModel {
     MutableLiveData<List<StoresList.DataBean>> allStoriesLiveData=new MutableLiveData<List<StoresList.DataBean>>();
     MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
-    String place,ratecount,chat,like,name, cover,logo,ratenum;
+    String place,ratecount,chat,name, cover,logo,ratenum;
     int ratestar;
-
+    String like="0";
 
     public StoresViewModel() {
     }

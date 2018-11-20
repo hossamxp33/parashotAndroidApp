@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.entities.User;
+import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
+import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.AllStoresViewModelFactory;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONException;
+
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -31,7 +44,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     EditText username,password,phone;
     RegisterViewModel registerViewModel;
     private FrameLayout progress;
-
+    PreferenceHelper preferenceHelper;
+    CallbackManager callbackManager;
+    LoginButton loginButton;
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -50,6 +65,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         ((HomeActivity)Objects.requireNonNull(getActivity())).title.setText(getText(R.string.registertitle));
         registerViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(RegisterViewModel.class);
 
+        preferenceHelper = new PreferenceHelper(getActivity());
         male= view.findViewById(R.id.male);
         female= view.findViewById(R.id.female);
         birthdate= view.findViewById(R.id.birthdate);
@@ -64,6 +80,54 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         progress = view.findViewById(R.id.progress);
 
 
+        callbackManager = CallbackManager.Factory.create();
+
+
+        loginButton = view.findViewById(R.id.login_button);
+        loginButton.setFragment(this);
+        loginButton.setReadPermissions(Arrays.asList("public_profile"/*, EMAIL, "user_birthday"*/));
+        // If you are using in a fragment, call loginButton.setFragment(this);
+
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d("fb", loginResult.toString());
+                // App code
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        (object, response) -> {
+                            Log.v("LoginActivity", response.toString());
+
+                            // Application code
+                            try {
+
+                                String email = object.getString("email");
+                                String username = object.getString("name");
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+                Log.d("fb", "Canceled");
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+                Log.d("fb", exception.getMessage());
+            }
+        });
+
         registerViewModel.loading.observe(getActivity(),loading ->
                 progress.setVisibility(loading ? View.VISIBLE : View.GONE));
 
@@ -77,10 +141,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         registerViewModel.registerLiveData.observe(getActivity(),model ->
                 {
                     if (model.isSuccess()) {
+                        preferenceHelper.setUserId(model.getData().getId());
+                        preferenceHelper.setToken(model.getData().getToken());
                         FragmentManager fm = getActivity().getSupportFragmentManager();
                         for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
                             fm.popBackStack();
                         }
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).addToBackStack(null).commit();
+
                         Toast.makeText(getActivity(), getString(R.string.registersuccess), Toast.LENGTH_SHORT).show();
 
                     }

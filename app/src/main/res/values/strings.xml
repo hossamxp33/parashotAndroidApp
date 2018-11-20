@@ -125,5 +125,8 @@
 
     <string name="nodelivery">لم يحدد بعد</string>
     <string name="nodescription">اكتب وصف الطلب</string>
+    <string name="fragment_offers">عروض و صفقات</string>
+    <string name="loginfirst">يجب تسجيل الدخول اولا</string>
+    <string name="ordernotfound">لا يوجد طلبات</string>
 
 </resources>

@@ -72,7 +72,6 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomVi
 
             myOrderViewModel.setName(orderData.get(position).getStorename());
             myOrderViewModel.setStorenamevalue(orderData.get(position).getStorename());
-
         }
 
         if (orderData.get(position).getRate()>0)

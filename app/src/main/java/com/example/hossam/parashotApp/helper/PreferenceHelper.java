@@ -90,9 +90,9 @@ public class PreferenceHelper {
 		return app_prefs.getString(photo,null);
 	}
 
-	public void setUserId(String API_TOKEN) {
+	public void setUserId(int user_id) {
 		Editor edit = app_prefs.edit();
-		edit.putString(UserId, API_TOKEN);
+		edit.putInt(UserId, user_id);
 		edit.apply();
 	}
 
@@ -105,7 +105,7 @@ public class PreferenceHelper {
 
     public void Logout(){
 		setToken(null);
-		setUserId(null);
+		setUserId(0);
 		setphoto(null);
 
 	}

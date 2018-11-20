@@ -1,7 +1,9 @@
 package com.example.hossam.parashotApp.presentation.screens.home;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.helper.GpsTracker;
 import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryFragment;
+import com.example.hossam.parashotApp.presentation.screens.home.dealsOffersFragment.DealsOffersFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.loginFragment.LoginFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MYOrderFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.UserCartFragment;
@@ -39,6 +42,7 @@ public class HomeActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // Make to run your application only in portrait mode
 
         title = findViewById(R.id.title);
         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).addToBackStack(null).commit();
@@ -61,14 +65,19 @@ public class HomeActivity extends AppCompatActivity {
         //getSupportFragmentManager().popBackStack();
     }
 
-    public void gotomorefragment(View view) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new UserCartFragment()).addToBackStack(null).commit();
+    public void gotodealsfragment(View view) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new DealsOffersFragment()).addToBackStack(null).commit();
 
     }
 
     public void gotomyOrder(View view) {
+        if (preferenceHelper.getUserId()>0)
         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new MYOrderFragment()).addToBackStack(null).commit();
+        else
+            Snackbar.make(view,getText(R.string.loginfirst),Snackbar.LENGTH_LONG).show();
     }
+
+
 
     public void gotoregister(View view) {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new LoginFragment()).addToBackStack(null).commit();
@@ -80,6 +89,7 @@ public class HomeActivity extends AppCompatActivity {
         for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
             fm.popBackStack();
         }
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).addToBackStack(null).commit();
 
     }
 

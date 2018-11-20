@@ -53,6 +53,7 @@
             android:background="@drawable/order_map" />
 
         <TextView
+            android:id="@+id/userloc"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"

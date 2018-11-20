@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.entities.StoresList;
+import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.makeOrderFromGoogleStoresFeragment.MakeOrderFromGoogleFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.productsFragment.ProductsFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.StoresViewModel;
@@ -28,11 +30,12 @@ public class AllStoriesAdapter extends RecyclerView.Adapter<AllStoriesAdapter.Cu
     private LayoutInflater layoutInflater;
     private List<StoresList.DataBean> arrayList;
     private Context context;
-
+    PreferenceHelper preferenceHelper;
 
     public AllStoriesAdapter(Context context, List<StoresList.DataBean> arrayList) {
         this.arrayList = new ArrayList<>(arrayList);
         this.context = context;
+        preferenceHelper = new PreferenceHelper(context);
     }
 
     @NonNull
@@ -58,8 +61,7 @@ public class AllStoriesAdapter extends RecyclerView.Adapter<AllStoriesAdapter.Cu
             storesViewModel.setCover("https://maps.googleapis.com/maps/api/place/photo?maxwidth=" + arrayList.get(position).getMaxwidth() +
                     "&photoreference=" + arrayList.get(position).getCover() +
                     "&key=" + context.getText(R.string.google_maps_key));
-        }
-        else
+        } else
             storesViewModel.setCover(arrayList.get(position).getCover());
 
 
@@ -93,37 +95,43 @@ public class AllStoriesAdapter extends RecyclerView.Adapter<AllStoriesAdapter.Cu
                             replace(R.id.main_frame, fragment).addToBackStack(null).commit();
                 } else {
 
-                    Fragment fragment = new MakeOrderFromGoogleFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("stor_id", 1);
-                    bundle.putString("name", arrayList.get(position).getName());
-                    bundle.putString("image","https://maps.googleapis.com/maps/api/place/photo?maxwidth=" + arrayList.get(position).getMaxwidth() +
-                            "&photoreference=" + arrayList.get(position).getCover() +
-                            "&key=" + context.getText(R.string.google_maps_key));
+                    if (preferenceHelper.getUserId() > 0) {
+                        Fragment fragment = new MakeOrderFromGoogleFragment();
 
-                    bundle.putString("logo",arrayList.get(position).getLogo());
-                    bundle.putString("store_name",arrayList.get(position).getName());
-                    bundle.putString("store_lat", String.valueOf(arrayList.get(position).getLatitude()));
-                    bundle.putString("store_lang", String.valueOf(arrayList.get(position).getLongitude()));
-                    bundle.putString("description","title");
-                    bundle.putString("store_address",arrayList.get(position).getAddress());
-                    bundle.putFloat("store_rate",arrayList.get(position).getRate());
-                    fragment.setArguments(bundle);
-                    ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().
-                            replace(R.id.main_frame, fragment).addToBackStack(null).commit();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("stor_id", 1);
+                        bundle.putString("name", arrayList.get(position).getName());
+                        bundle.putString("image", "https://maps.googleapis.com/maps/api/place/photo?maxwidth=" + arrayList.get(position).getMaxwidth() +
+                                "&photoreference=" + arrayList.get(position).getCover() +
+                                "&key=" + context.getText(R.string.google_maps_key));
+
+                        bundle.putString("logo", arrayList.get(position).getLogo());
+                        bundle.putString("store_name", arrayList.get(position).getName());
+                        bundle.putString("store_lat", String.valueOf(arrayList.get(position).getLatitude()));
+                        bundle.putString("store_lang", String.valueOf(arrayList.get(position).getLongitude()));
+                        bundle.putString("description", "title");
+                        bundle.putString("store_address", arrayList.get(position).getAddress());
+                        bundle.putFloat("store_rate", arrayList.get(position).getRate());
+                        fragment.setArguments(bundle);
+                        ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().
+                                replace(R.id.main_frame, fragment).addToBackStack(null).commit();
+                    } else
+                        Snackbar.make(v, context.getText(R.string.loginfirst), Snackbar.LENGTH_LONG).show();
                 }
+
+
             }
 
         });
 
         holder.resturantMenu1Binding.location.setOnClickListener(v -> {
             Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                    Uri.parse("geo:0,0?q="+arrayList.get(position).getLatitude()+","+arrayList.get(position).getLongitude()));
+                    Uri.parse("geo:0,0?q=" + arrayList.get(position).getLatitude() + "," + arrayList.get(position).getLongitude()));
             context.startActivity(intent);
         });
     }
 
-    public void setItems(ArrayList<StoresList.DataBean> newList){
+    public void setItems(ArrayList<StoresList.DataBean> newList) {
         arrayList.clear();
         arrayList.addAll(newList);
 

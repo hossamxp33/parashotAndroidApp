@@ -31,6 +31,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.example.hossam.parashotApp.presentation.screens.getUserLocation.GetUserLocationActivity.FULL_ADDRESS;
+import static com.example.hossam.parashotApp.presentation.screens.getUserLocation.GetUserLocationActivity.USER_LANG;
+import static com.example.hossam.parashotApp.presentation.screens.getUserLocation.GetUserLocationActivity.USER_LAT;
+
 
 public class PaymentFragment extends Fragment {
 
@@ -114,37 +118,45 @@ public class PaymentFragment extends Fragment {
 
             /////////collect data if itis from google
             if (isFromGoogle) {
-                if (imagePass != null)
-                    ProductModels.add(new ProductModel(3, getArguments().getInt("storid"), 0,
-                            getArguments().getString("store_address"), "jk",
-                            "", "", paymentway, getArguments().getString("notes"), "",
+
+                if (imagePass != null) {
+                    ProductModels.add(new ProductModel(userid, getArguments().getInt("storid"), 0,
+                            getArguments().getString("store_address"),
+                            getArguments().getString("user_adress"),
+                            getArguments().getString("user_lat"),
+                            getArguments().getString("user_lang"),
+                            paymentway, getArguments().getString("notes"), "",
                             imagePass.getPhoto_part(), getArguments().getString("store_icon"),
                             getArguments().getString("store_name"), "0", 0, getArguments().getString("delivery_time"),
                             getArguments().getString("store_lat"), getArguments().getString("store_lang"), 0,
                             getArguments().getFloat("store_rate")));
-                else
-
-                    ProductModels.add(new ProductModel(3, getArguments().getInt("storid"), 0,
-                            getArguments().getString("store_address"), "jk",
-                            "", "", paymentway, getArguments().getString("notes"), "",
+                    paymentViewModel.saveDataFromGoogle(ProductModels, null);
+                } else {
+                    ProductModels.add(new ProductModel(userid,
+                            getArguments().getInt("storid"), 0,
+                            getArguments().getString("store_address"),
+                            getArguments().getString("user_adress"),
+                            getArguments().getString("user_lat"),
+                            getArguments().getString("user_lang"),
+                            paymentway, getArguments().getString("notes"), "",
                             null, getArguments().getString("store_icon"),
                             getArguments().getString("store_name"), "0", 0, getArguments().getString("delivery_time"),
                             getArguments().getString("store_lat"), getArguments().getString("store_lang"), 0,
                             getArguments().getFloat("store_rate")));
 
-                paymentViewModel.saveDataFromGoogle(ProductModels, imagePass.getPhoto_part());
-
+                    paymentViewModel.saveDataFromGoogle(ProductModels, imagePass.getPhoto_part());
+                }
             }
 
             /////////collect data if itis from API
-
             else {
                 for (int i = 0; i < productList.size(); i++) {
                     Log.i("forin", "showDialog: hossam");
-                    ProductModels.add(new ProductModel(3, getArguments().getInt("storid"), productList.get(i).getProductId(),
+                    ProductModels.add(new ProductModel(userid, getArguments().getInt("storid"), productList.get(i).getProductId(),
                             String.valueOf(productList.get(i).getProductCount()),
-                            "sohage", "jk",
-                            "", "", paymentway, "saied is here", "125", 0
+                            getArguments().getString("USER_ADDRESS"), "jk",
+                            getArguments().getString("USER_LAT"), getArguments().getString("USER_LANG"), paymentway,
+                            "saied is here", getArguments().getString("price"), 0
                     ));
                 }
 
@@ -160,8 +172,8 @@ public class PaymentFragment extends Fragment {
                                 if (!(fragment instanceof CategoryFragment))
                                     fm.popBackStack();
                             }
-
                             alertDialog.cancel();
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).addToBackStack(null).commit();
                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FinishOrderFragment()).addToBackStack(null).commit();
                         }
                     }
