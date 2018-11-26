@@ -5,18 +5,18 @@
 
         <layer-list>
 
-            <item>
+            <item >
                 <shape>
-                    <gradient android:angle="90" android:endColor="@color/colorbackinorderconf" android:startColor="@color/colorbackinorderconf" android:type="sweep" />
+                    <gradient android:angle="90"   android:endColor="@color/colorbackinorderconf"
+                        android:startColor="@color/colorbackinorderconf" android:type="sweep" />
 
                     <padding android:bottom="3dp" android:left="8dp" android:right="3dp" android:top="3dp" />
                 </shape>
             </item>
 
-            <item android:right="5dp">
+            <item android:right="5dp" >
 
-                <bitmap android:gravity="center_vertical|left" android:src="@drawable/prev" />
-
+                <bitmap android:width="15dp" android:height="20dp" android:gravity="center_vertical|left" android:src="@drawable/direct"  />
             </item>
 
         </layer-list>

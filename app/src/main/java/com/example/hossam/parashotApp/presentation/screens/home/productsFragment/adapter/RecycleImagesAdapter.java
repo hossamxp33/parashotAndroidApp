@@ -3,6 +3,7 @@ package com.example.hossam.parashotApp.presentation.screens.home.productsFragmen
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,6 @@ public class RecycleImagesAdapter extends RecyclerView.Adapter<RecycleImagesAdap
     private Context context;
     private List<Products_in_Stories_Model.DataBean.ProductphotosBean> productphotos;
 
-
     RecycleImagesAdapter(Context mcontext, List<Products_in_Stories_Model.DataBean.ProductphotosBean> productphotos_from_view) {
         context = mcontext;
         productphotos =productphotos_from_view;
@@ -30,6 +30,17 @@ public class RecycleImagesAdapter extends RecyclerView.Adapter<RecycleImagesAdap
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.third_subcategry_for_viewpager, parent, false);
+
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        DisplayMetrics displayMetrics =  context.getResources().getDisplayMetrics();
+        int width = displayMetrics.widthPixels;
+
+        //////set percentage from all screen
+
+        layoutParams.width = (width / 3)-10;
+        view.setLayoutParams(layoutParams);
+
+
         return new ViewHolder(view);
     }
 

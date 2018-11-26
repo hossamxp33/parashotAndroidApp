@@ -31,14 +31,13 @@
         android:id="@+id/recylerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="7dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/indicator"
         tools:layoutManager="android.support.v7.widget.GridLayoutManager"
         tools:listitem="@layout/home1_depart_model"
         tools:spanCount="3"
+        android:layout_marginEnd="3dp"
         tools:itemCount="8"/>
 
     <FrameLayout

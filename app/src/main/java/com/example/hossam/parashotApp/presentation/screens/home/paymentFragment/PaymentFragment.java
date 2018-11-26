@@ -130,7 +130,8 @@ public class PaymentFragment extends Fragment {
                             getArguments().getString("store_name"), "0", 0, getArguments().getString("delivery_time"),
                             getArguments().getString("store_lat"), getArguments().getString("store_lang"), 0,
                             getArguments().getFloat("store_rate")));
-                    paymentViewModel.saveDataFromGoogle(ProductModels, null);
+                    paymentViewModel.saveDataFromGoogle(ProductModels, imagePass.getPhoto_part());
+
                 } else {
                     ProductModels.add(new ProductModel(userid,
                             getArguments().getInt("storid"), 0,
@@ -143,8 +144,7 @@ public class PaymentFragment extends Fragment {
                             getArguments().getString("store_name"), "0", 0, getArguments().getString("delivery_time"),
                             getArguments().getString("store_lat"), getArguments().getString("store_lang"), 0,
                             getArguments().getFloat("store_rate")));
-
-                    paymentViewModel.saveDataFromGoogle(ProductModels, imagePass.getPhoto_part());
+                    paymentViewModel.saveDataFromGoogle(ProductModels, null);
                 }
             }
 

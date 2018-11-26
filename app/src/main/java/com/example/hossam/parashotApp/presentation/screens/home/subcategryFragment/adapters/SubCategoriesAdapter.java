@@ -7,14 +7,19 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.databinding.SubCategriesBinding;
 import com.example.hossam.parashotApp.entities.Categories;
 import com.example.hossam.parashotApp.entities.StoreSettingEntity;
+import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.adapters.CategriesAdapter;
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.StoresFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.subcategryFragment.SubCategoryViewModel;
 
@@ -30,47 +35,52 @@ public class SubCategoriesAdapter extends RecyclerView.Adapter<SubCategoriesAdap
 
 
     public SubCategoriesAdapter(FragmentActivity activity, List<Categories.DataBean.SubcatsBean> subcats) {
-
         this.dataBeanArrayList = subcats;
         this.context =  activity;
     }
 
-    @NonNull
+
     @Override
-    public CustomView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SubCategoriesAdapter.CustomView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        if(layoutInflater == null)
-        {
-            layoutInflater = LayoutInflater.from(parent.getContext());
-        }
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.home1_subcategries_model, parent, false);
 
-        SubCategriesBinding cardBinding = DataBindingUtil.inflate(layoutInflater, R.layout.home1_subcategries_model,parent,false);
-        return new CustomView(cardBinding);
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+
+        DisplayMetrics displayMetrics =  context.getResources().getDisplayMetrics();
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        //////set percentage from all screen
+        layoutParams.height = (int) (height * 0.2);
+        layoutParams.width = (width / 3)-10;
+        view.setLayoutParams(layoutParams);
+
+        return new SubCategoriesAdapter.CustomView(view);
+
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull CustomView holder, final int position) {
 
-        SubCategoryViewModel categoryViewModel = new SubCategoryViewModel();
-        categoryViewModel.setName(dataBeanArrayList.get(position).getName());
-        categoryViewModel.setImagepath(dataBeanArrayList.get(position).getPhoto());
-        categoryViewModel.imageUrlUpdated(dataBeanArrayList.get(position).getPhoto());
+        holder.title.setText(dataBeanArrayList.get(position).getName());
+        Glide.with(context)
+                .load(dataBeanArrayList.get(position).getPhoto())
+                .error(R.drawable.storelogo)
+                .into(holder.itemImage);
 
-        holder.bind(categoryViewModel);
+        holder.itemImage.setOnClickListener(v -> {
 
-        holder.cardBinding.thumbnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Fragment fragment = new StoresFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt("type",1);
-                bundle.putInt("categryId",dataBeanArrayList.get(position).getId());
-                fragment.setArguments(bundle);
-                ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().
-                                    replace(R.id.main_frame,fragment).
-                                        addToBackStack(null).commit();
-            }
+            Fragment fragment = new StoresFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("type",1);
+            bundle.putInt("categryId",dataBeanArrayList.get(position).getId());
+            fragment.setArguments(bundle);
+            ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().
+                                replace(R.id.main_frame,fragment).
+                                    addToBackStack(null).commit();
         });
     }
 
@@ -81,21 +91,15 @@ public class SubCategoriesAdapter extends RecyclerView.Adapter<SubCategoriesAdap
 
     class CustomView extends RecyclerView.ViewHolder {
 
-        SubCategriesBinding cardBinding;
-        public CustomView(SubCategriesBinding cardBinding) {
-            super(cardBinding.getRoot());
-            this.cardBinding = cardBinding;
-        }
+        private final View mView;
+        private ImageView itemImage;
+        private TextView title;
+        private CustomView(View view) {
+            super(view);
+            mView = view;
+            itemImage =mView.findViewById(R.id.sub_categimage);
+            title=mView.findViewById(R.id.subcate_name);
 
-        public void bind(SubCategoryViewModel categoryViewModel)
-        {
-            this.cardBinding.setSubcategriesmodelbinding(categoryViewModel);
-            cardBinding.executePendingBindings();
-        }
-
-        public SubCategriesBinding  getCardBinding()
-        {
-            return  cardBinding;
         }
 
     }

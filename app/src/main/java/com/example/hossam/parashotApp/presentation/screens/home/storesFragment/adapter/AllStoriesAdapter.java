@@ -19,6 +19,7 @@ import com.example.hossam.parashotApp.entities.StoresList;
 import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.makeOrderFromGoogleStoresFeragment.MakeOrderFromGoogleFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.productsFragment.ProductsFragment;
+import com.example.hossam.parashotApp.presentation.screens.home.ratesOfProduct.RatesOfProductFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.storesFragment.StoresViewModel;
 import com.example.hossam.parashotApp.databinding.ResturantMenu1Binding;
 
@@ -82,6 +83,16 @@ public class AllStoriesAdapter extends RecyclerView.Adapter<AllStoriesAdapter.Cu
         storesViewModel.setLogo(arrayList.get(position).getLogo());
         holder.bind(storesViewModel);
 
+        holder.resturantMenu1Binding.ratecontainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new RatesOfProductFragment();
+                Bundle bundle =new Bundle();
+                bundle.putInt("product_id",1);
+                fragment.setArguments(bundle);
+                ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,fragment).addToBackStack(null).commit();
+            }
+        });
         holder.resturantMenu1Binding.storelayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

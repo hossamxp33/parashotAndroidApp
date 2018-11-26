@@ -26,10 +26,10 @@
         android:padding="5dp"
         android:src="@drawable/parashot"
         app:layout_constraintEnd_toStartOf="@id/sale"
-        app:layout_constraintStart_toEndOf="@id/st1" />
+        app:layout_constraintStart_toEndOf="@id/menu" />
 
     <ImageView
-        android:id="@+id/st1"
+        android:id="@+id/menu"
         android:layout_width="30dp"
         android:layout_height="35dp"
 

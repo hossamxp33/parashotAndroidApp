@@ -56,8 +56,9 @@
         <item name="colorControlNormal">@color/colorPrimary</item>
     </style>
 
-    <style name="SpinnerTheme" parent="android:Widget.Spinner">
+    <style name="SpinnerTheme" parent="android:Widget.Spinner" >
         <item name="android:background">@drawable/spinner_shap</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
 </resources>

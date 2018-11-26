@@ -65,7 +65,7 @@
         android:id="@+id/viewpager"
         android:layout_width="0dp"
         android:orientation="horizontal"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
         android:layout_height="220dp"
         >
 
@@ -140,7 +140,8 @@
             android:id="@+id/charg"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="شحن مجاني من المتجر "
+            android:text="@string/charge"
+            android:textColor="@color/black"
             android:layout_marginTop="5dp"
             app:layout_constraintWidth_percent="0.4"
             android:textSize="10dp"

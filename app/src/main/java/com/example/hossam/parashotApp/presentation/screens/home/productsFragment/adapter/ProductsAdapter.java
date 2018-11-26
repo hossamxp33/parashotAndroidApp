@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -59,6 +60,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         recycle_images_adapter = new RecycleImagesAdapter(mcontext,productData.get(position).getProductphotos());
+        holder.productBindings.viewpager.setLayoutManager(new GridLayoutManager(new FragmentActivity(),3));
         holder.productBindings.viewpager.setAdapter(recycle_images_adapter);
 
         ProductsViewModel products_viewModel = new ProductsViewModel();

@@ -167,9 +167,12 @@ public class MakeOrderFromGoogleFragment extends Fragment {
         Stringlist.add("2 يوم");
         Stringlist.add("3 يوم");
 
+       // getResources().getStringArray(R.string.delivery_through)
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, Stringlist);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_item_custom, Stringlist);
+
+        dataAdapter.setDropDownViewResource( R.layout.spinner_item_custom_popup);
+
         spinner.setAdapter(dataAdapter);
 
     }

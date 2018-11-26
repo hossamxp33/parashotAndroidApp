@@ -196,7 +196,7 @@
             android:background="@drawable/salefromstor_back"
             android:gravity="center"
             android:padding="2dp"
-            android:text="شحن مجاني من المتجر"
+            android:text="@string/charge"
             android:textColor="#4A4A4A"
             android:textSize="10dp"
             app:layout_constraintBottom_toTopOf="@+id/guidhorizental33"

@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 
 
 import com.example.hossam.parashotApp.R;
-import com.example.hossam.parashotApp.databinding.CategriesBinding;
 import com.example.hossam.parashotApp.databinding.MyOrdersBinding;
 import com.example.hossam.parashotApp.entities.MYOrdersModel;
 import com.example.hossam.parashotApp.presentation.screens.home.allProductInsideOrderFragment.ProductsInsideOrderFragment;

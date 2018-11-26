@@ -8,7 +8,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/choose_place"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="match_parent"
         android:background="@drawable/linear_background_in_confirm_order"
         android:gravity="center"
         android:orientation="horizontal">
@@ -45,10 +45,10 @@
 
         <ImageButton
             android:layout_width="38dp"
-            android:layout_height="43dp"
-            android:layout_marginLeft="10dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.9"
             app:layout_constraintTop_toBottomOf="@+id/guidlinehorizental"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="10dp"
             app:layout_constraintStart_toEndOf="@id/guidline2"
             android:background="@drawable/order_map" />
 
@@ -62,7 +62,7 @@
             android:textColor="@color/white"
             android:lines="1"
             android:ellipsize="end"
-            android:text="حدد مكان التوصيل " />
+            android:text="@string/detect_place" />
 
         <ImageView
             android:layout_width="15dp"
