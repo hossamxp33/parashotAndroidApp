@@ -61,7 +61,7 @@ public class AllStoriesAdapter extends RecyclerView.Adapter<AllStoriesAdapter.Cu
         if (arrayList.get(position).isFrom_google()) {
             storesViewModel.setCover("https://maps.googleapis.com/maps/api/place/photo?maxwidth=" + arrayList.get(position).getMaxwidth() +
                     "&photoreference=" + arrayList.get(position).getCover() +
-                    "&key=" + context.getText(R.string.google_maps_key));
+                    "&key=" + "AIzaSyD8z2lWzm896P2g8VhaBfrVam0JL1BaiW0");
         } else
             storesViewModel.setCover(arrayList.get(position).getCover());
 

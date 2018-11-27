@@ -13,17 +13,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.databinding.MyOrdersBinding;
 import com.example.hossam.parashotApp.entities.MYOrdersModel;
 import com.example.hossam.parashotApp.presentation.screens.home.allProductInsideOrderFragment.ProductsInsideOrderFragment;
-import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryFragment;
-import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryViewModel;
-import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.adapters.CategriesAdapter;
+import com.example.hossam.parashotApp.presentation.screens.home.deliverOffersFragment.DeliveryOffersFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MyOrderViewModel;
-import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.adapters.TextAdapterForStorage;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -129,15 +124,26 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomVi
 
 
         holder.bind(myOrderViewModel);
-        holder.myOrdersBinding.ordercard.setOnClickListener(v ->
+
+        holder.myOrdersBinding.gotoDeliveryoffers.setOnClickListener(v ->
         {
             if (orderData.get(position).getStore_id() != 0) {
-                Fragment fragment = new ProductsInsideOrderFragment();
+                Fragment fragment = new DeliveryOffersFragment();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("allProduct", (Serializable) orderData.get(position).getOrderdetails());
+                bundle.putSerializable("orderid",  orderData.get(position).getId());
                 fragment.setArguments(bundle);
                 ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).addToBackStack(null).commit();
             }
+
+        });
+
+        holder.myOrdersBinding.ordercard.setOnClickListener(v ->
+        {
+                Fragment fragment = new ProductsInsideOrderFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("allProduct" , (Serializable) orderData.get(position).getOrderdetails());
+                fragment.setArguments(bundle);
+                ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).addToBackStack(null).commit();
 
         });
     }

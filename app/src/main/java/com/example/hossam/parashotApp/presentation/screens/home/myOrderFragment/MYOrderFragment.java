@@ -105,6 +105,7 @@ public class MYOrderFragment extends Fragment {
                     recyclerView.setVisibility(View.VISIBLE);
                     txtnotfound.setVisibility(View.GONE);
                 }
+
                 else {
                     txtnotfound.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
@@ -112,9 +113,6 @@ public class MYOrderFragment extends Fragment {
 
             }
         });
-
-
-
 
         return view;
     }
