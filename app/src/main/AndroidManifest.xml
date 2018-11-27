@@ -24,7 +24,6 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -39,7 +38,12 @@
             android:name="io.fabric.ApiKey"
             android:value="b1a071ee6c852956ac6fd3305a4c7c10ca07e420" />
 
-        <activity android:name=".presentation.screens.home.HomeActivity" />
+        <activity
+            android:name=".presentation.screens.home.HomeActivity"
+            android:windowSoftInputMode="adjustPan">
+
+
+        </activity>
         <activity android:name=".presentation.screens.home.productsDetailsFragment.ProductInfoActivity" />
         <activity android:name=".presentation.screens.home.productsDetailsFragment.DetailImageActivity" />
         <activity android:name=".presentation.screens.getUserLocation.GetUserLocationActivity" />
@@ -52,6 +56,7 @@
         <!-- android:configChanges= -->
         <!-- "keyboard|keyboardHidden|screenLayout|screenSize|orientation" -->
         <!-- android:label="@string/app_name" /> -->
+
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">

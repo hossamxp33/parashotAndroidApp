@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">parashotApp</string>
+    <string name="app_name">parashotApp</string>
     <string name="mainpage">القسم</string>
     <string name="cancel">الغاء</string>
     <string name="open_permission">فتح</string>
@@ -151,10 +152,5 @@
     <string name="already_eng">You are already using english language</string>
     <string name="arabic_change">تم تغيير اللغة إلى اللغة العربية</string>
     <string name="eng_change">Language has been changed to english</string>
-
-    <array name="delivery_through">
-
-
-    </array>
 
 </resources>

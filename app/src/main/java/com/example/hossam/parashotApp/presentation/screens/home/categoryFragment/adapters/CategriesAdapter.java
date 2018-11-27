@@ -59,7 +59,7 @@ public class CategriesAdapter extends RecyclerView.Adapter<CategriesAdapter.Cust
 
         //////set percentage from all screen
         layoutParams.height = (int) (height * 0.2);
-        layoutParams.width = (width / 3)-10;
+        layoutParams.width = (width / 3)-20;
         view.setLayoutParams(layoutParams);
 
         return new CategriesAdapter.CustomView(view);

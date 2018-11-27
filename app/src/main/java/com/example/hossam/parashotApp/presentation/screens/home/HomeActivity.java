@@ -3,6 +3,7 @@ package com.example.hossam.parashotApp.presentation.screens.home;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -28,6 +29,9 @@ import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment
 import com.example.hossam.parashotApp.presentation.screens.home.dealsOffersFragment.DealsOffersFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.loginFragment.LoginFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MYOrderFragment;
+
+import java.util.Locale;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
@@ -37,7 +41,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     PreferenceHelper preferenceHelper;
     DrawerLayout drawerLayout;
     NavigationView mNavigationView;
-
+    String arabic = "0";
+    String eng = "1";
+    String check_lang;
     ///////// defind attachBaseContext to install font
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -59,8 +65,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mNavigationView = findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
         preferenceHelper = new PreferenceHelper(this);
-
-
+        check_lang = preferenceHelper.getLanguage();
+        initializeLanguage(check_lang);
         findViewById(R.id.menu).setOnClickListener(v ->
                 {
                     RotateAnimation anim = new RotateAnimation(0f, 350f, 15f, 15f);
@@ -86,6 +92,50 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             double longitude = gpsTracker.getLongitude();
             preferenceHelper.setCURRENTLAT(String.valueOf(latitude));
             preferenceHelper.setCURRENTLONG(String.valueOf(longitude));
+        }
+    }
+
+    private void initializeLanguage(String check_lang) {
+
+        if (check_lang == null) {
+            Locale.getDefault().getDisplayLanguage();
+            if (Locale.getDefault().getDisplayLanguage() != null && Locale.getDefault().getDisplayLanguage().equals("العربية")) {
+                preferenceHelper.setLanguage(arabic);
+                String languageToLoad = "العربية";
+                Locale locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                HomeActivity.this.getResources().updateConfiguration(config, HomeActivity.this.getResources().getDisplayMetrics());
+            }
+
+            else if (Locale.getDefault().getDisplayLanguage() != null && Locale.getDefault().getDisplayLanguage().equals("English")) {
+                preferenceHelper.setLanguage(eng);
+                String languageToLoad = "en";
+                Locale locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                HomeActivity.this.getResources().updateConfiguration(config, HomeActivity.this.getResources().getDisplayMetrics());
+            }
+        }
+        else {
+            if ( check_lang.equals("0")) {
+                String languageToLoad = "ar";
+                Locale locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                HomeActivity.this.getResources().updateConfiguration(config, HomeActivity.this.getResources().getDisplayMetrics());
+
+            } else if (check_lang.equals("1")) {
+                String languageToLoad = "en";
+                Locale locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                HomeActivity.this.getResources().updateConfiguration(config, HomeActivity.this.getResources().getDisplayMetrics());
+            }
         }
     }
 

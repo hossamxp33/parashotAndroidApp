@@ -55,7 +55,7 @@ public class PreferenceHelper {
 	}
 
 	public String getCURRENTLAT() {
-		return app_prefs.getString(CURRENTLAT, "0");
+		return app_prefs.getString(CURRENTLAT, null);
 	}
 
 	public String getCURRENTLONG()  {
