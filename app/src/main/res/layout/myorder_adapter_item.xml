@@ -141,10 +141,11 @@
         android:layout_marginBottom="8dp"
         android:ellipsize="end"
         android:gravity="center"
+        android:lines="2"
         android:text="@{ordermodel.name}"
         android:textColor="#4A4A4A"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/guidhorizental3"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/vieww"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.25"
         app:layout_constraintStart_toEndOf="@id/guidvertical2"
@@ -254,6 +255,7 @@
 
 
     <TextView
+        android:id="@+id/goto_deliveryoffers"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

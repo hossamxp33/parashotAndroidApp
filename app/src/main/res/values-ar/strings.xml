@@ -152,5 +152,6 @@
     <string name="already_eng">You are already using english language</string>
     <string name="arabic_change">تم تغيير اللغة إلى اللغة العربية</string>
     <string name="eng_change">Language has been changed to english</string>
+    <string name="unit">كم</string>
 
 </resources>

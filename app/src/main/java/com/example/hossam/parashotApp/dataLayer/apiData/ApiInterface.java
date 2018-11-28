@@ -2,6 +2,7 @@ package com.example.hossam.parashotApp.dataLayer.apiData;
 
 import com.example.hossam.parashotApp.entities.Categories;
 import com.example.hossam.parashotApp.entities.DealsModel;
+import com.example.hossam.parashotApp.entities.DeliveryOffers;
 import com.example.hossam.parashotApp.entities.OffersModel;
 import com.example.hossam.parashotApp.entities.RatessOfProductModel;
 import com.example.hossam.parashotApp.entities.LoginResponseModel;
@@ -122,6 +123,14 @@ public interface ApiInterface {
 
     @GET("deals/getdeals.json")
     Call<DealsModel> getDeals();
+
+    @GET("offers/getorderdelivery/{orderid}.json")
+    @Headers("Accept: Application/json")
+    Call<DeliveryOffers> getDeliveryOffers(
+            @Path(value = "orderid") int orderid
+    );
+
+
 
 }
 

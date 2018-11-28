@@ -172,7 +172,6 @@ public class MakeOrderFromGoogleFragment extends Fragment {
                 R.layout.spinner_item_custom, Stringlist);
 
         dataAdapter.setDropDownViewResource( R.layout.spinner_item_custom_popup);
-
         spinner.setAdapter(dataAdapter);
 
     }
