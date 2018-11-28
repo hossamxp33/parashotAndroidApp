@@ -15,7 +15,7 @@ public class MyOrderViewModel extends ViewModel {
 
     private MyOrderRepository myOrder_repository;
     MutableLiveData<FilterMyOrder> allMyOrders = new MutableLiveData<FilterMyOrder>();
-    private MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
+     MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
      MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
     private String name, imagePath, item_description, storenamevalue,

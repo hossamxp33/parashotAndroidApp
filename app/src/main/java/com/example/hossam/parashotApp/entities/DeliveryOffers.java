@@ -357,7 +357,16 @@ public class DeliveryOffers {
                 private Object modified;
                 private String delivery_long;
                 private String delivery_lat;
+                private String photo;
                 private List<DeliveryratesBean> deliveryrates;
+
+                public String getPhoto() {
+                    return photo;
+                }
+
+                public void setPhoto(String photo) {
+                    this.photo = photo;
+                }
 
                 public int getId() {
                     return id;

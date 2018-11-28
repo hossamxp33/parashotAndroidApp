@@ -88,7 +88,6 @@ public class CategoryFragment extends Fragment {
     public void onResume(){
         super.onResume();
         categoryViewModel.categoriesLiveData.observe(this, categories -> {
-
             customAdapter = new CategriesAdapter(getActivity(), categories.getData(), categories.getSlider());
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
             Log.i("hieght", "onResume: "+recyclerView.getHeight());

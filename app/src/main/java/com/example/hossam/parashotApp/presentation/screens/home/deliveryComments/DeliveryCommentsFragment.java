@@ -1,4 +1,4 @@
-package com.example.hossam.parashotApp.presentation.screens.home.ratesOfProduct;
+package com.example.hossam.parashotApp.presentation.screens.home.deliveryComments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
@@ -12,12 +12,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.helper.ProgressDialogHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
+import com.example.hossam.parashotApp.presentation.screens.home.deliveryComments.adapter.CommentsAdapter;
+import com.example.hossam.parashotApp.presentation.screens.home.ratesOfProduct.ProductRatesViewModelFactory;
 import com.example.hossam.parashotApp.presentation.screens.home.ratesOfProduct.adapter.AllRatesAdapter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -25,18 +26,17 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 
-public class RatesOfProductFragment extends Fragment {
+public class DeliveryCommentsFragment extends Fragment {
 
 
     @SerializedName("records")
     @Expose
     private RecyclerView recyclerView;
-    private ProductRatesViewModel productRatesViewModel;
-    int type,productid;
-    AllRatesAdapter allRatesAdapter;
-    FrameLayout progress;
+    private DeliveryCommentsViewModel deliveryCommentsViewModel;
+    int type, deliverID;
+    CommentsAdapter commentsAdapter;
 
-    public RatesOfProductFragment() {
+    public DeliveryCommentsFragment() {
         // Required empty public constructor
     }
 
@@ -52,38 +52,29 @@ public class RatesOfProductFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.product_rates, container, false);
         recyclerView = view.findViewById(R.id.recylerview);
-        progress = view.findViewById(R.id.progress);
 
-        ((HomeActivity)Objects.requireNonNull(getActivity())).title.setText(getText(R.string.comments));
-
-        // type=getArguments().getInt("type");
-        productid=getArguments().getInt("product_id");
-        type =getArguments().getInt("type");  // get type is from stor or product
+        ((HomeActivity) Objects.requireNonNull(getActivity())).title.setText(getText(R.string.comments));
 
 
-        productRatesViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(ProductRatesViewModel.class);
+        deliverID = getArguments().getInt("delivery_id");
+        deliverID = 1;
+        deliveryCommentsViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(DeliveryCommentsViewModel.class);
 
 
-        productRatesViewModel.productratesMutableLiveData.observe(getActivity(),ratessOfProductModel -> {
-
-
-            allRatesAdapter = new AllRatesAdapter(getActivity(),ratessOfProductModel.getData());
-           recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
-            recyclerView.setAdapter(allRatesAdapter);
+        deliveryCommentsViewModel.deliveryCommentsMutableLiveData.observe(getActivity(), deliveryComments -> {
+            commentsAdapter = new CommentsAdapter(getActivity(), deliveryComments.getData());
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+            recyclerView.setAdapter(commentsAdapter);
 
         });
 
-        productRatesViewModel.loading.observe(this, loading ->
-                progress.setVisibility(loading ? View.VISIBLE : View.GONE));
-
-
-        productRatesViewModel.errorLiveData.observe(this, new Observer<Throwable>() {
+        deliveryCommentsViewModel.errorLiveData.observe(this, new Observer<Throwable>() {
                     @Override
                     public void onChanged(@Nullable Throwable throwable) {
                         // todo show errorى
                         assert throwable != null;
-                        Toast.makeText(getActivity(),getResources().getString(R.string.erroroccur)+
-                                throwable.getCause().getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.erroroccur) +
+                                throwable.getCause().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -93,7 +84,7 @@ public class RatesOfProductFragment extends Fragment {
 
     @NonNull
     private ViewModelProvider.Factory getViewModelFactory() {
-        return new ProductRatesViewModelFactory(getActivity().getApplication(),type,productid);
+        return new DeliveryComentsViewModelFactory(getActivity().getApplication(), deliverID);
     }
 
 }

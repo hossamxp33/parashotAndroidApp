@@ -74,6 +74,21 @@
         app:layout_constraintGuide_percent="0.4"
         />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guidvertical33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.42"
+        />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidvertical333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.71"
+        />
     <ImageView
         android:id="@+id/item_img"
         android:layout_width="0dp"
@@ -255,25 +270,68 @@
 
 
     <TextView
+        android:id="@+id/request_again"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/myorder_actions_back"
+        android:gravity="center"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:text="@string/orderagain"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guidvertical333"
+        app:layout_constraintStart_toEndOf="@+id/guidvertical33"
+        app:layout_constraintWidth_percent="0.27" />
+
+    <TextView
+        android:id="@+id/rate_product"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/myorder_actions_back"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="2"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:text="@string/rateproduct"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guidvertical333"
+        app:layout_constraintWidth_percent="0.27" />
+
+
+    <TextView
         android:id="@+id/goto_deliveryoffers"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
         android:layout_weight="1"
-        android:background="@drawable/addtocart_back"
+        android:background="@drawable/myorder_actions_commplete_back"
         android:gravity="center"
-        android:lines="1"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
         app:layout_constraintWidth_percent="0.4"
-        android:text="@string/orderagain"
+        android:text="@string/delivery_offers"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/guidvertical2"
-       />
+        app:layout_constraintStart_toEndOf="@+id/guidvertical33"
+        />
+
 
 </android.support.constraint.ConstraintLayout>
 </layout>

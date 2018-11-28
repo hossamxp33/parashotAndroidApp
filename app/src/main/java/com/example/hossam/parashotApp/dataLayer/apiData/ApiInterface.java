@@ -2,6 +2,7 @@ package com.example.hossam.parashotApp.dataLayer.apiData;
 
 import com.example.hossam.parashotApp.entities.Categories;
 import com.example.hossam.parashotApp.entities.DealsModel;
+import com.example.hossam.parashotApp.entities.DeliveryComments;
 import com.example.hossam.parashotApp.entities.DeliveryOffers;
 import com.example.hossam.parashotApp.entities.OffersModel;
 import com.example.hossam.parashotApp.entities.RatessOfProductModel;
@@ -111,10 +112,27 @@ public interface ApiInterface {
     );
 
 
-    @GET("products/getallproductratesbyid/{productid}.json")
+    @Multipart
+    @POST("orders/edit/{orderid}.json")
+    Call<ResponseBody> editOrderStatues(
+            @Path(value = "orderid") int orderid,
+            @Part("delivery_id") RequestBody delivry,
+            @Part("order_status") RequestBody status,
+            @Part("delivery_price") RequestBody price
+    );
+
+    @GET("products/getallproductratesbyid/{productid}/{type}.json")
     @Headers("Accept: Application/json")
     Call<RatessOfProductModel> getProductsRate(
-            @Path(value = "productid") int productid
+            @Path(value = "productid") int productid,
+            @Path(value = "type") int type
+    );
+
+
+    @GET("delivries/getdeliveryrate/{deliveryId}.json")
+    @Headers("Accept: Application/json")
+    Call<DeliveryComments> getDeliveryRates(
+            @Path(value = "deliveryId") int deliveryId
     );
 
 

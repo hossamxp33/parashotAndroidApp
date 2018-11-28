@@ -17,7 +17,7 @@
         app:singleSelection="true">
 
         <android.support.design.chip.Chip
-            android:id="@+id/chipOffers"
+            android:id="@+id/chipnotcommpleted"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
@@ -32,7 +32,7 @@
             app:rippleColor="@color/purple" />
 
         <android.support.design.chip.Chip
-            android:id="@+id/chipDeals"
+            android:id="@+id/chipCompleted"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="36dp"

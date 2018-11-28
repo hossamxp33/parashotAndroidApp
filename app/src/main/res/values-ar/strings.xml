@@ -83,16 +83,16 @@
     <string name="paymenpage">صفحة الدفع</string>
     <string name="finish_order">انهاء الطلب</string>
     <string name="cart">سلة المنتجات</string>
-    <string name="male">ذكر</string>
-    <string name="female">انثى</string>
+    <string name="male"><font size="16">ذكر</font></string>
+    <string name="female"><font size="16">أنثى</font></string>
     <string name="register">تسجيل</string>
-    <string name="username">اسم المستخدم</string>
+    <string name="username"><font size="16">اسم المستخدم</font></string>
     <string name="register_in_login">التسجيل</string>
     <string name="forgetpassword">نسيت كلمة المرور؟</string>
     <string name="registerfb">continue with facebook</string>
-    <string name="password">كلمة المرور</string>
-    <string name="birthdate">تاريخ الميلاد</string>
-    <string name="phone">رقم الهاتف</string>
+    <string name="password"><font size="16"> كلمة المرور</font></string>
+    <string name="birthdate"><font size="16">تاريخ الميلاد</font></string>
+    <string name="phone"><font size="16">رقم الهاتف</font></string>
     <string name="registertitle">التسجيل</string>
     <string name="commpletefileds">الرجاء اكمال البيانات</string>
     <string name="usernamevalidate">اسم المستخدم يجب ان يحتوي علي حروف ثم ارقام</string>
@@ -153,5 +153,9 @@
     <string name="arabic_change">تم تغيير اللغة إلى اللغة العربية</string>
     <string name="eng_change">Language has been changed to english</string>
     <string name="unit">كم</string>
+    <string name="costunit">  ر.س  </string>
+    <string name="rateproduct">تقييم المنتج</string>
+    <string name="delivery_viewa">متابعة المندوب</string>
+    <string name="deliverycomments">تعليقات المندوب</string>
 
 </resources>

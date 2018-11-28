@@ -7,6 +7,8 @@ import com.example.hossam.parashotApp.dataLayer.apiData.ApiInterface;
 import com.example.hossam.parashotApp.entities.DeliveryOffers;
 import com.example.hossam.parashotApp.entities.StoresFromGoogleModel;
 
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,6 +18,8 @@ public class DeliveryOffersRepository {
 
     private ApiInterface apiService;
     private Consumer<DeliveryOffers> onSuccess;
+    private Consumer<Boolean> onSuccessEdit;
+    private Consumer<Throwable> onErrorEdit;
     private Consumer<StoresFromGoogleModel> onSuccessGooglePlaces;
     private Consumer<Throwable> onError;
     private int orderid;
@@ -59,10 +63,41 @@ public class DeliveryOffersRepository {
         }
     }
 
+    public   void editOrder(int orderid , RequestBody delivry_id, RequestBody status , RequestBody price)
+    {
+
+        apiService.editOrderStatues(orderid,delivry_id,status,price).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful())
+                    onSuccessEdit.accept(true);
+
+                else
+                    onSuccessEdit.accept(false);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+
+
+    }
+
     public void setOnSuccess(Consumer<DeliveryOffers> onSuccess) {
         this.onSuccess = onSuccess;
     }
 
+
+    public void setOnSuccessEdit(Consumer<Boolean> onSuccessEdit) {
+        this.onSuccessEdit = onSuccessEdit;
+    }
+
+    public void sererroreditOrder(Consumer<Throwable> onErrorEdit1) {
+        this.onErrorEdit = onErrorEdit1;
+    }
 
     public void setOnError(Consumer<Throwable> onError) {
         this.onError = onError;

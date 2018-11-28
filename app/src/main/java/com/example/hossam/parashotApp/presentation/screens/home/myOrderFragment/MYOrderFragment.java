@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.chip.Chip;
 import android.support.design.chip.ChipGroup;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,6 +22,8 @@ import com.example.hossam.parashotApp.entities.MYOrdersModel;
 import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.adapters.MyOrderAdapter;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,7 +37,7 @@ public class MYOrderFragment extends Fragment {
     TextView txtnotfound;
     PreferenceHelper preferenceHelper;
     private FrameLayout progress;
-    List<MYOrdersModel.DataBean> completOrders, notcompleteOrders;
+    List<MYOrdersModel.DataBean> completOrders = new ArrayList<>(), notcompleteOrders = new ArrayList<>();
     public MYOrderFragment() {
         // Required empty public constructor
     }
@@ -74,6 +77,10 @@ public class MYOrderFragment extends Fragment {
         myOrderViewModel.loading.observe(this, loading ->
                 progress.setVisibility(loading ? View.VISIBLE : View.GONE));
 
+        myOrderViewModel.errorLiveData.observe(this,throwable ->
+                Snackbar.make(view,getText(R.string.erroroccur),Snackbar.LENGTH_LONG).show()
+        );
+
         ChipGroup chipGroup = view.findViewById(R.id.chiporders);
         chipGroup.setOnCheckedChangeListener((chipGroup1, i) -> {
             Chip chip = chipGroup1.findViewById(i);
@@ -84,8 +91,9 @@ public class MYOrderFragment extends Fragment {
                 chip.setClickable(false);
             }
 
-            if (i==2131296394) {
+            if (i==2131296401) {
                 if (notcompleteOrders.size()>0) {
+
                     myOrderAdapter = new MyOrderAdapter(getActivity(), notcompleteOrders);
                     recyclerView.setAdapter(myOrderAdapter);
                     recyclerView.setVisibility(View.VISIBLE);
@@ -97,7 +105,7 @@ public class MYOrderFragment extends Fragment {
                 }
             }
 
-            else if (i==2131296392)
+            else if (i==2131296397)
             {
                 if (completOrders.size()>0) {
                     myOrderAdapter = new MyOrderAdapter(getActivity(), completOrders);

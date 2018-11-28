@@ -70,9 +70,8 @@ public class DeliveryOffersFragment extends Fragment {
 
         orderid=getArguments().getInt("orderid");
 
-        orderid =1;
+        //orderid =1;
         deliveryOffersViewModel = ViewModelProviders.of(this,getViewModelFactory()).get(DeliveryOffersViewModel.class);
-
 
         deliveryOffersViewModel.loading.observe(this, loading ->
                 progress.setVisibility(loading ? View.VISIBLE : View.GONE));
@@ -81,7 +80,7 @@ public class DeliveryOffersFragment extends Fragment {
         deliveryOffersViewModel.Deliveryoffers.observe(getActivity(),storeslistData ->
             {
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                deliveryOffersAdapter = new DeliveryOffersAdapter(getActivity(), storeslistData);
+                deliveryOffersAdapter = new DeliveryOffersAdapter(getActivity(), storeslistData,deliveryOffersViewModel,orderid);
                 recyclerView.setAdapter(deliveryOffersAdapter);
              }
         );
@@ -103,7 +102,7 @@ public class DeliveryOffersFragment extends Fragment {
 
     @NonNull
     private ViewModelProvider.Factory getViewModelFactory() {
-        return new DeliveryOffersViewModelFactory(getActivity().getApplication(),orderid);
+        return new DeliveryOffersViewModelFactory(getActivity().getApplication(),1);
     }
 
 }

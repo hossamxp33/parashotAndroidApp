@@ -4,33 +4,32 @@ import android.support.v4.util.Consumer;
 import android.util.Log;
 
 import com.example.hossam.parashotApp.dataLayer.apiData.ApiInterface;
-import com.example.hossam.parashotApp.entities.RatessOfProductModel;
+import com.example.hossam.parashotApp.entities.DeliveryComments;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ProductRatesRepository {
+public class DeliveryCommentsRepository {
 
     private ApiInterface apiService;
-    private Consumer<RatessOfProductModel> onSuccess;
+    private Consumer<DeliveryComments> onSuccess;
     private Consumer<Throwable> onError;
-    private int productid,type;
-    public ProductRatesRepository(ApiInterface apiService1, int typeid, int productid1)
-    {
+    private int deliveryid;
+
+    public DeliveryCommentsRepository(ApiInterface apiService1, int deliveryid1) {
         apiService = apiService1;
-        productid = productid1;
-        type = typeid;
+        deliveryid = deliveryid1;
         getRatesData();
 
     }
 
     private void getRatesData() {
         try {
-            apiService.getProductsRate(productid,type).enqueue(new Callback<RatessOfProductModel>() {
+            apiService.getDeliveryRates(deliveryid).enqueue(new Callback<DeliveryComments>() {
                 @Override
-                public void onResponse(Call<RatessOfProductModel> call, final Response<RatessOfProductModel> response) {
+                public void onResponse(Call<DeliveryComments> call, final Response<DeliveryComments> response) {
                     if (response.body() != null) {
                         if (response.isSuccessful()) {
                             if (onSuccess != null) {
@@ -46,7 +45,7 @@ public class ProductRatesRepository {
                 }
 
                 @Override
-                public void onFailure(Call<RatessOfProductModel> call, Throwable t) {
+                public void onFailure(Call<DeliveryComments> call, Throwable t) {
                     Log.d("GetAllData fail -> ", call.toString());
                     // TODO: return error
                     if (onError != null) {
@@ -61,9 +60,7 @@ public class ProductRatesRepository {
     }
 
 
-
-
-    public void setOnSuccess(Consumer<RatessOfProductModel> onSuccess) {
+    public void setOnSuccess(Consumer<DeliveryComments> onSuccess) {
         this.onSuccess = onSuccess;
     }
 

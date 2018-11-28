@@ -48,6 +48,9 @@ public class MyOrderRepository {
                             }
                         }
                     }
+                    else
+                        onError.accept(new Exception());
+
                 }
 
                 @Override

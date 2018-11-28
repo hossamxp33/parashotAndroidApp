@@ -77,13 +77,12 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:text="@string/male"
-            android:textColor="@color/black"
+            android:textColor="@color/gray"
             android:textSize="18sp" />
 
         <View
-            android:layout_width="1dp"
+            android:layout_width="0.8dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.004"
             android:background="@color/gray" />
 
         <TextView
@@ -93,7 +92,7 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:text="@string/female"
-            android:textColor="@color/black"
+            android:textColor="@color/gray"
             android:textSize="18sp" />
     </LinearLayout>
 

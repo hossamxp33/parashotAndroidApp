@@ -46,6 +46,7 @@ public class AllStoriesAdapter extends RecyclerView.Adapter<AllStoriesAdapter.Cu
         if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(parent.getContext());
         }
+
         ResturantMenu1Binding subCategry1Binding = DataBindingUtil.inflate(layoutInflater, R.layout.first_resturant_adapter_item, parent, false);
         return new CustomView(subCategry1Binding);
     }
@@ -89,6 +90,7 @@ public class AllStoriesAdapter extends RecyclerView.Adapter<AllStoriesAdapter.Cu
                 Fragment fragment = new RatesOfProductFragment();
                 Bundle bundle =new Bundle();
                 bundle.putInt("product_id",1);
+                bundle.putInt("type",1); //////////send type 1 to return rate of all product in store
                 fragment.setArguments(bundle);
                 ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,fragment).addToBackStack(null).commit();
             }
@@ -130,7 +132,6 @@ public class AllStoriesAdapter extends RecyclerView.Adapter<AllStoriesAdapter.Cu
                         Snackbar.make(v, context.getText(R.string.loginfirst), Snackbar.LENGTH_LONG).show();
                 }
 
-
             }
 
         });
@@ -145,7 +146,6 @@ public class AllStoriesAdapter extends RecyclerView.Adapter<AllStoriesAdapter.Cu
     public void setItems(ArrayList<StoresList.DataBean> newList) {
         arrayList.clear();
         arrayList.addAll(newList);
-
         notifyDataSetChanged();
     }
 

@@ -100,6 +100,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 Fragment fragment = new RatesOfProductFragment();
                 Bundle bundle =new Bundle();
                 bundle.putInt("product_id",productData.get(position).getId());
+                bundle.putInt("type",0); //////////send type 1 to return rate of that product  only
                 fragment.setArguments(bundle);
                 ((FragmentActivity) mcontext).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,fragment).addToBackStack(null).commit();
                 return false;
