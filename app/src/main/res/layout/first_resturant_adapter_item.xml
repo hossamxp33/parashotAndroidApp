@@ -10,9 +10,6 @@
             type="com.example.hossam.parashotApp.presentation.screens.home.storesFragment.StoresViewModel"/>
     </data>
 
-
-
-
     <android.support.constraint.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -21,14 +18,12 @@
         android:layout_marginTop="7dp"
         android:background="@drawable/linear_background_for_store_item">
 
-
         <android.support.constraint.Guideline
             android:id="@+id/guidelinerightoflogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.06" />
-
 
 
         <android.support.constraint.Guideline
@@ -115,6 +110,7 @@
             android:layout_height="140dp"
             android:scaleType="fitXY"
             android:src="@drawable/bizza"
+            app:imageUrl="@{resturantlistmodel.cover}"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/storename" />
@@ -123,8 +119,7 @@
             android:layout_width="90dp"
             android:layout_height="80dp"
             android:background="@drawable/logoback"
-            android:scaleType="fitCenter"
-            android:src="@drawable/pizzalogo"
+            android:scaleType="center"
             app:imageUrl="@{resturantlistmodel.logo}"
             app:layout_constraintStart_toEndOf="@id/guidelinerightoflogo"
             app:layout_constraintTop_toBottomOf="@+id/storename" />
@@ -137,6 +132,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:lines="1"
+            android:padding="1dp"
             android:text="@{resturantlistmodel.place}"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/guidelineright2"
@@ -162,6 +158,7 @@
             app:layout_constraintTop_toBottomOf="@+id/storeimage" />
 
         <LinearLayout
+            android:id="@+id/ratecontainer"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@+id/storeimage"
@@ -169,8 +166,7 @@
             app:layout_constraintEnd_toStartOf="@id/view2"
             app:layout_constraintBottom_toBottomOf="parent"
             android:orientation="horizontal"
-            android:gravity="center"
-            >
+            android:gravity="center">
 
             <RatingBar
                 android:id="@+id/rates"
@@ -186,7 +182,6 @@
                 android:id="@+id/ratenum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:lines="1"
@@ -194,9 +189,8 @@
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toStartOf="@+id/view2"
                 app:layout_constraintStart_toEndOf="@id/rates"
-                app:layout_constraintTop_toBottomOf="@+id/storeimage" />
+                app:layout_constraintTop_toBottomOf="@+id/storeimage"/>
         </LinearLayout>
-
 
         <TextView
             android:id="@+id/chat"
@@ -211,7 +205,6 @@
             app:layout_constraintEnd_toEndOf="@id/guidelineright5"
             app:layout_constraintStart_toStartOf="@id/guidelineright8"
             app:layout_constraintTop_toBottomOf="@+id/storeimage" />
-
 
         <View
             android:id="@+id/view3"
@@ -239,25 +232,6 @@
 
 </layout>
 
-    <!--<android.support.constraint.ConstraintLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_marginTop="85dp"-->
-        <!--android:layout_height="wrap_content">-->
-
-            <!--<ImageView-->
-            <!--android:layout_width="35dp"-->
-            <!--android:layout_height="65dp"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--android:src="@drawable/view11"/>-->
-
-        <!--<ImageView-->
-            <!--android:layout_width="35dp"-->
-            <!--android:layout_height="65dp"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--android:src="@drawable/view22"/>-->
-    <!--</android.support.constraint.ConstraintLayout>-->
-
-<!--</RelativeLayout>-->
 
 
 

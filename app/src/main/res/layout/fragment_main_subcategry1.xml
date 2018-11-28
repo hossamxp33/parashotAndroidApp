@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
 
-        <include layout="@layout/header_for_first_subcat"
+        <include layout="@layout/parashot_header"
             android:id="@+id/header"/>
 
         <android.support.constraint.ConstraintLayout
@@ -26,7 +26,7 @@
 
 
             <ImageView
-                android:id="@+id/st1"
+                android:id="@+id/menu"
                 android:layout_width="45dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
@@ -37,8 +37,8 @@
                 <TextView
                     android:layout_width="12dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@+id/st1"
-                    app:layout_constraintTop_toTopOf="@+id/st1"
+                    app:layout_constraintStart_toStartOf="@+id/menu"
+                    app:layout_constraintTop_toTopOf="@+id/menu"
                     android:layout_marginStart="5dp"
                     android:text="3"
                     android:gravity="center"
@@ -47,14 +47,14 @@
                     />
 
             <TextView
-                android:id="@+id/code_txt"
+                android:id="@+id/productcounttext"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="لديك الان 3 منتجات بالسلة"
                 android:maxLines="2"
                 android:ellipsize="end"
-                app:layout_constraintStart_toEndOf="@id/st1"
-                app:layout_constraintEnd_toStartOf="@id/st2"
+                app:layout_constraintStart_toEndOf="@id/menu"
+                app:layout_constraintEnd_toStartOf="@id/sale"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:textColor="@color/text_numbers"
@@ -62,7 +62,7 @@
                 />
 
             <TextView
-                android:id="@+id/st2"
+                android:id="@+id/sale"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:text="شراء"

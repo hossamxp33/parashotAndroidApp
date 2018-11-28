@@ -1,5 +1,6 @@
 package com.example.hossam.parashotApp.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class MYOrdersModel {
@@ -17,13 +18,14 @@ public class MYOrdersModel {
 
     public static class DataBean {
         /**
-         * id : 1
+         * id : 36
          * user_id : 1
          * store_id : 50
+         * order_status : 2
          * delivry_id : 1
          * created : 2018-10-27T00:00:00+0000
-         * modified : null
-         * orderdetails : [{"id":1,"product_id":1,"price":"5,8499.00ريال","order_status":"0","address":"maddi","type":"ss","user_lat":"76","user_long":"60","notice":"no","created":"2018-10-28T14:39:09+0000","modified":"2018-10-28T14:39:09+0000","payment_id":1,"order_id":1,"product":{"id":1,"name":"iphone","subcat_id":"","category_id":"","price":"10","last_price":"15","description":"iphone is a line of smartphones designed and marketed by Apple Inc","store_id":"50","brand":"apple","product_info":"<html>\r\n<head>\r\n<\/head>\r\n<body>\r\n<ul>\r\n<li>دقه الكاميرا:5 ميجابكسل<\/li>\r\n<li>رام: 1 جيجابايت<\/li>\r\n<li>كاميرا ثانيه:5 ميجابكسل<\/li>\r\n<li>بنيه الشبكات:4جي ال تي اي<\/li>\r\n<li>دقه الكاميرا:5 ميجابكسل<\/li>\r\n<li>رام: 1 جيجابايت<\/li>\r\n<li>كاميرا ثانيه:5 ميجابكسل<\/li>\r\n<li>بنيه الشبكات:4جي ال تي اي<\/li>\r\n<li>دقه الكاميرا:5 ميجابكسل<\/li>\r\n<li>رام: 1 جيجابايت<\/li>\r\n<li>كاميرا ثانيه:5 ميجابكسل<\/li>\r\n<li>بنيه الشبكات:4جي ال تي اي<\/li>\r\n<\/ul>\r\n<\/body>\r\n<\/html>","amount":2,"guarantee":1,"created":"2018-09-17T16:37:29+0000","modified":"2018-09-17T16:38:03+0000","visible":"false","total_rating":[{"product_id":1,"stars":6,"count":3}],"productphotos":[{"id":1,"photo":"http://parashot.codesroots.com/library/default/35768252.jpg","main":"ahmed2","product_id":1,"created":"2018-09-18T14:47:31+0000","modified":"2018-10-15T13:59:48+0000"},{"id":2,"photo":"http://parashot.codesroots.com/library/default/35768252.jpg","main":"ahmed5","product_id":1,"created":"2018-09-19T17:10:00+0000","modified":"2018-09-21T19:45:41+0000"},{"id":3,"photo":"http://parashot.codesroots.com/library/default/35768252.jpg","main":"ahmed7","product_id":1,"created":"2018-09-21T19:48:22+0000","modified":"2018-09-21T19:48:22+0000"}],"productrates":[{"id":1,"rate":3,"product_id":1,"user_id":1,"created":"2018-09-19T09:29:00+0000","modified":"2018-09-18T09:32:08+0000"},{"id":2,"rate":2,"product_id":1,"user_id":1,"created":"2018-10-03T09:29:00+0000","modified":"2018-09-18T09:32:08+0000"},{"id":6,"rate":1,"product_id":1,"user_id":1,"created":"2018-10-08T09:29:00+0000","modified":"2018-09-18T09:32:08+0000"}]}}]
+         * modified : 2018-10-29T14:37:16+0000
+         * orderdetails : [{"id":59,"product_id":1,"price":"5,8499.00ريال","address":"maddi","type":"ss","user_lat":"76","user_long":"60","notice":"no","created":"2018-10-28T14:39:09+0000","modified":"2018-10-28T14:39:09+0000","payment_id":1,"order_id":36,"product":{"id":1,"name":"iphone","subcat_id":"","category_id":"","price":"10","last_price":"15","description":"iphone is a line of smartphones designed and marketed by Apple Inc","store_id":"50","brand":"apple","product_info":"<html>\r\n<head>\r\n<\/head>\r\n<body>\r\n<ul>\r\n<li>دقه الكاميرا:5 ميجابكسل<\/li>\r\n<li>رام: 1 جيجابايت<\/li>\r\n<li>كاميرا ثانيه:5 ميجابكسل<\/li>\r\n<li>بنيه الشبكات:4جي ال تي اي<\/li>\r\n<li>دقه الكاميرا:5 ميجابكسل<\/li>\r\n<li>رام: 1 جيجابايت<\/li>\r\n<li>كاميرا ثانيه:5 ميجابكسل<\/li>\r\n<li>بنيه الشبكات:4جي ال تي اي<\/li>\r\n<li>دقه الكاميرا:5 ميجابكسل<\/li>\r\n<li>رام: 1 جيجابايت<\/li>\r\n<li>كاميرا ثانيه:5 ميجابكسل<\/li>\r\n<li>بنيه الشبكات:4جي ال تي اي<\/li>\r\n<\/ul>\r\n<\/body>\r\n<\/html>","amount":2,"guarantee":1,"created":"2018-09-17T16:37:29+0000","modified":"2018-09-17T16:38:03+0000","visible":"false","total_rating":[{"product_id":1,"stars":6,"count":3}],"productphotos":[{"id":1,"photo":"http://parashot.codesroots.com/library/default/35768252.jpg","main":"ahmed2","product_id":1,"created":"2018-09-18T14:47:31+0000","modified":"2018-10-15T13:59:48+0000"},{"id":2,"photo":"http://parashot.codesroots.com/library/default/35768252.jpg","main":"ahmed5","product_id":1,"created":"2018-09-19T17:10:00+0000","modified":"2018-09-21T19:45:41+0000"},{"id":3,"photo":"http://parashot.codesroots.com/library/default/35768252.jpg","main":"ahmed7","product_id":1,"created":"2018-09-21T19:48:22+0000","modified":"2018-09-21T19:48:22+0000"}],"productrates":[{"id":1,"rate":3,"product_id":1,"user_id":1,"created":"2018-09-19T09:29:00+0000","modified":"2018-09-18T09:32:08+0000"},{"id":2,"rate":2,"product_id":1,"user_id":1,"created":"2018-10-03T09:29:00+0000","modified":"2018-09-18T09:32:08+0000"},{"id":6,"rate":1,"product_id":1,"user_id":1,"created":"2018-10-08T09:29:00+0000","modified":"2018-09-18T09:32:08+0000"}]}}]
          * store : {"id":50,"name":"ahmed12345"}
          * delivry : {"id":1,"name":"حازم"}
          */
@@ -31,12 +33,50 @@ public class MYOrdersModel {
         private int id;
         private int user_id;
         private int store_id;
+        private String order_status;
         private int delivry_id;
         private String created;
-        private Object modified;
+        private String modified;
+        private String photo;
+        private String store_icon;
         private StoreBean store;
+        private String storename;
+        private float rate;
         private DelivryBean delivry;
+
         private List<OrderdetailsBean> orderdetails;
+
+        public float getRate() {
+            return rate;
+        }
+
+        public void setRate(float rate) {
+            this.rate = rate;
+        }
+
+        public String getStorename() {
+            return storename;
+        }
+
+        public void setStorename(String storename) {
+            this.storename = storename;
+        }
+
+        public String getStore_icon() {
+            return store_icon;
+        }
+
+        public void setStore_icon(String store_icon) {
+            this.store_icon = store_icon;
+        }
+
+        public String getPhoto() {
+            return photo;
+        }
+
+        public void setPhoto(String photo) {
+            this.photo = photo;
+        }
 
         public int getId() {
             return id;
@@ -62,6 +102,14 @@ public class MYOrdersModel {
             this.store_id = store_id;
         }
 
+        public String getOrder_status() {
+            return order_status;
+        }
+
+        public void setOrder_status(String order_status) {
+            this.order_status = order_status;
+        }
+
         public int getDelivry_id() {
             return delivry_id;
         }
@@ -78,11 +126,11 @@ public class MYOrdersModel {
             this.created = created;
         }
 
-        public Object getModified() {
+        public String getModified() {
             return modified;
         }
 
-        public void setModified(Object modified) {
+        public void setModified(String modified) {
             this.modified = modified;
         }
 
@@ -162,12 +210,11 @@ public class MYOrdersModel {
             }
         }
 
-        public static class OrderdetailsBean {
+        public static class OrderdetailsBean implements Serializable {
             /**
-             * id : 1
+             * id : 59
              * product_id : 1
              * price : 5,8499.00ريال
-             * order_status : 0
              * address : maddi
              * type : ss
              * user_lat : 76
@@ -176,14 +223,13 @@ public class MYOrdersModel {
              * created : 2018-10-28T14:39:09+0000
              * modified : 2018-10-28T14:39:09+0000
              * payment_id : 1
-             * order_id : 1
+             * order_id : 36
              * product : {"id":1,"name":"iphone","subcat_id":"","category_id":"","price":"10","last_price":"15","description":"iphone is a line of smartphones designed and marketed by Apple Inc","store_id":"50","brand":"apple","product_info":"<html>\r\n<head>\r\n<\/head>\r\n<body>\r\n<ul>\r\n<li>دقه الكاميرا:5 ميجابكسل<\/li>\r\n<li>رام: 1 جيجابايت<\/li>\r\n<li>كاميرا ثانيه:5 ميجابكسل<\/li>\r\n<li>بنيه الشبكات:4جي ال تي اي<\/li>\r\n<li>دقه الكاميرا:5 ميجابكسل<\/li>\r\n<li>رام: 1 جيجابايت<\/li>\r\n<li>كاميرا ثانيه:5 ميجابكسل<\/li>\r\n<li>بنيه الشبكات:4جي ال تي اي<\/li>\r\n<li>دقه الكاميرا:5 ميجابكسل<\/li>\r\n<li>رام: 1 جيجابايت<\/li>\r\n<li>كاميرا ثانيه:5 ميجابكسل<\/li>\r\n<li>بنيه الشبكات:4جي ال تي اي<\/li>\r\n<\/ul>\r\n<\/body>\r\n<\/html>","amount":2,"guarantee":1,"created":"2018-09-17T16:37:29+0000","modified":"2018-09-17T16:38:03+0000","visible":"false","total_rating":[{"product_id":1,"stars":6,"count":3}],"productphotos":[{"id":1,"photo":"http://parashot.codesroots.com/library/default/35768252.jpg","main":"ahmed2","product_id":1,"created":"2018-09-18T14:47:31+0000","modified":"2018-10-15T13:59:48+0000"},{"id":2,"photo":"http://parashot.codesroots.com/library/default/35768252.jpg","main":"ahmed5","product_id":1,"created":"2018-09-19T17:10:00+0000","modified":"2018-09-21T19:45:41+0000"},{"id":3,"photo":"http://parashot.codesroots.com/library/default/35768252.jpg","main":"ahmed7","product_id":1,"created":"2018-09-21T19:48:22+0000","modified":"2018-09-21T19:48:22+0000"}],"productrates":[{"id":1,"rate":3,"product_id":1,"user_id":1,"created":"2018-09-19T09:29:00+0000","modified":"2018-09-18T09:32:08+0000"},{"id":2,"rate":2,"product_id":1,"user_id":1,"created":"2018-10-03T09:29:00+0000","modified":"2018-09-18T09:32:08+0000"},{"id":6,"rate":1,"product_id":1,"user_id":1,"created":"2018-10-08T09:29:00+0000","modified":"2018-09-18T09:32:08+0000"}]}
              */
 
             private int id;
             private int product_id;
             private String price;
-            private String order_status;
             private String address;
             private String type;
             private String user_lat;
@@ -217,14 +263,6 @@ public class MYOrdersModel {
 
             public void setPrice(String price) {
                 this.price = price;
-            }
-
-            public String getOrder_status() {
-                return order_status;
-            }
-
-            public void setOrder_status(String order_status) {
-                this.order_status = order_status;
             }
 
             public String getAddress() {
@@ -307,7 +345,7 @@ public class MYOrdersModel {
                 this.product = product;
             }
 
-            public static class ProductBean {
+            public static class ProductBean implements Serializable{
                 /**
                  * id : 1
                  * name : iphone

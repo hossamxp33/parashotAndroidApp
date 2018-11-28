@@ -24,9 +24,11 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
         Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
+
 //        ProgressDialogHelper.showSimpleProgressDialog(SplashActivity.this, false);
 //
 //        splashViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(SplashViewModel.class);
@@ -45,14 +47,13 @@ public class SplashActivity extends AppCompatActivity {
 //                    @Override
 //                    public void onChanged(@Nullable StoreSettingEntity storeSettingEntity) {
 //                        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-//                       // intent.putExtra("AllData", storeSettingEntity);
 //                        intent.putExtra("AllData",  storeSettingEntity);
 //                        startActivity(intent);
 //                        finish();
 //                    }
 //                }
 //               );
-
+//
 //        splashViewModel.errorLiveData.observe(this, new Observer<Throwable>() {
 //                    @Override
 //                    public void onChanged(@Nullable Throwable throwable) {

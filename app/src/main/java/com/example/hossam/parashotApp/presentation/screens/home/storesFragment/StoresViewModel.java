@@ -9,44 +9,79 @@ import android.support.v4.util.Consumer;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-import com.example.hossam.parashotApp.dataLayer.repositories.AllStoriesRepository;
-import com.example.hossam.parashotApp.entities.AllStoriesModel;
+import com.example.hossam.parashotApp.dataLayer.repositories.AllStorsRepository;
+import com.example.hossam.parashotApp.entities.StoresList;
+import com.example.hossam.parashotApp.entities.StoresFromGoogleModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StoresViewModel extends ViewModel {
 
-
-    private AllStoriesRepository allStoriesRepository;
-    MutableLiveData<AllStoriesModel> allStoriesModelMutableLiveData = new MutableLiveData<>();
+    private AllStorsRepository allStorsRepository;
+    List<StoresList.DataBean> allStories=new ArrayList<>();
+    MutableLiveData<List<StoresList.DataBean>> allStoriesLiveData=new MutableLiveData<List<StoresList.DataBean>>();
     MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
-
-    String place,ratecount,chat,like,name,photo,logo,ratenum;
-
+    String place,ratecount,chat,name, cover,logo,ratenum;
     int ratestar;
+    String like="0";
 
     public StoresViewModel() {
     }
 
-    public StoresViewModel(final AllStoriesRepository allStoriesRepository) {
+    public StoresViewModel(final AllStorsRepository allStorsRepository) {
 
-        allStoriesRepository.setOnSuccess(new Consumer<AllStoriesModel>() {
+        allStorsRepository.setOnSuccess(new Consumer<StoresList>() {
             @Override
-            public void accept(AllStoriesModel allStoriesModel) {
-                allStoriesModelMutableLiveData.postValue(allStoriesModel);
+            public void accept(StoresList storesList) {
+                allStories.addAll( storesList.getData());
+                allStoriesLiveData.postValue(allStories);
                 loading.postValue(false);
             }
         });
 
-        allStoriesRepository.setOnError(new Consumer<Throwable>() {
+
+        allStorsRepository.setOnSuccessGooglePlaces(new Consumer<StoresFromGoogleModel>() {
+            @Override
+            public void accept(StoresFromGoogleModel storesFromGoogleModel) {
+                for (int i=0;i<storesFromGoogleModel.getResults().size();i++)
+                {
+                    StoresList.DataBean store = new StoresList.DataBean();
+                    store.setName(storesFromGoogleModel.getResults().get(i).getName());
+                    store.setLogo(storesFromGoogleModel.getResults().get(i).getIcon());
+                    store.setLatitude(storesFromGoogleModel.getResults().get(i).getGeometry().getLocation().getLat());
+                    store.setLongitude(storesFromGoogleModel.getResults().get(i).getGeometry().getLocation().getLng());
+                    store.setAddress(storesFromGoogleModel.getResults().get(i).getVicinity());
+                    StoresList.DataBean.StoreratesBean storeratesBean = new StoresList.DataBean.StoreratesBean();
+                    storeratesBean.setStars((int) storesFromGoogleModel.getResults().get(i).getRating());
+                    List<StoresList.DataBean.StoreratesBean> storeratesBeans= new ArrayList<>();
+                    storeratesBeans.add(storeratesBean);
+                    store.setStorerates(storeratesBeans);
+                    store.setRate((float) storesFromGoogleModel.getResults().get(i).getRating());
+
+                    if (storesFromGoogleModel.getResults().get(i).getPhotos()!=null) {
+                        store.setCover(storesFromGoogleModel.getResults().get(i).getPhotos().get(0).getPhoto_reference());
+                        store.setMaxwidth(storesFromGoogleModel.getResults().get(i).getPhotos().get(0).getWidth());
+                    }
+
+                    store.setFrom_google(true);
+                    allStories.add(store);
+                }
+                allStoriesLiveData.postValue(allStories);
+
+            }
+        });
+
+        allStorsRepository.setOnError(new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) {
                 errorLiveData.postValue(throwable);
                 loading.postValue(false);
             }
         });
-        this.allStoriesRepository = allStoriesRepository;
+        this.allStorsRepository = allStorsRepository;
     }
 
     public ObservableField<String> resultImageUrl = new ObservableField<>();
@@ -57,6 +92,11 @@ public class StoresViewModel extends ViewModel {
 
     @BindingAdapter("bind:imageUrl")
     public static void loadImage(ImageView view, String url) {
+
+       // RequestOptions requestOptions = new RequestOptions();
+        //        requestOptions.placeholder(R.drawable.ic_placeholder);
+        //        requestOptions.error(R.drawable.ic_error);
+
         Glide.with(view.getContext()).load(url).into(view);
     }
 
@@ -110,12 +150,12 @@ public class StoresViewModel extends ViewModel {
         this.name = name;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getCover() {
+        return cover;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
     public String getLogo() {

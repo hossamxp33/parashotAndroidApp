@@ -3,11 +3,11 @@ package com.example.hossam.parashotApp.dataLayer.repositories;
 import android.os.AsyncTask;
 import android.support.v4.util.Consumer;
 import android.util.Log;
-
 import com.example.hossam.parashotApp.dataLayer.apiData.ApiInterface;
-import com.example.hossam.parashotApp.dataLayer.localDatabase.homePage.userCart.deo.ProductDeo;
-import com.example.hossam.parashotApp.dataLayer.localDatabase.homePage.userCart.entities.Product;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.deo.ProductDeo;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.entities.ProductDetailsModel;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,15 +18,20 @@ public class ProductDetailsRepository {
     private ApiInterface apiService;
     private Consumer<ProductDetailsModel> onSuccess;
     private Consumer<Throwable> onError;
-
-    public ProductDetailsRepository(ApiInterface apiService1)
+    private ProductDeo productDeo;
+    private Consumer<Boolean> resultChieckForAdd;
+    private Consumer<Integer> counter;
+    private int productid;
+    public ProductDetailsRepository(ApiInterface apiService1, ProductDeo pDeo,int productid1)
     {
         apiService = apiService1;
+        productDeo=pDeo;
+        productid = productid1;
     }
 
     public void getProductDetailsData() {
         try {
-            apiService.getProductDetails(1).enqueue(new Callback<ProductDetailsModel>() {
+            apiService.getProductDetails(productid).enqueue(new Callback<ProductDetailsModel>() {
                 @Override
                 public void onResponse(Call<ProductDetailsModel> call, final Response<ProductDetailsModel> response) {
                     if (response.body() != null) {
@@ -59,25 +64,58 @@ public class ProductDetailsRepository {
     }
 
     public void saveDataInDB(Product data) {
-
-     //   new ProductAsyncTask(footerDao).execute(data);
+        new ProductAsyncTask(productDeo).execute(data);
     }
 
-    private static class ProductAsyncTask extends AsyncTask<Product, Void, Void> {
+    public void getProductCount(int storid) {
+        new ProductCountAsyncTask(productDeo).execute(storid);
+    }
 
+    private  class ProductAsyncTask extends AsyncTask<Product, Void, Void> {
         private ProductDeo productdeo;
-
         public ProductAsyncTask(ProductDeo productDeo) {
             productdeo = productDeo;
         }
 
         @Override
         protected Void doInBackground(Product... products) {
-            productdeo.insertProduct(products[0]);
+
+            int count = productdeo.chieckItemExists(products[0].getProduct_id());
+            if (count>0) {
+                resultChieckForAdd.accept(false);
+            }
+            else {
+                productdeo.insertProduct(products[0]);
+                resultChieckForAdd.accept(true);
+            }
             return null;
         }
     }
 
+
+    private  class ProductCountAsyncTask extends AsyncTask<Integer, Void, Void> {
+        private ProductDeo productdeo;
+        public ProductCountAsyncTask(ProductDeo productDeo) {
+            productdeo = productDeo;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... products) {
+            int count = productdeo.getNumberOfRows(products[0]);
+            counter.accept(count);
+            return null;
+        }
+    }
+
+
+    public void setProductCount(Consumer<Integer> prod_count) {
+        this.counter= prod_count;
+    }
+
+
+    public void setbooleanConsumerForAdd(Consumer<Boolean> booleanConsumerForAdd) {
+        this.resultChieckForAdd = booleanConsumerForAdd;
+    }
 
     public void setOnSuccess(Consumer<ProductDetailsModel> onSuccess) {
         this.onSuccess = onSuccess;

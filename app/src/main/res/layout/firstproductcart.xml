@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/header_for_cart"
-        layout="@layout/header_for_first_subcat"/>
+        layout="@layout/parashot_header"/>
 
 
     <FrameLayout

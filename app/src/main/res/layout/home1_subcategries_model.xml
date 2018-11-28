@@ -10,58 +10,56 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
         app:cardCornerRadius="20dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginTop="3dp"
-        app:cardElevation="7dp"
-        >
-<android.support.constraint.ConstraintLayout
-    android:id="@+id/thumbnail"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/home3_dept_background"
-    android:orientation="vertical"
-    android:gravity="center">
+        app:cardElevation="8dp">
 
-    <ImageView
-        android:id="@+id/itemimage"
-        android:layout_width="85dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_height="85dp"
-        android:padding="2dp"
-        android:scaleType="fitXY"
-        app:imageUrl="@{subcategriesmodelbinding.resultImageUrl}"
-        />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/home3_dept_background"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/item_delimeter"
-        android:layout_width="0dp"
-        android:layout_height="10dp"
-        app:layout_constraintWidth_percent="0.85"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemimage"
-        android:src="@drawable/cat_line"
-        />
+            <ImageView
+                android:id="@+id/sub_categimage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintWidth_percent="0.6"
+                app:layout_constraintHeight_percent="0.6"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/doctorname"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_delimeter"
-        android:gravity="center_vertical|center"
-        android:textSize="16sp"
-        android:text="@{subcategriesmodelbinding.name}"
-        />
+            <ImageView
+                android:id="@+id/item_delimeter"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/cat_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sub_categimage"
+                app:layout_constraintHeight_percent="0.07"
+                app:layout_constraintWidth_percent="0.85" />
 
-</android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/subcate_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintWidth_percent="0.9"
+                app:layout_constraintHeight_percent="0.33"
+                android:gravity="center_vertical|center"
+                android:maxLines="2"
+                android:ellipsize="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_delimeter" />
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
-
 </layout>

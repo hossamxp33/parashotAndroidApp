@@ -23,8 +23,6 @@ public class CategoryViewModel extends ViewModel {
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
     private String name, imagePath, backColor, textColor;
 
-
-
     public CategoryViewModel() {
 
     }

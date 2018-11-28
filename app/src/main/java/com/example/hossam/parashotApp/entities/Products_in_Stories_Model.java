@@ -21,7 +21,7 @@ public class Products_in_Stories_Model {
          * price : 10
          * last_price : 15
          * description : iphone
-         * store_id : 1
+         * smallstore_id : 1
          * brand : apple
          * product_info : iphone
          * amount : 2
@@ -39,7 +39,7 @@ public class Products_in_Stories_Model {
         private String price;
         private String last_price;
         private String description;
-        private String store_id;
+        private String smallstore_id;
         private String brand;
         private String product_info;
         private int amount;
@@ -91,12 +91,12 @@ public class Products_in_Stories_Model {
             this.description = description;
         }
 
-        public String getStore_id() {
-            return store_id;
+        public String getSmallstore_id() {
+            return smallstore_id;
         }
 
-        public void setStore_id(String store_id) {
-            this.store_id = store_id;
+        public void setSmallstore_id(String smallstore_id) {
+            this.smallstore_id = smallstore_id;
         }
 
         public String getBrand() {

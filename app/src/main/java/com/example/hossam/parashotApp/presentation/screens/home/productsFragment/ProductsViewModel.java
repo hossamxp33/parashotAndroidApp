@@ -7,14 +7,17 @@ import android.support.v4.util.Consumer;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.dataLayer.repositories.AllProductsRepository;
 import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
 
 public class ProductsViewModel extends ViewModel {
 
 
-    private AllProductsRepository allProducts_repository;
+    public AllProductsRepository allProducts_repository;
     MutableLiveData<Products_in_Stories_Model> products_MutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<Boolean> storProductInDBResult = new MutableLiveData<>();
+    public MutableLiveData<Integer> product_count_MutableLiveData = new MutableLiveData<>();
     MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
@@ -40,10 +43,35 @@ public class ProductsViewModel extends ViewModel {
                 loading.postValue(false);
             }
         });
+
+        repository.setbooleanConsumerForAdd(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) {
+                storProductInDBResult.postValue(aBoolean);
+            }
+        });
+
+        repository.setProductsCount(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) {
+                product_count_MutableLiveData.postValue(integer);
+            }
+        });
+
+
         this.allProducts_repository = repository;
+        allProducts_repository.getAllProduct();
+        getCount();
+    }
+
+    public void storeData(Product dataBeans, AllProductsRepository allProducts_repository) {
+        allProducts_repository.saveDataInDB(dataBeans);
     }
 
 
+    public void getCount() {
+        allProducts_repository.getProductCount();
+    }
 
     @BindingAdapter("bind:imageUrl")
     public static void loadImage(ImageView view, String url) {
