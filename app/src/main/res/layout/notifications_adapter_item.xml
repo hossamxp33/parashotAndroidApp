@@ -18,14 +18,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_height="60dp"
-            android:src="@drawable/img_chat"/>
+            android:src="@drawable/person"/>
+
 
         <LinearLayout
-
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/person_img"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/time"
             android:layout_marginEnd="0dp"
             android:layout_marginTop="7dp"
             android:orientation="vertical">
@@ -37,7 +38,7 @@
 
             <TextView
                 android:id="@+id/notification_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="dsgfga"
                 android:layout_marginEnd="2dp"
@@ -46,14 +47,7 @@
                 android:textSize="16dp"
                 />
 
-              <RatingBar
-                android:id="@+id/rates"
-                style="@style/StarRatingBars"
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                  android:layout_gravity="center"
-                android:rating="5"
-                android:isIndicator="true"/>
+
 
         </LinearLayout>
             <LinearLayout
@@ -67,7 +61,6 @@
                     android:layout_height="wrap_content"
                     android:lines="2"
                     android:scrollbars = "vertical"
-                    android:text="@{photocommentitem.comment}"
                     android:textColor="@color/black"
                     android:layout_marginStart="5dp"
                     android:textSize="15dp"

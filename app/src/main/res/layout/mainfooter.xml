@@ -35,7 +35,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:onClick="gotoregister"
+                        android:onClick="gotoFavsfragment"
                         android:gravity="center|center_vertical"
                         android:layoutDirection="rtl"
                         android:orientation="vertical">
@@ -221,6 +221,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:onClick="gotoNotifications"
                         android:layoutDirection="rtl"
                         android:orientation="vertical">
 

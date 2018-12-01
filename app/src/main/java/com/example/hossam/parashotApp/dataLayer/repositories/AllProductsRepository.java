@@ -1,12 +1,17 @@
 package com.example.hossam.parashotApp.dataLayer.repositories;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v4.util.Consumer;
 import android.util.Log;
 import com.example.hossam.parashotApp.dataLayer.apiData.ApiInterface;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.deo.ProductDeo;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,6 +24,7 @@ public class AllProductsRepository {
     private Consumer<Boolean> booleanConsumerForAdd;
     private Consumer<Integer> productsCount;
     private Consumer<Throwable> onError;
+    private Consumer<Boolean> onSuccessFav;
     private int store_id;
 
 
@@ -72,6 +78,33 @@ public class AllProductsRepository {
         }
     }
 
+    public void AddToFav(int userid , int productid, int smallstore_id )
+    {
+        apiService.addfavourite(createPartFromString(String.valueOf(userid)),createPartFromString(String.valueOf(productid))
+                ,createPartFromString(String.valueOf(smallstore_id))).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful())
+                    onSuccessFav.accept(true);
+                else
+                    onSuccessFav.accept(false);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @NonNull
+    private RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(
+                MultipartBody.FORM, descriptionString);
+    }
+
+
+
     public void saveDataInDB(Product data) {
         new AllProductsRepository.ProductAsyncTask(productDeo).execute(data);
     }
@@ -123,6 +156,10 @@ public class AllProductsRepository {
 
     public void setbooleanConsumerForAdd(Consumer<Boolean> booleanConsumerForAdd) {
         this.booleanConsumerForAdd = booleanConsumerForAdd;
+    }
+
+    public void setAddToToFavResult(Consumer<Boolean> booleanAddToFav1) {
+        this.onSuccessFav = booleanAddToFav1;
     }
 
     public void setProductsCount(Consumer<Integer> counter) {

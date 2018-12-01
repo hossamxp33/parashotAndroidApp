@@ -2,21 +2,16 @@ package com.example.hossam.parashotApp.presentation.screens.home.productsFragmen
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.databinding.BindingAdapter;
 import android.support.v4.util.Consumer;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.dataLayer.repositories.AllProductsRepository;
 import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
 
 public class ProductsViewModel extends ViewModel {
-
-
     public AllProductsRepository allProducts_repository;
     MutableLiveData<Products_in_Stories_Model> products_MutableLiveData = new MutableLiveData<>();
     public MutableLiveData<Boolean> storProductInDBResult = new MutableLiveData<>();
+    public MutableLiveData<Boolean> addToFavoriteLiveData = new MutableLiveData<>();
     public MutableLiveData<Integer> product_count_MutableLiveData = new MutableLiveData<>();
     MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
@@ -58,11 +53,22 @@ public class ProductsViewModel extends ViewModel {
             }
         });
 
+        repository.setAddToToFavResult(aBoolean ->
+                addToFavoriteLiveData.postValue(aBoolean)
+        );
 
         this.allProducts_repository = repository;
         allProducts_repository.getAllProduct();
         getCount();
     }
+
+
+    public  void AddToFav (int user_id , int product_id, int smallstore_id, AllProductsRepository allProducts_repository1 )
+    {
+        allProducts_repository1.AddToFav(user_id,product_id,smallstore_id);
+    }
+
+
 
     public void storeData(Product dataBeans, AllProductsRepository allProducts_repository) {
         allProducts_repository.saveDataInDB(dataBeans);
@@ -73,10 +79,6 @@ public class ProductsViewModel extends ViewModel {
         allProducts_repository.getProductCount();
     }
 
-    @BindingAdapter("bind:imageUrl")
-    public static void loadImage(ImageView view, String url) {
-        Glide.with(view.getContext()).load(url).into(view);
-    }
 
 
     public String getName() {

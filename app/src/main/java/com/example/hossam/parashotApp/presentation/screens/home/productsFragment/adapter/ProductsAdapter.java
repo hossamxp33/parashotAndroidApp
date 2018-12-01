@@ -19,6 +19,7 @@ import com.example.hossam.parashotApp.R;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.databinding.ProductBindings;
 import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
+import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.ProductDetailsFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.productsFragment.ProductsViewModel;
 import com.example.hossam.parashotApp.presentation.screens.home.productsFragment.helper.AddToCart;
@@ -35,12 +36,15 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     List<Products_in_Stories_Model.DataBean> productData;
     ProductsViewModel productsViewModel1;
     AddToCart addToCart;
+    PreferenceHelper preferenceHelper;
+
     public ProductsAdapter(FragmentActivity activity, List<Products_in_Stories_Model.DataBean> products_from_view,
                            ProductsViewModel viewModel,AddToCart addToCart1) {
         mcontext=activity;
         productData = products_from_view;
         productsViewModel1 = viewModel;
         addToCart = addToCart1;
+        preferenceHelper = new PreferenceHelper(mcontext);
     }
 
     @Override
@@ -76,6 +80,25 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             products_viewModel.setRatestars(0);
             products_viewModel.setRatecount("(0)");
         }
+
+
+
+        holder.productBindings.favorite.setOnClickListener(v -> {
+
+            int userid = preferenceHelper.getUserId();
+            products_viewModel.AddToFav(113,productData.get(position).getId(),Integer.parseInt(productData.get(position).getSmallstore_id())
+                    ,productsViewModel1.allProducts_repository);
+        });
+
+
+        productsViewModel1.addToFavoriteLiveData.observe((FragmentActivity) mcontext, aBoolean -> {
+            if (aBoolean) {
+                Toast.makeText(mcontext, mcontext.getResources().getString(R.string.addtofavsucces), Toast.LENGTH_SHORT).show();
+                holder.productBindings.favorite.setImageResource(R.drawable.favoried);
+            }
+            else
+                Toast.makeText(mcontext, mcontext.getResources().getString(R.string.erroroccur),Toast.LENGTH_SHORT).show();
+        });
 
 
         holder.bind(products_viewModel);

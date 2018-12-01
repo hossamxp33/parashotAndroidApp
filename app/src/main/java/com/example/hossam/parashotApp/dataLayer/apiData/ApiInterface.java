@@ -4,6 +4,7 @@ import com.example.hossam.parashotApp.entities.Categories;
 import com.example.hossam.parashotApp.entities.DealsModel;
 import com.example.hossam.parashotApp.entities.DeliveryComments;
 import com.example.hossam.parashotApp.entities.DeliveryOffers;
+import com.example.hossam.parashotApp.entities.FavProduct;
 import com.example.hossam.parashotApp.entities.OffersModel;
 import com.example.hossam.parashotApp.entities.RatessOfProductModel;
 import com.example.hossam.parashotApp.entities.LoginResponseModel;
@@ -14,6 +15,7 @@ import com.example.hossam.parashotApp.entities.RegisterResponseModel;
 import com.example.hossam.parashotApp.entities.StoreSettingEntity;
 import com.example.hossam.parashotApp.entities.StoresList;
 import com.example.hossam.parashotApp.entities.StoresFromGoogleModel;
+import com.example.hossam.parashotApp.entities.Notifications;
 import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.helper.ProductModel;
 
 import java.util.List;
@@ -69,10 +71,19 @@ public interface ApiInterface {
             @Path(value = "storid") int storid
     );
 
-    @GET("products/getproduct/{productid}.json")
+
+    @GET("favourite/getuserfavourite/{userid}.json")
+    @Headers("Accept: Application/json")
+    Call<FavProduct> getFavProductsData(
+            @Path(value = "userid") int userid
+    );
+
+
+    @GET("products/getproduct/{productid}/{userid}.json")
     @Headers("Accept: Application/json")
     Call<ProductDetailsModel> getProductDetails(
-            @Path(value = "productid") int productid
+            @Path(value = "productid") int productid,
+            @Path(value = "userid") int userid
     );
 
     @GET("orders/getorders/{userid}.json")
@@ -149,6 +160,20 @@ public interface ApiInterface {
     );
 
 
+    @Multipart
+    @POST("favourite/addfavourite.json")
+    Call<ResponseBody> addfavourite(
+            @Part("user_id") RequestBody user_id,
+            @Part("product_id") RequestBody product_id,
+            @Part("smallstore_id") RequestBody smallstore_id
+    );
+
+
+    @GET("Notifications/getnotifications/{userid}.json")
+    @Headers("Accept: Application/json")
+    Call<Notifications> getnotifications(
+            @Path(value = "userid") int userid
+    );
 
 }
 

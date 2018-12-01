@@ -82,8 +82,6 @@ public class DeliveryOffersRepository {
             }
         });
 
-
-
     }
 
     public void setOnSuccess(Consumer<DeliveryOffers> onSuccess) {

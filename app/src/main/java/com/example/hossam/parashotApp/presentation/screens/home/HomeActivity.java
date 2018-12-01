@@ -27,8 +27,10 @@ import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.LanguageActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.categoryFragment.CategoryFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.dealsOffersFragment.DealsOffersFragment;
+import com.example.hossam.parashotApp.presentation.screens.home.favoriteFragment.FavoriteFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.loginFragment.LoginFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MYOrderFragment;
+import com.example.hossam.parashotApp.presentation.screens.home.notificationFragment.NotificationsFragment;
 
 import java.util.Locale;
 
@@ -150,6 +152,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    public void gotoFavsfragment(View view) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FavoriteFragment()).addToBackStack(null).commit();
+
+    }
+
+
+
     public void gotomyOrder(View view) {
         if (preferenceHelper.getUserId() > 0)
             getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new MYOrderFragment()).addToBackStack(null).commit();
@@ -172,6 +181,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    public void gotoNotifications(View view) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new NotificationsFragment()).addToBackStack(null).commit();
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

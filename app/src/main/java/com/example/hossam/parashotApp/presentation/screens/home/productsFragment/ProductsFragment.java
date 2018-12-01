@@ -53,7 +53,9 @@ public class ProductsFragment extends Fragment implements AddToCart {
         ((HomeActivity)Objects.requireNonNull(getActivity())).title.setText(getText(R.string.products));
 
         stor_id = getArguments().getInt("stor_id");
+
         products_viewModel = ViewModelProviders.of(this, getViewModelFactory()).get(ProductsViewModel.class);
+
 
         products_viewModel.products_MutableLiveData.observe(this, products -> {
             ///////// send viewmodel here to can save in DB from adapter
@@ -61,6 +63,8 @@ public class ProductsFragment extends Fragment implements AddToCart {
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerView.setAdapter(productsAdapter);
         });
+
+
 
         products_viewModel.product_count_MutableLiveData.observe(this, new Observer<Integer>() {
             @Override

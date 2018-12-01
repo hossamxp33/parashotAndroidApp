@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,7 @@ import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.
 import com.example.hossam.parashotApp.entities.ImageToShowModel;
 import com.example.hossam.parashotApp.entities.ProductDetailsModel;
 import com.example.hossam.parashotApp.helper.BroadcastHelper;
+import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.allProductInsideOrderFragment.ProductsInsideOrderFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.adapters.ImagesAdapterForColor;
@@ -65,11 +67,13 @@ public class ProductDetailsFragment extends Fragment {
    ImagesAdapterForSideImages imagesAdapterForSideImages;
     SliderPagerAdapter sliderPagerAdapter;
    TextAdapterForStorage textAdapterForStorage;
+   ImageView favorite;
+   PreferenceHelper preferenceHelper;
 
     String productinfo; //////to goto next activity
     RatingBar ratingBar;
     ProductDetailsModel detailsModel;
-    int store_id,productid;
+    int store_id,productid,userid;
     public ProductDetailsFragment() {
         // Required empty public constructor
     }
@@ -90,7 +94,9 @@ public class ProductDetailsFragment extends Fragment {
 
         store_id = getArguments().getInt("store_id");
         productid = getArguments().getInt("product_id");
-
+        preferenceHelper = new PreferenceHelper(getActivity());
+        userid = preferenceHelper.getUserId();
+        userid = 113;
         productDetailsViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(ProductDetailsViewModel.class);
 
         productDetailsViewModel.productDetails_MutableLiveData.observe(this, new Observer<ProductDetailsModel>() {
@@ -99,7 +105,6 @@ public class ProductDetailsFragment extends Fragment {
             public void onChanged(@Nullable ProductDetailsModel products) {
                 assert products != null;
                 setDatatoView(products);
-
                 detailsModel = products;
                 if (products.getData().get(0).getProductphotos()!=null)
                 sliderPagerAdapter = new SliderPagerAdapter(getActivity(),products.getData().get(0).getProductphotos());
@@ -160,6 +165,24 @@ public class ProductDetailsFragment extends Fragment {
                     fragment.setArguments(bundle);
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,fragment).addToBackStack(null).commit();
                 return false;
+            }
+        });
+
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              //  int userid = preferenceHelper.getUserId();
+                productDetailsViewModel.AddToFav(113,detailsModel.getData().get(0).getId(),detailsModel.getData().get(0).getSmallstore_id()
+                        ,productDetailsViewModel.productDetailsRepository);
+
+                productDetailsViewModel.addToFavoriteLiveData.observe(getActivity(), aBoolean -> {
+                    if (aBoolean) {
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.addtofavsucces), Toast.LENGTH_SHORT).show();
+                        favorite.setImageResource(R.drawable.favoried);
+                    }
+                    else
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.erroroccur),Toast.LENGTH_SHORT).show();
+                });
             }
         });
         addtoCart.setOnClickListener(v -> {
@@ -287,7 +310,7 @@ public class ProductDetailsFragment extends Fragment {
     private void findFromXml(View view) {
 
         description=view.findViewById(R.id.description);
-        name=view.findViewById(R.id.name);
+        name=view.findViewById(R.id.notification_text);
         markaname=view.findViewById(R.id.markaname);
         storename=view.findViewById(R.id.storename);
         productrinfo=view.findViewById(R.id.item_detailsvalues);
@@ -305,6 +328,7 @@ public class ProductDetailsFragment extends Fragment {
         gotocart = view.findViewById(R.id.sale);
         cartProductsCount = view.findViewById(R.id.cart_count);
         productcount = view.findViewById(R.id.productcounttext);
+        favorite = view.findViewById(R.id.favorite);
 
         layoutManager =new LinearLayoutManager(getActivity());
         recyclerViewforsideimages.setLayoutManager(layoutManager);
@@ -318,7 +342,7 @@ public class ProductDetailsFragment extends Fragment {
 
     @NonNull
     private ViewModelProvider.Factory getViewModelFactory() {
-        return new ProductDetailsModelFactory(getActivity().getApplication(),productid,store_id);
+        return new ProductDetailsModelFactory(getActivity().getApplication(),productid,store_id,userid);
     }
 
 }

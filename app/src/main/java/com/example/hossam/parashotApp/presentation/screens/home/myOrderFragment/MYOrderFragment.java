@@ -93,7 +93,6 @@ public class MYOrderFragment extends Fragment {
 
             if (i==2131296401) {
                 if (notcompleteOrders.size()>0) {
-
                     myOrderAdapter = new MyOrderAdapter(getActivity(), notcompleteOrders);
                     recyclerView.setAdapter(myOrderAdapter);
                     recyclerView.setVisibility(View.VISIBLE);
