@@ -159,5 +159,11 @@
     <string name="deliverycomments">تعليقات المندوب</string>
     <string name="delivery_offers">عروض المناديب</string>
     <string name="deliverychoice">تم اختيار المندوب</string>
+    <string name="favproducts">المنتجات المفضلة</string>
+    <string name="addtofavsucces">تم الاضافة الي المفضلة</string>
+    <string name="ratedelivery">تقييم المندوب</string>
+    <string name="deliveryrate">تقييم المندوب</string>
+    <string name="deletefromfavsucces">تم الحذف من المفضلة</string>
+    <string name="nofavfound">لا يوجد منتجات مفضلة لديك</string>
 
 </resources>

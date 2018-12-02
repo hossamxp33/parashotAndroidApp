@@ -4,37 +4,43 @@ import android.support.v4.util.Consumer;
 import android.util.Log;
 
 import com.example.hossam.parashotApp.dataLayer.apiData.ApiInterface;
-import com.example.hossam.parashotApp.entities.DeliveryOffers;
-import com.example.hossam.parashotApp.entities.StoresFromGoogleModel;
+import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.deo.ProductDeo;
+import com.example.hossam.parashotApp.entities.FavProduct;
+import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
 
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class DeliveryOffersRepository {
+public class FavoriteProductsRepository {
 
     private ApiInterface apiService;
-    private Consumer<DeliveryOffers> onSuccess;
-    private Consumer<Boolean> onSuccessEdit;
-    private Consumer<Throwable> onErrorEdit;
-    private Consumer<StoresFromGoogleModel> onSuccessGooglePlaces;
+    private Consumer<FavProduct> onSuccess;
     private Consumer<Throwable> onError;
-    private int orderid;
-    public DeliveryOffersRepository(ApiInterface apiService1, int orderid1)
+    private int user_id;
+    private Consumer<Boolean> onSuccessFavDelete;
+
+
+
+    public FavoriteProductsRepository(ApiInterface apiService1, int userId)
     {
         apiService = apiService1;
-        orderid = orderid1;
-        getDeliveryOffers();
+        user_id = userId;
+        getAllProduct();
     }
 
-    private void getDeliveryOffers() {
+    public void getAllProduct()
+    {
+        this.getAllProductData();
+    }
+
+    private void getAllProductData() {
         try {
-            apiService.getDeliveryOffers(orderid).enqueue(new Callback<DeliveryOffers>() {
+            apiService.getFavProductsData(user_id).enqueue(new Callback<FavProduct>() {
                 @Override
-                public void onResponse(Call<DeliveryOffers> call, final Response<DeliveryOffers> response) {
+                public void onResponse(Call<FavProduct> call, final Response<FavProduct> response) {
                     if (response.body() != null) {
                         if (response.isSuccessful()) {
                             if (onSuccess != null) {
@@ -48,8 +54,9 @@ public class DeliveryOffersRepository {
                         }
                     }
                 }
+
                 @Override
-                public void onFailure(Call<DeliveryOffers> call, Throwable t) {
+                public void onFailure(Call<FavProduct> call, Throwable t) {
                     Log.d("GetAllData fail -> ", call.toString());
                     // TODO: return error
                     if (onError != null) {
@@ -58,47 +65,42 @@ public class DeliveryOffersRepository {
                 }
             });
         } catch (Exception e) {
-            Log.d("DeliveryRepository", e.getMessage());
+            Log.d("SplashRepository", e.getMessage());
             onError.accept(e);
         }
     }
 
-    public   void editOrder(int orderid , RequestBody delivry_id, RequestBody status , RequestBody price)
-    {
 
-        apiService.editOrderStatues(orderid,delivry_id,status,price).enqueue(new Callback<ResponseBody>() {
+    public void DeleteFav(int favid )
+    {
+        apiService.deleteFav(favid).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful())
-                    onSuccessEdit.accept(true);
-
+                    onSuccessFavDelete.accept(true);
                 else
-                    onSuccessEdit.accept(false);
+                    onSuccessFavDelete.accept(false);
             }
-
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
             }
         });
-
     }
 
-    public void setOnSuccess(Consumer<DeliveryOffers> onSuccess) {
+
+    public void setOnSuccess(Consumer<FavProduct> onSuccess) {
         this.onSuccess = onSuccess;
     }
 
 
-    public void setOnSuccessEdit(Consumer<Boolean> onSuccessEdit) {
-        this.onSuccessEdit = onSuccessEdit;
-    }
-
-    public void sererroreditOrder(Consumer<Throwable> onErrorEdit1) {
-        this.onErrorEdit = onErrorEdit1;
-    }
-
     public void setOnError(Consumer<Throwable> onError) {
         this.onError = onError;
     }
+
+    public void setDeleteFromFavResult(Consumer<Boolean> booleanDeleteFromFav) {
+        this.onSuccessFavDelete = booleanDeleteFromFav;
+    }
+
 
 }

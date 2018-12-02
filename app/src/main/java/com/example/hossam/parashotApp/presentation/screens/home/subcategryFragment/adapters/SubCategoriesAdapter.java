@@ -53,9 +53,11 @@ public class SubCategoriesAdapter extends RecyclerView.Adapter<SubCategoriesAdap
         int width = displayMetrics.widthPixels;
 
         //////set percentage from all screen
-        layoutParams.height = (int) (height * 0.2);
-        layoutParams.width = (width / 3)-10;
+
+        layoutParams.width = (width / 3)-15;
+        layoutParams.height = layoutParams.width;
         view.setLayoutParams(layoutParams);
+
 
         return new SubCategoriesAdapter.CustomView(view);
 

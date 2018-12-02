@@ -86,7 +86,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             super(v);
             mView=v;
 
-            name =mView.findViewById(R.id.name);
+            name =mView.findViewById(R.id.notification_text);
             comment =mView.findViewById(R.id.comment);
             time =mView.findViewById(R.id.time);
             ratingBar =mView.findViewById(R.id.rates);

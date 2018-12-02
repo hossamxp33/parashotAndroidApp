@@ -5,18 +5,21 @@ import android.arch.lifecycle.ViewModel;
 import android.support.v4.util.Consumer;
 
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
+import com.example.hossam.parashotApp.dataLayer.repositories.AllProductsRepository;
 import com.example.hossam.parashotApp.dataLayer.repositories.ProductDetailsRepository;
 import com.example.hossam.parashotApp.entities.ProductDetailsModel;
 
 public class ProductDetailsViewModel extends ViewModel {
 
 
-    private ProductDetailsRepository productDetailsRepository;
+     ProductDetailsRepository productDetailsRepository;
     MutableLiveData<ProductDetailsModel> productDetails_MutableLiveData = new MutableLiveData<>();
     MutableLiveData<Throwable> errorLiveData = new MutableLiveData<>();
+    public MutableLiveData<Boolean> addToFavoriteLiveData = new MutableLiveData<>();
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
     public MutableLiveData<Boolean> stor_or_not_MutableLiveData = new MutableLiveData<>();
     public MutableLiveData<Integer> product_count_MutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<Boolean> deleteFromFavoriteLiveData = new MutableLiveData<>();
 
     public ProductDetailsViewModel() {
     }
@@ -47,6 +50,15 @@ public class ProductDetailsViewModel extends ViewModel {
             }
         });
 
+        repository.setAddToToFavResult(aBoolean ->
+                addToFavoriteLiveData.postValue(aBoolean)
+        );
+
+        repository.setDeleteFromFavResult(aBoolean ->
+                deleteFromFavoriteLiveData.postValue(aBoolean)
+        );
+
+
         this.productDetailsRepository = repository;
         loadData();
         getCount(1);
@@ -57,6 +69,16 @@ public class ProductDetailsViewModel extends ViewModel {
         productDetailsRepository.getProductDetailsData();
     }
 
+    public  void AddToFav (int user_id , int product_id, int smallstore_id, ProductDetailsRepository allProducts_repository1 )
+    {
+        allProducts_repository1.AddToFav(user_id,product_id,smallstore_id);
+    }
+
+
+    public  void DeleteFav (int favID, ProductDetailsRepository allProducts_repository1 )
+    {
+        allProducts_repository1.DeleteFav(favID);
+    }
 
     public void storeData(Product dataBeans) {
         productDetailsRepository.saveDataInDB(dataBeans);

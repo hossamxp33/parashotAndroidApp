@@ -1,12 +1,17 @@
 package com.example.hossam.parashotApp.dataLayer.repositories;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v4.util.Consumer;
 import android.util.Log;
 import com.example.hossam.parashotApp.dataLayer.apiData.ApiInterface;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.deo.ProductDeo;
 import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.Product;
 import com.example.hossam.parashotApp.entities.Products_in_Stories_Model;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,17 +24,20 @@ public class AllProductsRepository {
     private Consumer<Boolean> booleanConsumerForAdd;
     private Consumer<Integer> productsCount;
     private Consumer<Throwable> onError;
-    private int store_id;
+    private Consumer<Boolean> onSuccessFavAdd;
+    private Consumer<Boolean> onSuccessFavDelete;
+    private int store_id,userid;
 
 
     private ProductDeo productDeo;
 
 
-    public AllProductsRepository(ApiInterface apiService1, ProductDeo pDeo, int storeid)
+    public AllProductsRepository(ApiInterface apiService1, ProductDeo pDeo, int storeid,int userID)
     {
         apiService = apiService1;
         productDeo=pDeo;
         store_id = storeid;
+        userid = userID;
         getAllProductData();
     }
 
@@ -40,7 +48,7 @@ public class AllProductsRepository {
 
     private void getAllProductData() {
         try {
-            apiService.getProductsData(store_id).enqueue(new Callback<Products_in_Stories_Model>() {
+            apiService.getProductsData(store_id,userid).enqueue(new Callback<Products_in_Stories_Model>() {
                 @Override
                 public void onResponse(Call<Products_in_Stories_Model> call, final Response<Products_in_Stories_Model> response) {
                     if (response.body() != null) {
@@ -71,6 +79,51 @@ public class AllProductsRepository {
             onError.accept(e);
         }
     }
+
+    public void AddToFav(int userid , int productid, int smallstore_id )
+    {
+        apiService.addfavourite(createPartFromString(String.valueOf(userid)),createPartFromString(String.valueOf(productid))
+                ,createPartFromString(String.valueOf(smallstore_id))).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful())
+                    onSuccessFavAdd.accept(true);
+                else
+                    onSuccessFavAdd.accept(false);
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+    public void DeleteFav(int favid )
+    {
+        apiService.deleteFav(favid).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful())
+                    onSuccessFavDelete.accept(true);
+                else
+                    onSuccessFavDelete.accept(false);
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+    @NonNull
+    private RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(
+                MultipartBody.FORM, descriptionString);
+    }
+
+
 
     public void saveDataInDB(Product data) {
         new AllProductsRepository.ProductAsyncTask(productDeo).execute(data);
@@ -125,6 +178,13 @@ public class AllProductsRepository {
         this.booleanConsumerForAdd = booleanConsumerForAdd;
     }
 
+    public void setAddToToFavResult(Consumer<Boolean> booleanAddToFav1) {
+        this.onSuccessFavAdd = booleanAddToFav1;
+    }
+
+    public void setDeleteFromFavResult(Consumer<Boolean> booleanDeleteFromFav) {
+        this.onSuccessFavDelete = booleanDeleteFromFav;
+    }
     public void setProductsCount(Consumer<Integer> counter) {
         this.productsCount = counter;
     }

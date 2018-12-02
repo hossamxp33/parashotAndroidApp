@@ -1,6 +1,7 @@
-package com.example.hossam.parashotApp.presentation.screens.home.ratesOfProduct.adapter;
+package com.example.hossam.parashotApp.presentation.screens.home.notificationFragment.adapter;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,54 +13,48 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.hossam.parashotApp.R;
-import com.example.hossam.parashotApp.entities.RatessOfProductModel;
+import com.example.hossam.parashotApp.entities.DeliveryComments;
+import com.example.hossam.parashotApp.entities.Notifications;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AllRatesAdapter extends RecyclerView.Adapter<AllRatesAdapter.ViewHolder> {
+public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.ViewHolder> {
 
     private LayoutInflater layoutInflater;
-    List<RatessOfProductModel.DataBean.ProductratesBean> productRates = new ArrayList<>();
-    List<RatessOfProductModel.DataBean> AllproductRates;
+    List<Notifications.DataBean> allnotification;
     private Context context;
 
 
-    public AllRatesAdapter(Context context , List<RatessOfProductModel.DataBean> arrayList)
-    {
-        this.AllproductRates = arrayList;
-        this.context =  context;
 
-        for (int i=0;i<AllproductRates.size();i++)
-            productRates.addAll(AllproductRates.get(i).getProductrates());
+    public NotificationsAdapter(FragmentActivity activity, List<Notifications.DataBean> data) {
+        this.allnotification = data;
+        this.context =  context;
     }
 
     @Override
-    public AllRatesAdapter.ViewHolder onCreateViewHolder(
+    public NotificationsAdapter.ViewHolder onCreateViewHolder(
             ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.product_comments_adapter_item, parent, false);
-        return new AllRatesAdapter.ViewHolder(view);
+                .inflate(R.layout.notifications_adapter_item, parent, false);
+        return new NotificationsAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final AllRatesAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final NotificationsAdapter.ViewHolder holder, final int position) {
 
 
-        Glide.with(context).load(productRates.get(position).getUser().getPhoto()).into(holder.person_img);
-        holder.name.setText(productRates.get(position).getUser().getUsername());
-        holder.comment.setText(productRates.get(position).getComment());
-        holder.ratingBar.setRating(productRates.get(position).getRate());
-        holder.time.setText(getdate(productRates.get(position).getCreated()));
+        holder.person_img.setImageResource(R.drawable.barashot_logo);
+        holder.name.setText(allnotification.get(0).getText());
+        holder.time.setText(getdate(allnotification.get(0).getCreated()));
     }
 
 
     @Override
     public int getItemCount() {
-        return productRates.size();
+        return allnotification.size();
     }
 
     private String  getdate(String date)

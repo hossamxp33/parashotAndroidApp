@@ -1,9 +1,12 @@
 package com.example.hossam.parashotApp.dataLayer.apiData;
 
+import android.arch.persistence.room.Delete;
+
 import com.example.hossam.parashotApp.entities.Categories;
 import com.example.hossam.parashotApp.entities.DealsModel;
 import com.example.hossam.parashotApp.entities.DeliveryComments;
 import com.example.hossam.parashotApp.entities.DeliveryOffers;
+import com.example.hossam.parashotApp.entities.FavProduct;
 import com.example.hossam.parashotApp.entities.OffersModel;
 import com.example.hossam.parashotApp.entities.RatessOfProductModel;
 import com.example.hossam.parashotApp.entities.LoginResponseModel;
@@ -14,6 +17,7 @@ import com.example.hossam.parashotApp.entities.RegisterResponseModel;
 import com.example.hossam.parashotApp.entities.StoreSettingEntity;
 import com.example.hossam.parashotApp.entities.StoresList;
 import com.example.hossam.parashotApp.entities.StoresFromGoogleModel;
+import com.example.hossam.parashotApp.entities.Notifications;
 import com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.helper.ProductModel;
 
 import java.util.List;
@@ -23,6 +27,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -63,16 +68,26 @@ public interface ApiInterface {
     );
 
 
-    @GET("products/ProductList/{storid}.json")
+    @GET("products/ProductList/{storid}/{userid}.json")
     @Headers("Accept: Application/json")
     Call<Products_in_Stories_Model> getProductsData(
-            @Path(value = "storid") int storid
+            @Path(value = "storid") int storid,
+            @Path(value = "userid") int userid
     );
 
-    @GET("products/getproduct/{productid}.json")
+
+    @GET("favourite/getuserfavourite/{userid}.json")
+    @Headers("Accept: Application/json")
+    Call<FavProduct> getFavProductsData(
+            @Path(value = "userid") int userid
+    );
+
+
+    @GET("products/getproduct/{productid}/{userid}.json")
     @Headers("Accept: Application/json")
     Call<ProductDetailsModel> getProductDetails(
-            @Path(value = "productid") int productid
+            @Path(value = "productid") int productid,
+            @Path(value = "userid") int userid
     );
 
     @GET("orders/getorders/{userid}.json")
@@ -149,6 +164,26 @@ public interface ApiInterface {
     );
 
 
+    @Multipart
+    @POST("favourite/addfavourite.json")
+    Call<ResponseBody> addfavourite(
+            @Part("user_id") RequestBody user_id,
+            @Part("product_id") RequestBody product_id,
+            @Part("smallstore_id") RequestBody smallstore_id
+    );
+
+    @DELETE("favourite/delete/{favid}.json")
+    @Headers("Accept: Application/json")
+    Call<ResponseBody> deleteFav(
+            @Path(value = "favid") int favid
+    );
+
+
+    @GET("Notifications/getnotifications/{userid}.json")
+    @Headers("Accept: Application/json")
+    Call<Notifications> getnotifications(
+            @Path(value = "userid") int userid
+    );
 
 }
 

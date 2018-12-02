@@ -15,11 +15,12 @@ public class ProductDetailsModelFactory implements ViewModelProvider.Factory {
 
 
     private Application application;
-    int storeid,productid;//// for getProducts in that store
+    int userID,productid,storid;//// for getProducts in that store
 
-    public ProductDetailsModelFactory(Application application1, int stor_id, int productid1) {
+    public ProductDetailsModelFactory(Application application1, int productid1,int stor_id ,int user_id) {
         application = application1;
-        storeid=stor_id;
+        userID =user_id;
+        storid = stor_id;
         productid = productid1;
     }
 
@@ -40,7 +41,7 @@ public class ProductDetailsModelFactory implements ViewModelProvider.Factory {
 
     @NonNull
     private ProductDetailsRepository getProductDetailsRepositry() {
-        return new ProductDetailsRepository(getApiService(),getProductDeo(),productid);
+        return new ProductDetailsRepository(getApiService(),getProductDeo(),productid,storid,userID);
     }
 
     private ApiInterface getApiService() {

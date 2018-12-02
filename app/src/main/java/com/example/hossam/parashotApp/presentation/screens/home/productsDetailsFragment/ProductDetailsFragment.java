@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,7 @@ import com.example.hossam.parashotApp.dataLayer.localDatabase.userCart.entities.
 import com.example.hossam.parashotApp.entities.ImageToShowModel;
 import com.example.hossam.parashotApp.entities.ProductDetailsModel;
 import com.example.hossam.parashotApp.helper.BroadcastHelper;
+import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.allProductInsideOrderFragment.ProductsInsideOrderFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.productsDetailsFragment.adapters.ImagesAdapterForColor;
@@ -49,27 +51,30 @@ import java.util.Objects;
 public class ProductDetailsFragment extends Fragment {
 
 
-
     private ProductDetailsViewModel productDetailsViewModel;
-    TextView description,name,markaname,storename,productrinfo,ratesnum,price,gotocart, cartProductsCount, productcount;
-    ViewPager  viewPager;
-    ImageView showmore,gotodet,imageZoom;
+    TextView description, name, markaname, storename, productrinfo, ratesnum, price, gotocart, cartProductsCount, productcount;
+    ViewPager viewPager;
+    ImageView showmore, gotodet, imageZoom;
     LinearLayoutManager layoutManager;
     ArrayList<ImageToShowModel> images = new ArrayList<>();
     RelativeLayout addtoCart;
     ///////////////definition of all recycles
-    private RecyclerView recyclerViewforsideimages,recyclerViewforstorage,recyclerViewforitemcolors;
+    private RecyclerView recyclerViewforsideimages, recyclerViewforstorage, recyclerViewforitemcolors;
 
     ///////////////definition of all adapters
     ImagesAdapterForColor imagesAdapterForColor;
-   ImagesAdapterForSideImages imagesAdapterForSideImages;
+    ImagesAdapterForSideImages imagesAdapterForSideImages;
     SliderPagerAdapter sliderPagerAdapter;
-   TextAdapterForStorage textAdapterForStorage;
+    TextAdapterForStorage textAdapterForStorage;
+    ImageView favorite;
+    PreferenceHelper preferenceHelper;
 
     String productinfo; //////to goto next activity
     RatingBar ratingBar;
     ProductDetailsModel detailsModel;
-    int store_id,productid;
+    int store_id, productid, userid;
+    boolean productfav;
+
     public ProductDetailsFragment() {
         // Required empty public constructor
     }
@@ -86,11 +91,13 @@ public class ProductDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_product_details, container, false);
         findFromXml(view);
 
-        ((HomeActivity)Objects.requireNonNull(getActivity())).title.setText(getText(R.string.product_details));
+        ((HomeActivity) Objects.requireNonNull(getActivity())).title.setText(getText(R.string.product_details));
 
         store_id = getArguments().getInt("store_id");
         productid = getArguments().getInt("product_id");
-
+        preferenceHelper = new PreferenceHelper(getActivity());
+        userid = preferenceHelper.getUserId();
+        userid = 113;
         productDetailsViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(ProductDetailsViewModel.class);
 
         productDetailsViewModel.productDetails_MutableLiveData.observe(this, new Observer<ProductDetailsModel>() {
@@ -99,45 +106,51 @@ public class ProductDetailsFragment extends Fragment {
             public void onChanged(@Nullable ProductDetailsModel products) {
                 assert products != null;
                 setDatatoView(products);
-
                 detailsModel = products;
-                if (products.getData().get(0).getProductphotos()!=null)
-                sliderPagerAdapter = new SliderPagerAdapter(getActivity(),products.getData().get(0).getProductphotos());
-                imagesAdapterForSideImages = new ImagesAdapterForSideImages(getActivity(),products.getData().get(0).getProductphotos());
-                imagesAdapterForColor = new ImagesAdapterForColor(getActivity(),products.getData().get(0).getProductcolors());
-                textAdapterForStorage = new TextAdapterForStorage(getActivity(),products.getData().get(0).getProductsizes());
+                if (products.getData().get(0).getProductphotos() != null)
+                    sliderPagerAdapter = new SliderPagerAdapter(getActivity(), products.getData().get(0).getProductphotos());
+                imagesAdapterForSideImages = new ImagesAdapterForSideImages(getActivity(), products.getData().get(0).getProductphotos());
+                imagesAdapterForColor = new ImagesAdapterForColor(getActivity(), products.getData().get(0).getProductcolors());
+                textAdapterForStorage = new TextAdapterForStorage(getActivity(), products.getData().get(0).getProductsizes());
                 viewPager.setAdapter(sliderPagerAdapter);
                 recyclerViewforsideimages.setAdapter(imagesAdapterForSideImages);
                 recyclerViewforitemcolors.setAdapter(imagesAdapterForColor);
                 recyclerViewforstorage.setAdapter(textAdapterForStorage);
+
+                if (products.getData().get(0).getFavourite().size() > 0) {
+                    favorite.setImageResource(R.drawable.favoried);
+                    productfav = true;
+                }
+
             }
+
         });
 
         productDetailsViewModel.product_count_MutableLiveData.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable Integer integer) {
-                cartProductsCount.setText(integer+"");
-                productcount.setText(getText(R.string.youhave)+" "+integer+" "+getText(R.string.productincart));
+                cartProductsCount.setText(integer + "");
+                productcount.setText(getText(R.string.youhave) + " " + integer + " " + getText(R.string.productincart));
 
             }
         });
 
         productDetailsViewModel.errorLiveData.observe(this, throwable -> {
-            Snackbar.make(getView(),throwable.getMessage(),Snackbar.LENGTH_LONG).show();
+            Snackbar.make(getView(), throwable.getMessage(), Snackbar.LENGTH_LONG).show();
         });
 
-        showmore.setOnClickListener(v ->  {
-                int totalItemCount = recyclerViewforsideimages.getAdapter().getItemCount();
-                if (totalItemCount <= 0) return;
-                int lastVisibleItemIndex = layoutManager.findLastVisibleItemPosition();
-                if (lastVisibleItemIndex >= totalItemCount) return;
-                layoutManager.smoothScrollToPosition(recyclerViewforsideimages,null,lastVisibleItemIndex+1);
+        showmore.setOnClickListener(v -> {
+            int totalItemCount = recyclerViewforsideimages.getAdapter().getItemCount();
+            if (totalItemCount <= 0) return;
+            int lastVisibleItemIndex = layoutManager.findLastVisibleItemPosition();
+            if (lastVisibleItemIndex >= totalItemCount) return;
+            layoutManager.smoothScrollToPosition(recyclerViewforsideimages, null, lastVisibleItemIndex + 1);
 
         });
 
         gotodet.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(),ProductInfoActivity.class);
-            intent.putExtra("product_info",productinfo);
+            Intent intent = new Intent(getActivity(), ProductInfoActivity.class);
+            intent.putExtra("product_info", productinfo);
             startActivity(intent);
         });
 
@@ -145,7 +158,7 @@ public class ProductDetailsFragment extends Fragment {
 
             Intent intent = new Intent(getActivity(), DetailImageActivity.class);
             intent.putParcelableArrayListExtra("data", images);
-            intent.putExtra("pos",viewPager.getCurrentItem());
+            intent.putExtra("pos", viewPager.getCurrentItem());
             Objects.requireNonNull(getActivity()).startActivity(intent);
         });
 
@@ -154,12 +167,44 @@ public class ProductDetailsFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                    Fragment fragment = new RatesOfProductFragment();
-                    Bundle bundle =new Bundle();
-                    bundle.putInt("product_id",detailsModel.getData().get(0).getId());
-                    fragment.setArguments(bundle);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,fragment).addToBackStack(null).commit();
+                Fragment fragment = new RatesOfProductFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("product_id", detailsModel.getData().get(0).getId());
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).addToBackStack(null).commit();
                 return false;
+            }
+        });
+
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //  int userid = preferenceHelper.getUserId();
+                if (productfav)
+                productDetailsViewModel.AddToFav(113, detailsModel.getData().get(0).getId(), detailsModel.getData().get(0).getSmallstore_id()
+                        , productDetailsViewModel.productDetailsRepository);
+
+                else
+                    productDetailsViewModel.DeleteFav(detailsModel.getData().get(0).getFavourite().get(0).getId()
+                            ,productDetailsViewModel.productDetailsRepository);
+
+                productDetailsViewModel.addToFavoriteLiveData.observe(getActivity(), aBoolean -> {
+                    if (aBoolean) {
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.addtofavsucces), Toast.LENGTH_SHORT).show();
+                        favorite.setImageResource(R.drawable.favoried);
+                    } else
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.erroroccur), Toast.LENGTH_SHORT).show();
+                });
+
+                productDetailsViewModel.deleteFromFavoriteLiveData.observe(getActivity(),aBoolean -> {
+                    if (aBoolean) {
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.deletefromfavsucces), Toast.LENGTH_SHORT).show();
+                        favorite.setImageResource(R.drawable.favicon);
+                    } else
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.erroroccur), Toast.LENGTH_SHORT).show();
+
+                });
+
             }
         });
         addtoCart.setOnClickListener(v -> {
@@ -180,13 +225,11 @@ public class ProductDetailsFragment extends Fragment {
 
                     if (aBoolean) {
                         Toast.makeText(getActivity(), getResources().getString(R.string.addsuccess), Toast.LENGTH_SHORT).show();
-                        int currentcount =Integer.parseInt(cartProductsCount.getText().toString())+1;
-                        cartProductsCount.setText(currentcount+"");
-                        productcount.setText(getText(R.string.youhave)+" "+currentcount+" "+getText(R.string.productincart));
-                    }
-
-                    else
-                        Toast.makeText(getActivity(),getResources().getString(R.string.aleadyfound),Toast.LENGTH_SHORT).show();
+                        int currentcount = Integer.parseInt(cartProductsCount.getText().toString()) + 1;
+                        cartProductsCount.setText(currentcount + "");
+                        productcount.setText(getText(R.string.youhave) + " " + currentcount + " " + getText(R.string.productincart));
+                    } else
+                        Toast.makeText(getActivity(), getResources().getString(R.string.aleadyfound), Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -202,10 +245,10 @@ public class ProductDetailsFragment extends Fragment {
         name.setText(products.getData().get(0).getName());
         markaname.setText(products.getData().get(0).getBrand());
         storename.setText(products.getData().get(0).getSmallstore().getName());
-        ratesnum.setText("("+products.getData().get(0).getTotal_rating().get(0).getCount()+")");
+        ratesnum.setText("(" + products.getData().get(0).getTotal_rating().get(0).getCount() + ")");
         ratingBar.setRating((float) products.getData().get(0).getTotal_rating().get(0).getStars());
         productinfo = products.getData().get(0).getProduct_info();
-        price.setText(products.getData().get(0).getPrice()+"ريال ");
+        price.setText(products.getData().get(0).getPrice() + "ريال ");
 
         for (int i = 0; i < products.getData().get(0).getProductphotos().size(); i++) {
             ImageToShowModel imageModel = new ImageToShowModel();
@@ -217,9 +260,7 @@ public class ProductDetailsFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
             productrinfo.setText(Html.fromHtml(products.getData().get(0).getProduct_info(), Html.FROM_HTML_MODE_COMPACT));
-        }
-
-        else
+        } else
             productrinfo.setText(Html.fromHtml(products.getData().get(0).getProduct_info()));
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
@@ -232,9 +273,9 @@ public class ProductDetailsFragment extends Fragment {
                 {
                     Fragment fragment = new ProductsInsideOrderFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putInt("stor_id",store_id);
+                    bundle.putInt("stor_id", store_id);
                     fragment.setArguments(bundle);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,fragment)
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment)
                             .addToBackStack(null).commit();
                 }
         );
@@ -243,6 +284,7 @@ public class ProductDetailsFragment extends Fragment {
 
     Receiver receiver;
     boolean isReciverRegistered = false;
+
     @Override
     public void onResume() {
         super.onResume();
@@ -273,7 +315,7 @@ public class ProductDetailsFragment extends Fragment {
                 Log.v("receive", methodName);
                 switch (methodName) {
                     case "image_position":
-                        int   position = arg1.getIntExtra("position",0);
+                        int position = arg1.getIntExtra("position", 0);
                         viewPager.setCurrentItem(position);
                         break;
 
@@ -286,13 +328,13 @@ public class ProductDetailsFragment extends Fragment {
 
     private void findFromXml(View view) {
 
-        description=view.findViewById(R.id.description);
-        name=view.findViewById(R.id.name);
-        markaname=view.findViewById(R.id.markaname);
-        storename=view.findViewById(R.id.storename);
-        productrinfo=view.findViewById(R.id.item_detailsvalues);
-        ratesnum=view.findViewById(R.id.ratesnum);
-        ratingBar=view.findViewById(R.id.rates);
+        description = view.findViewById(R.id.description);
+        name = view.findViewById(R.id.notification_text);
+        markaname = view.findViewById(R.id.markaname);
+        storename = view.findViewById(R.id.storename);
+        productrinfo = view.findViewById(R.id.item_detailsvalues);
+        ratesnum = view.findViewById(R.id.ratesnum);
+        ratingBar = view.findViewById(R.id.rates);
         recyclerViewforsideimages = view.findViewById(R.id.recylerviewimages);
         recyclerViewforitemcolors = view.findViewById(R.id.recylerviewcolors);
         recyclerViewforstorage = view.findViewById(R.id.recylerviewstorage);
@@ -305,8 +347,9 @@ public class ProductDetailsFragment extends Fragment {
         gotocart = view.findViewById(R.id.sale);
         cartProductsCount = view.findViewById(R.id.cart_count);
         productcount = view.findViewById(R.id.productcounttext);
+        favorite = view.findViewById(R.id.favorite);
 
-        layoutManager =new LinearLayoutManager(getActivity());
+        layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewforsideimages.setLayoutManager(layoutManager);
         recyclerViewforsideimages.setNestedScrollingEnabled(true);
         recyclerViewforsideimages.setHasFixedSize(false);
@@ -314,11 +357,9 @@ public class ProductDetailsFragment extends Fragment {
     }
 
 
-
-
     @NonNull
     private ViewModelProvider.Factory getViewModelFactory() {
-        return new ProductDetailsModelFactory(getActivity().getApplication(),productid,store_id);
+        return new ProductDetailsModelFactory(getActivity().getApplication(), productid, store_id, userid);
     }
 
 }

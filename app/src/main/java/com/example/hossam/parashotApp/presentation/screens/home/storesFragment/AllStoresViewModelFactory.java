@@ -33,7 +33,7 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
 
     private Application application;
     int typeid,categry;
-    int storeid;//// for getProducts in that store
+    int storeid,userid;//// for getProducts in that store
     String userlocation,categrytype;
     List<ProductModel> productList; ///// alldata of product send to serever when user parches
     public AllStoresViewModelFactory(@NonNull Application application1) {
@@ -49,14 +49,21 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
         categrytype =categrytype1;
     }
 
-    public AllStoresViewModelFactory(Application application1, int stor_id) {
+    public AllStoresViewModelFactory(Application application1, int stor_id,int user) {
         application = application1;
         storeid=stor_id;
+        userid=user;
     }
 
     public AllStoresViewModelFactory(Application application, List<ProductModel> productList1) {
         application = application;
         productList= productList1;
+    }
+
+    public AllStoresViewModelFactory(Application application1, int stor_id) {
+        application = application1;
+        storeid=stor_id;
+
     }
 
     @SuppressWarnings("SingleStatementInBlock")
@@ -104,7 +111,7 @@ public class AllStoresViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     private AllProductsRepository
     getProductsRepositry() {
-        return new AllProductsRepository(getApiService(),getProductDeo(),storeid);
+        return new AllProductsRepository(getApiService(),getProductDeo(),storeid,userid);
     }
 
 
