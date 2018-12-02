@@ -1,5 +1,7 @@
 package com.example.hossam.parashotApp.dataLayer.apiData;
 
+import android.arch.persistence.room.Delete;
+
 import com.example.hossam.parashotApp.entities.Categories;
 import com.example.hossam.parashotApp.entities.DealsModel;
 import com.example.hossam.parashotApp.entities.DeliveryComments;
@@ -25,6 +27,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -65,10 +68,11 @@ public interface ApiInterface {
     );
 
 
-    @GET("products/ProductList/{storid}.json")
+    @GET("products/ProductList/{storid}/{userid}.json")
     @Headers("Accept: Application/json")
     Call<Products_in_Stories_Model> getProductsData(
-            @Path(value = "storid") int storid
+            @Path(value = "storid") int storid,
+            @Path(value = "userid") int userid
     );
 
 
@@ -166,6 +170,12 @@ public interface ApiInterface {
             @Part("user_id") RequestBody user_id,
             @Part("product_id") RequestBody product_id,
             @Part("smallstore_id") RequestBody smallstore_id
+    );
+
+    @DELETE("favourite/delete/{favid}.json")
+    @Headers("Accept: Application/json")
+    Call<ResponseBody> deleteFav(
+            @Path(value = "favid") int favid
     );
 
 

@@ -24,18 +24,20 @@ public class AllProductsRepository {
     private Consumer<Boolean> booleanConsumerForAdd;
     private Consumer<Integer> productsCount;
     private Consumer<Throwable> onError;
-    private Consumer<Boolean> onSuccessFav;
-    private int store_id;
+    private Consumer<Boolean> onSuccessFavAdd;
+    private Consumer<Boolean> onSuccessFavDelete;
+    private int store_id,userid;
 
 
     private ProductDeo productDeo;
 
 
-    public AllProductsRepository(ApiInterface apiService1, ProductDeo pDeo, int storeid)
+    public AllProductsRepository(ApiInterface apiService1, ProductDeo pDeo, int storeid,int userID)
     {
         apiService = apiService1;
         productDeo=pDeo;
         store_id = storeid;
+        userid = userID;
         getAllProductData();
     }
 
@@ -46,7 +48,7 @@ public class AllProductsRepository {
 
     private void getAllProductData() {
         try {
-            apiService.getProductsData(store_id).enqueue(new Callback<Products_in_Stories_Model>() {
+            apiService.getProductsData(store_id,userid).enqueue(new Callback<Products_in_Stories_Model>() {
                 @Override
                 public void onResponse(Call<Products_in_Stories_Model> call, final Response<Products_in_Stories_Model> response) {
                     if (response.body() != null) {
@@ -85,17 +87,35 @@ public class AllProductsRepository {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful())
-                    onSuccessFav.accept(true);
+                    onSuccessFavAdd.accept(true);
                 else
-                    onSuccessFav.accept(false);
+                    onSuccessFavAdd.accept(false);
             }
-
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
             }
         });
     }
+
+
+    public void DeleteFav(int favid )
+    {
+        apiService.deleteFav(favid).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful())
+                    onSuccessFavDelete.accept(true);
+                else
+                    onSuccessFavDelete.accept(false);
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
 
     @NonNull
     private RequestBody createPartFromString(String descriptionString) {
@@ -159,9 +179,12 @@ public class AllProductsRepository {
     }
 
     public void setAddToToFavResult(Consumer<Boolean> booleanAddToFav1) {
-        this.onSuccessFav = booleanAddToFav1;
+        this.onSuccessFavAdd = booleanAddToFav1;
     }
 
+    public void setDeleteFromFavResult(Consumer<Boolean> booleanDeleteFromFav) {
+        this.onSuccessFavDelete = booleanDeleteFromFav;
+    }
     public void setProductsCount(Consumer<Integer> counter) {
         this.productsCount = counter;
     }

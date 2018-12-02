@@ -153,6 +153,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void gotoFavsfragment(View view) {
+//        if (preferenceHelper.getUserId() > 0)
+//            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new MYOrderFragment()).addToBackStack(null).commit();
+//        else
+//            Snackbar.make(view, getText(R.string.loginfirst), Snackbar.LENGTH_LONG).show();
+//
+        FragmentManager fm = getSupportFragmentManager();
+        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStack();
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new CategoryFragment()).addToBackStack(null).commit();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new FavoriteFragment()).addToBackStack(null).commit();
 
     }

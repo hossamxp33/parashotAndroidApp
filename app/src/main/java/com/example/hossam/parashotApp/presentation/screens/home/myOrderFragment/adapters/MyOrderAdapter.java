@@ -19,6 +19,8 @@ import com.example.hossam.parashotApp.entities.MYOrdersModel;
 import com.example.hossam.parashotApp.presentation.screens.home.allProductInsideOrderFragment.ProductsInsideOrderFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.deliverOffersFragment.DeliveryOffersFragment;
 import com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MyOrderViewModel;
+import com.example.hossam.parashotApp.presentation.screens.home.rateFragment.RateFragment;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,7 +59,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomVi
 
         if (!orderData.get(position).getOrder_status().matches("3"))
         {
-            holder.myOrdersBinding.requestAgain.setVisibility(View.GONE);
+            holder.myOrdersBinding.deliveryRate.setVisibility(View.GONE);
             holder.myOrdersBinding.rateProduct.setVisibility(View.GONE);
         }
 
@@ -158,6 +160,15 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.CustomVi
                 ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).addToBackStack(null).commit();
             }
         });
+
+        holder.myOrdersBinding.rateProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new RateFragment()).addToBackStack(null).commit();
+
+            }
+        });
+
     }
 
     private String getdate(String date) {

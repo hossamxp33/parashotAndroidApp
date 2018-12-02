@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.hossam.parashotApp.R;
+import com.example.hossam.parashotApp.helper.PreferenceHelper;
 import com.example.hossam.parashotApp.presentation.screens.home.HomeActivity;
 import com.example.hossam.parashotApp.presentation.screens.home.productsFragment.adapter.ProductsAdapter;
 import com.example.hossam.parashotApp.presentation.screens.home.productsFragment.helper.AddToCart;
@@ -30,7 +31,8 @@ public class ProductsFragment extends Fragment implements AddToCart {
     private ProductsAdapter productsAdapter; ////productsAdapter adapter
     private ProductsViewModel products_viewModel;
     TextView gotocart,cart_count,productcounttext;
-    int stor_id;
+    int stor_id,userID;
+    PreferenceHelper preferenceHelper;
     public ProductsFragment() {
         // Required empty public constructor
     }
@@ -52,8 +54,11 @@ public class ProductsFragment extends Fragment implements AddToCart {
         productcounttext = view.findViewById(R.id.productcounttext);
         ((HomeActivity)Objects.requireNonNull(getActivity())).title.setText(getText(R.string.products));
 
-        stor_id = getArguments().getInt("stor_id");
+        preferenceHelper = new PreferenceHelper(getActivity());
 
+        stor_id = getArguments().getInt("stor_id");
+        userID = preferenceHelper.getUserId();
+        userID = 113;
         products_viewModel = ViewModelProviders.of(this, getViewModelFactory()).get(ProductsViewModel.class);
 
 
@@ -90,7 +95,7 @@ public class ProductsFragment extends Fragment implements AddToCart {
 
     @NonNull
     private ViewModelProvider.Factory getViewModelFactory() {
-        return new AllStoresViewModelFactory(getActivity().getApplication(),stor_id);
+        return new AllStoresViewModelFactory(getActivity().getApplication(),stor_id,userID);
     }
 
     @Override

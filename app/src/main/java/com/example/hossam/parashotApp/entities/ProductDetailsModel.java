@@ -17,11 +17,11 @@ public class ProductDetailsModel {
     public static class DataBean {
         /**
          * id : 1
-         * name : iphone
+         * name : هواوي مايت 10 شريحتين اتصال - 64 جيجا, 4 جيجا رام, جيل الرابع ال اي تي, اسود
          * subcat_id :
          * category_id :
-         * price : 10
-         * last_price : 15
+         * price : 15
+         * last_price : 10
          * description : iphone is a line of smartphones designed and marketed by Apple Inc
          * smallstore_id : 1
          * brand : apple
@@ -51,11 +51,12 @@ public class ProductDetailsModel {
          * modified : 2018-09-17T16:38:03+0000
          * visible : true
          * smallstore : {"id":1,"name":"متجرك"}
-         * productrates : [{"id":1,"rate":3,"product_id":1,"user_id":113,"created":"2018-09-19T09:29:00+0000","modified":"2018-09-18T09:32:08+0000","comment":"hazem","user":{"photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","username":"sssasss"}},{"id":2,"rate":2,"product_id":1,"user_id":113,"created":"2018-10-03T09:29:00+0000","modified":"2018-09-18T09:32:08+0000","comment":null,"user":{"photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","username":"sssasss"}},{"id":6,"rate":1,"product_id":1,"user_id":113,"created":"2018-10-08T09:29:00+0000","modified":"2018-09-18T09:32:08+0000","comment":null,"user":{"photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","username":"sssasss"}}]
+         * productrates : [{"id":1,"rate":3,"product_id":1,"user_id":113,"created":"2018-09-19T09:29:00+0000","modified":"2018-09-18T09:32:08+0000","comment":"hazem","user":{"photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","username":"admin"}},{"id":2,"rate":2,"product_id":1,"user_id":113,"created":"2018-10-03T09:29:00+0000","modified":"2018-09-18T09:32:08+0000","comment":null,"user":{"photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","username":"admin"}},{"id":6,"rate":1,"product_id":1,"user_id":113,"created":"2018-10-08T09:29:00+0000","modified":"2018-09-18T09:32:08+0000","comment":null,"user":{"photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","username":"admin"}}]
          * productsizes : [{"id":1,"product_id":1,"size":"400","created":"2018-09-18T11:06:14+0000","modified":"2018-09-18T11:06:32+0000"}]
          * productcolors : [{"id":1,"product_id":1,"color_hex":"#000000","red":"255","blue":"255","green":"255","created":"2018-09-18T13:08:38+0000","modified":"2018-09-18T13:26:03+0000"},{"id":2,"product_id":1,"color_hex":"#4286f4","red":"66","blue":"134","green":"244","created":"2018-09-18T13:08:38+0000","modified":"2018-09-18T13:26:03+0000"},{"id":3,"product_id":1,"color_hex":"#111214","red":"17","blue":"18","green":"20","created":"2018-09-18T13:08:38+0000","modified":"2018-09-18T13:26:03+0000"},{"id":4,"product_id":1,"color_hex":"#1058cc","red":"16","blue":"88","green":"204","created":"2018-09-18T13:08:38+0000","modified":"2018-09-18T13:26:03+0000"}]
          * productphotos : [{"id":1,"photo":"http://parashot.codesroots.com/library/default/35768252.jpeg","main":"ahmed2","product_id":1,"created":"2018-09-18T14:47:31+0000","modified":"2018-10-15T13:59:48+0000"},{"id":2,"photo":"http://parashot.codesroots.com/library/default/35768252.jpeg","main":"ahmed5","product_id":1,"created":"2018-09-19T17:10:00+0000","modified":"2018-09-21T19:45:41+0000"},{"id":3,"photo":"http://parashot.codesroots.com/library/default/35768252.jpeg","main":"ahmed7","product_id":1,"created":"2018-09-21T19:48:22+0000","modified":"2018-09-21T19:48:22+0000"}]
          * total_rating : [{"product_id":1,"stars":6,"count":3}]
+         * favourite : [{"id":2,"user_id":113,"product_id":1,"created":"2018-12-01T13:33:29+0000","modified":"2018-12-01T13:33:29+0000","smallstore_id":1},{"id":5,"user_id":113,"product_id":1,"created":"2018-12-01T14:58:51+0000","modified":"2018-12-01T14:58:51+0000","smallstore_id":1},{"id":6,"user_id":113,"product_id":1,"created":"2018-12-01T14:58:53+0000","modified":"2018-12-01T14:58:53+0000","smallstore_id":1},{"id":7,"user_id":113,"product_id":1,"created":"2018-12-01T14:58:54+0000","modified":"2018-12-01T14:58:54+0000","smallstore_id":1},{"id":8,"user_id":113,"product_id":1,"created":"2018-12-01T14:58:54+0000","modified":"2018-12-01T14:58:54+0000","smallstore_id":1},{"id":9,"user_id":113,"product_id":1,"created":"2018-12-01T14:58:54+0000","modified":"2018-12-01T14:58:54+0000","smallstore_id":1},{"id":10,"user_id":113,"product_id":1,"created":"2018-12-01T14:58:55+0000","modified":"2018-12-01T14:58:55+0000","smallstore_id":1},{"id":11,"user_id":113,"product_id":1,"created":"2018-12-01T14:58:55+0000","modified":"2018-12-01T14:58:55+0000","smallstore_id":1},{"id":12,"user_id":113,"product_id":1,"created":"2018-12-01T14:58:55+0000","modified":"2018-12-01T14:58:55+0000","smallstore_id":1},{"id":13,"user_id":113,"product_id":1,"created":"2018-12-01T14:58:56+0000","modified":"2018-12-01T14:58:56+0000","smallstore_id":1},{"id":14,"user_id":113,"product_id":1,"created":"2018-12-01T15:00:06+0000","modified":"2018-12-01T15:00:06+0000","smallstore_id":1},{"id":15,"user_id":113,"product_id":1,"created":"2018-12-01T15:01:41+0000","modified":"2018-12-01T15:01:41+0000","smallstore_id":1},{"id":16,"user_id":113,"product_id":1,"created":"2018-12-01T15:04:07+0000","modified":"2018-12-01T15:04:07+0000","smallstore_id":1},{"id":17,"user_id":113,"product_id":1,"created":"2018-12-01T15:05:00+0000","modified":"2018-12-01T15:05:00+0000","smallstore_id":1},{"id":18,"user_id":113,"product_id":1,"created":"2018-12-01T15:07:15+0000","modified":"2018-12-01T15:07:15+0000","smallstore_id":1},{"id":19,"user_id":113,"product_id":1,"created":"2018-12-01T15:07:17+0000","modified":"2018-12-01T15:07:17+0000","smallstore_id":1},{"id":20,"user_id":113,"product_id":1,"created":"2018-12-01T15:07:17+0000","modified":"2018-12-01T15:07:17+0000","smallstore_id":1},{"id":21,"user_id":113,"product_id":1,"created":"2018-12-01T15:07:18+0000","modified":"2018-12-01T15:07:18+0000","smallstore_id":1},{"id":22,"user_id":113,"product_id":1,"created":"2018-12-01T15:07:18+0000","modified":"2018-12-01T15:07:18+0000","smallstore_id":1},{"id":23,"user_id":113,"product_id":1,"created":"2018-12-01T15:07:18+0000","modified":"2018-12-01T15:07:18+0000","smallstore_id":1},{"id":24,"user_id":113,"product_id":1,"created":"2018-12-01T15:07:39+0000","modified":"2018-12-01T15:07:39+0000","smallstore_id":1},{"id":25,"user_id":113,"product_id":1,"created":"2018-12-01T15:10:47+0000","modified":"2018-12-01T15:10:47+0000","smallstore_id":1},{"id":26,"user_id":113,"product_id":1,"created":"2018-12-01T15:10:48+0000","modified":"2018-12-01T15:10:48+0000","smallstore_id":1},{"id":27,"user_id":113,"product_id":1,"created":"2018-12-01T15:11:10+0000","modified":"2018-12-01T15:11:10+0000","smallstore_id":1},{"id":28,"user_id":113,"product_id":1,"created":"2018-12-01T15:12:55+0000","modified":"2018-12-01T15:12:55+0000","smallstore_id":1},{"id":29,"user_id":113,"product_id":1,"created":"2018-12-01T15:14:57+0000","modified":"2018-12-01T15:14:57+0000","smallstore_id":1},{"id":30,"user_id":113,"product_id":1,"created":"2018-12-01T15:17:06+0000","modified":"2018-12-01T15:17:06+0000","smallstore_id":1},{"id":31,"user_id":113,"product_id":1,"created":"2018-12-01T15:17:26+0000","modified":"2018-12-01T15:17:26+0000","smallstore_id":1},{"id":32,"user_id":113,"product_id":1,"created":"2018-12-01T15:21:20+0000","modified":"2018-12-01T15:21:20+0000","smallstore_id":1},{"id":33,"user_id":113,"product_id":1,"created":"2018-12-01T15:22:31+0000","modified":"2018-12-01T15:22:31+0000","smallstore_id":1},{"id":34,"user_id":113,"product_id":1,"created":"2018-12-01T16:33:25+0000","modified":"2018-12-01T16:33:25+0000","smallstore_id":1},{"id":35,"user_id":113,"product_id":1,"created":"2018-12-01T17:26:50+0000","modified":"2018-12-01T17:26:50+0000","smallstore_id":1},{"id":36,"user_id":113,"product_id":1,"created":"2018-12-01T17:26:51+0000","modified":"2018-12-01T17:26:51+0000","smallstore_id":1},{"id":37,"user_id":113,"product_id":1,"created":"2018-12-01T17:52:26+0000","modified":"2018-12-01T17:52:26+0000","smallstore_id":1},{"id":38,"user_id":113,"product_id":1,"created":"2018-12-01T17:52:28+0000","modified":"2018-12-01T17:52:28+0000","smallstore_id":1},{"id":39,"user_id":113,"product_id":1,"created":"2018-12-01T17:52:50+0000","modified":"2018-12-01T17:52:50+0000","smallstore_id":1},{"id":40,"user_id":113,"product_id":1,"created":"2018-12-01T17:52:51+0000","modified":"2018-12-01T17:52:51+0000","smallstore_id":1},{"id":41,"user_id":113,"product_id":1,"created":"2018-12-01T17:52:51+0000","modified":"2018-12-01T17:52:51+0000","smallstore_id":1},{"id":42,"user_id":113,"product_id":1,"created":"2018-12-01T17:52:54+0000","modified":"2018-12-01T17:52:54+0000","smallstore_id":1},{"id":43,"user_id":113,"product_id":1,"created":"2018-12-01T17:52:57+0000","modified":"2018-12-01T17:52:57+0000","smallstore_id":1},{"id":44,"user_id":113,"product_id":1,"created":"2018-12-01T17:53:01+0000","modified":"2018-12-01T17:53:01+0000","smallstore_id":1}]
          */
 
         private int id;
@@ -79,6 +80,7 @@ public class ProductDetailsModel {
         private List<ProductcolorsBean> productcolors;
         private List<ProductphotosBean> productphotos;
         private List<TotalRatingBean> total_rating;
+        private List<FavouriteBean> favourite;
 
         public int getId() {
             return id;
@@ -248,6 +250,14 @@ public class ProductDetailsModel {
             this.total_rating = total_rating;
         }
 
+        public List<FavouriteBean> getFavourite() {
+            return favourite;
+        }
+
+        public void setFavourite(List<FavouriteBean> favourite) {
+            this.favourite = favourite;
+        }
+
         public static class SmallstoreBean {
             /**
              * id : 1
@@ -283,7 +293,7 @@ public class ProductDetailsModel {
              * created : 2018-09-19T09:29:00+0000
              * modified : 2018-09-18T09:32:08+0000
              * comment : hazem
-             * user : {"photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","username":"sssasss"}
+             * user : {"photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","username":"admin"}
              */
 
             private int id;
@@ -362,7 +372,7 @@ public class ProductDetailsModel {
             public static class UserBean {
                 /**
                  * photo : http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png
-                 * username : sssasss
+                 * username : admin
                  */
 
                 private String photo;
@@ -627,6 +637,72 @@ public class ProductDetailsModel {
 
             public void setCount(int count) {
                 this.count = count;
+            }
+        }
+
+        public static class FavouriteBean {
+            /**
+             * id : 2
+             * user_id : 113
+             * product_id : 1
+             * created : 2018-12-01T13:33:29+0000
+             * modified : 2018-12-01T13:33:29+0000
+             * smallstore_id : 1
+             */
+
+            private int id;
+            private int user_id;
+            private int product_id;
+            private String created;
+            private String modified;
+            private int smallstore_id;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public int getUser_id() {
+                return user_id;
+            }
+
+            public void setUser_id(int user_id) {
+                this.user_id = user_id;
+            }
+
+            public int getProduct_id() {
+                return product_id;
+            }
+
+            public void setProduct_id(int product_id) {
+                this.product_id = product_id;
+            }
+
+            public String getCreated() {
+                return created;
+            }
+
+            public void setCreated(String created) {
+                this.created = created;
+            }
+
+            public String getModified() {
+                return modified;
+            }
+
+            public void setModified(String modified) {
+                this.modified = modified;
+            }
+
+            public int getSmallstore_id() {
+                return smallstore_id;
+            }
+
+            public void setSmallstore_id(int smallstore_id) {
+                this.smallstore_id = smallstore_id;
             }
         }
     }

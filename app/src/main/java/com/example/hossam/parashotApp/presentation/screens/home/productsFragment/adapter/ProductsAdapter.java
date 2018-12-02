@@ -37,7 +37,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     ProductsViewModel productsViewModel1;
     AddToCart addToCart;
     PreferenceHelper preferenceHelper;
-
+    boolean [] favorite;
     public ProductsAdapter(FragmentActivity activity, List<Products_in_Stories_Model.DataBean> products_from_view,
                            ProductsViewModel viewModel,AddToCart addToCart1) {
         mcontext=activity;
@@ -45,6 +45,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         productsViewModel1 = viewModel;
         addToCart = addToCart1;
         preferenceHelper = new PreferenceHelper(mcontext);
+        favorite =new boolean[productData.size()];
     }
 
     @Override
@@ -81,14 +82,33 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             products_viewModel.setRatecount("(0)");
         }
 
-
-
         holder.productBindings.favorite.setOnClickListener(v -> {
 
             int userid = preferenceHelper.getUserId();
-            products_viewModel.AddToFav(113,productData.get(position).getId(),Integer.parseInt(productData.get(position).getSmallstore_id())
+            if (!favorite[position])
+            products_viewModel.AddToFav(113,productData.get(position).getId(),productData.get(position).getSmallstore_id()
                     ,productsViewModel1.allProducts_repository);
+
+                ////////////// delete here
+            else
+                products_viewModel.DeleteFav(productData.get(position).getFavourite().get(0).getId()
+                        ,productsViewModel1.allProducts_repository);
+
+
+
         });
+
+        //////////////////  inialize with all product
+        if (preferenceHelper.getUserId()>0) {
+            if (productData.get(position).getFavourite().size() > 0) {
+                holder.productBindings.favorite.setImageResource(R.drawable.favoried);
+                favorite[position]=true;
+            }
+            else {
+                holder.productBindings.favorite.setImageResource(R.drawable.favicon);
+                favorite[position] = false;
+            }
+        }
 
 
         productsViewModel1.addToFavoriteLiveData.observe((FragmentActivity) mcontext, aBoolean -> {
@@ -100,26 +120,29 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 Toast.makeText(mcontext, mcontext.getResources().getString(R.string.erroroccur),Toast.LENGTH_SHORT).show();
         });
 
+        productsViewModel1.deleteFromFavoriteLiveData.observe((FragmentActivity) mcontext,aBoolean -> {
+            if (aBoolean) {
+                Toast.makeText(mcontext, mcontext.getResources().getString(R.string.deletefromfavsucces), Toast.LENGTH_SHORT).show();
+                holder.productBindings.favorite.setImageResource(R.drawable.favicon);
+            } else
+                Toast.makeText(mcontext, mcontext.getResources().getString(R.string.erroroccur), Toast.LENGTH_SHORT).show();
+
+        });
 
         holder.bind(products_viewModel);
-        holder.productBindings.productview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.productBindings.productview.setOnClickListener(v -> {
+            Fragment fragment = new ProductDetailsFragment();
+            Bundle bundle =new Bundle();
+            bundle.putInt("store_id",productData.get(position).getSmallstore_id());
+            bundle.putInt("product_id",productData.get(position).getId());
+            fragment.setArguments(bundle);
+       ((FragmentActivity) mcontext).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,fragment).addToBackStack(null).commit();
 
-                Fragment fragment = new ProductDetailsFragment();
-                Bundle bundle =new Bundle();
-                bundle.putInt("store_id", Integer.parseInt(productData.get(position).getSmallstore_id()));
-                bundle.putInt("product_id",productData.get(position).getId());
-                fragment.setArguments(bundle);
-           ((FragmentActivity) mcontext).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,fragment).addToBackStack(null).commit();
-
-            }
         });
 
         holder.productBindings.rates.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
                 Fragment fragment = new RatesOfProductFragment();
                 Bundle bundle =new Bundle();
                 bundle.putInt("product_id",productData.get(position).getId());
@@ -129,37 +152,34 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 return false;
             }
         });
-        holder.productBindings.addtoCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Product product = new Product();
-                product.setName(productData.get(position).getName());
-                product.setProduct_id(productData.get(position).getId());
-                if (productData.get(position).getProductphotos().size()>0)
-                product.setPhoto(productData.get(position).getProductphotos().get(0).getPhoto());
-                product.setStor_id(Integer.parseInt(productData.get(position).getSmallstore_id()));
-                product.setPrice(productData.get(position).getPrice());
-                if (productData.get(position).getTotal_rating().size()>0) {
-                    product.setRateCount(productData.get(position).getTotal_rating().get(0).getCount());
-                    product.setRateStars(productData.get(position).getTotal_rating().get(0).getStars());
-                }
 
-                ProductsViewModel  productsViewModel = new ProductsViewModel();
-                productsViewModel.storeData(product,productsViewModel1.allProducts_repository);
-                productsViewModel1.storProductInDBResult.observe((FragmentActivity) mcontext, new Observer<Boolean>() {
-                    @Override
-                    public void onChanged(@Nullable Boolean aBoolean) {
-                        if (aBoolean) {
-                            Toast.makeText(mcontext, ((FragmentActivity) mcontext).getResources().getString(R.string.addsuccess), Toast.LENGTH_SHORT).show();
-                            addToCart.userAdd();
-                        }
-                        else
-                            Toast.makeText(mcontext,((FragmentActivity) mcontext).getResources().getString(R.string.aleadyfound),Toast.LENGTH_SHORT).show();
-
-                    }
-                });
+        holder.productBindings.addtoCart.setOnClickListener(v -> {
+            Product product = new Product();
+            product.setName(productData.get(position).getName());
+            product.setProduct_id(productData.get(position).getId());
+            if (productData.get(position).getProductphotos().size()>0)
+            product.setPhoto(productData.get(position).getProductphotos().get(0).getPhoto());
+            product.setStor_id(productData.get(position).getSmallstore_id());
+            product.setPrice(productData.get(position).getPrice());
+            if (productData.get(position).getTotal_rating().size()>0) {
+                product.setRateCount(productData.get(position).getTotal_rating().get(0).getCount());
+                product.setRateStars(productData.get(position).getTotal_rating().get(0).getStars());
             }
+            ProductsViewModel  productsViewModel = new ProductsViewModel();
+            productsViewModel.storeData(product,productsViewModel1.allProducts_repository);
+            productsViewModel1.storProductInDBResult.observe((FragmentActivity) mcontext, new Observer<Boolean>() {
+                @Override
+                public void onChanged(@Nullable Boolean aBoolean) {
+                    if (aBoolean) {
+                        Toast.makeText(mcontext, mcontext.getResources().getString(R.string.addsuccess), Toast.LENGTH_SHORT).show();
+                        addToCart.userAdd();
+                    }
+                    else
+                        Toast.makeText(mcontext, mcontext.getResources().getString(R.string.aleadyfound),Toast.LENGTH_SHORT).show();
+
+                }
+            });
         });
     }
 

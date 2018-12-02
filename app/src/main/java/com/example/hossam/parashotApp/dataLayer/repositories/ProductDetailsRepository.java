@@ -27,6 +27,7 @@ public class ProductDetailsRepository {
     private Consumer<Integer> counter;
     private Consumer<Boolean> onSuccessFav;
     private int productid,userid,stor;
+    private Consumer<Boolean> onSuccessFavDelete;
 
     public ProductDetailsRepository(ApiInterface apiService1, ProductDeo pDeo, int storID, int productid1, int user_id)
     {
@@ -99,6 +100,25 @@ public class ProductDetailsRepository {
     }
 
 
+    public void DeleteFav(int favid )
+    {
+        apiService.deleteFav(favid).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful())
+                    onSuccessFavDelete.accept(true);
+                else
+                    onSuccessFavDelete.accept(false);
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+
 
     public void saveDataInDB(Product data) {
         new ProductAsyncTask(productDeo).execute(data);
@@ -158,6 +178,9 @@ public class ProductDetailsRepository {
         this.onSuccess = onSuccess;
     }
 
+    public void setDeleteFromFavResult(Consumer<Boolean> booleanDeleteFromFav) {
+        this.onSuccessFavDelete = booleanDeleteFromFav;
+    }
 
 
     public void setAddToToFavResult(Consumer<Boolean> booleanAddToFav1) {

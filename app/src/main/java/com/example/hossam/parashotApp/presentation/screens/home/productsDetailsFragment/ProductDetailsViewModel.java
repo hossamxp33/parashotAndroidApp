@@ -19,6 +19,7 @@ public class ProductDetailsViewModel extends ViewModel {
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
     public MutableLiveData<Boolean> stor_or_not_MutableLiveData = new MutableLiveData<>();
     public MutableLiveData<Integer> product_count_MutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<Boolean> deleteFromFavoriteLiveData = new MutableLiveData<>();
 
     public ProductDetailsViewModel() {
     }
@@ -53,6 +54,11 @@ public class ProductDetailsViewModel extends ViewModel {
                 addToFavoriteLiveData.postValue(aBoolean)
         );
 
+        repository.setDeleteFromFavResult(aBoolean ->
+                deleteFromFavoriteLiveData.postValue(aBoolean)
+        );
+
+
         this.productDetailsRepository = repository;
         loadData();
         getCount(1);
@@ -68,6 +74,11 @@ public class ProductDetailsViewModel extends ViewModel {
         allProducts_repository1.AddToFav(user_id,product_id,smallstore_id);
     }
 
+
+    public  void DeleteFav (int favID, ProductDetailsRepository allProducts_repository1 )
+    {
+        allProducts_repository1.DeleteFav(favID);
+    }
 
     public void storeData(Product dataBeans) {
         productDetailsRepository.saveDataInDB(dataBeans);
