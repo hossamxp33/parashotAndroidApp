@@ -1,93 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layoutDirection="rtl"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-   >
+    android:layoutDirection="rtl">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:layout_marginBottom="10dp"
         android:background="@color/back_home3"
-        app:layout_constraintTop_toTopOf="parent" >
+        android:padding="10dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/menu"
             android:layout_width="35dp"
             android:layout_height="30dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/menu"
-            />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp"
+            android:src="@drawable/parashot"
             app:layout_constraintEnd_toEndOf="@id/menu"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/parashot"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/sale"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
             android:src="@drawable/search"
+            android:scaleType="fitCenter"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <android.support.constraint.Group
+            android:id="@+id/group2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="menu,sale"
             />
+
     </android.support.constraint.ConstraintLayout>
+
 
     <ImageView
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/header"
         android:src="@drawable/lineview"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+
+    <ImageView
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/lineview"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
     <ImageView
         android:id="@+id/leftside"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        app:layout_constraintWidth_percent="0.3"
+        android:src="@drawable/view1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line1"
-        android:src="@drawable/view1"
-        />
+        app:layout_constraintWidth_percent="0.3" />
+
     <ImageView
         android:id="@+id/rightside"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        app:layout_constraintWidth_percent="0.3"
+        android:src="@drawable/view2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line1"
-        android:src="@drawable/view2"
-        />
+        app:layout_constraintWidth_percent="0.3" />
+
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:text="@string/categry"
-        android:textSize="16dp"
         android:gravity="center"
+        android:text="@string/categry"
         android:textColor="@color/black"
+        android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintWidth_percent="0.4"
-        app:layout_constraintTop_toBottomOf="@+id/line1"
         app:layout_constraintEnd_toEndOf="@id/leftside"
         app:layout_constraintStart_toStartOf="@id/rightside"
-        />
-    <ImageView
-        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/line1"
+        app:layout_constraintWidth_percent="0.4" />
+
+
+
+    <android.support.constraint.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        android:src="@drawable/lineview"/>
+        android:visibility="gone"
+        app:constraint_referenced_ids="line1,leftside,rightside,title,line3"
+        />
+
+
 
 </android.support.constraint.ConstraintLayout>

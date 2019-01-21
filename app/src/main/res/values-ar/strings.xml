@@ -146,7 +146,7 @@
     <string name="settings">الاعدادات</string>
     <string name="nav_header_desc">الصورة الشخصية</string>
     <string name="nav_header_title">ALI HUSSAM</string>
-    <string name="charge">شحن مجاني من المتجر</string>
+    <string name="charge">شحن مجاني</string>
     <string name="detect_place">حدد مكان التوصيل</string>
     <string name="already_arabic">انت بالفعل تستخدم اللغة العربية</string>
     <string name="already_eng">You are already using english language</string>
@@ -158,5 +158,9 @@
     <string name="delivery_viewa">متابعة المندوب</string>
     <string name="deliverycomments">تعليقات المندوب</string>
     <string name="favproducts">المنتجات المفضلة</string>
+    <string name="depart">قسم</string>
+    <string name="al">ال</string>
+    <string name="offernotfound">لا يوجد عروض لطلبك</string>
+    <string name="are_you_sure">هل متاكد من وصول المنتج</string>
 
 </resources>

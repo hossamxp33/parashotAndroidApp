@@ -9,7 +9,7 @@
 
         <variable
             name="ordermodel"
-            type="com.example.hossam.parashotApp.presentation.screens.home.myOrderFragment.MyOrderViewModel" />
+            type="com.codesroots.hossam.parashotApp.presentation.screens.home.myOrderFragment.MyOrderViewModel" />
     </data>
 
 
@@ -205,6 +205,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
+            android:gravity="start"
             android:text="اسم الكابتن :  "
             app:layout_constraintStart_toEndOf="@id/guidvertical2"
             app:layout_constraintTop_toBottomOf="@+id/storename" />
@@ -225,17 +226,23 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
-            android:text=" حالة الطلب : "
+            android:gravity="start"
+            android:text="حالة الطلب : "
             app:layout_constraintStart_toEndOf="@id/guidvertical2"
             app:layout_constraintTop_toBottomOf="@+id/capitainname" />
 
+
         <TextView
             android:id="@+id/orderstatuesvalue"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
-            app:layout_constraintStart_toEndOf="@id/storename"
+            android:textColor="@color/red"
+            android:text="@string/waitdelivery"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/orderstatues"
             app:layout_constraintTop_toBottomOf="@+id/capitainname"
             app:textcolorvalue="@{ordermodel.orderstatuesvalue}" />
 
@@ -277,6 +284,7 @@
             android:paddingBottom="3dp"
             android:text="@string/deliveryrate"
             android:textColor="@color/white"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guidvertical333"
             app:layout_constraintStart_toEndOf="@+id/guidvertical33"
@@ -289,6 +297,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
+            android:visibility="gone"
             android:background="@drawable/myorder_actions_back"
             android:ellipsize="end"
             android:gravity="center"
@@ -318,12 +327,46 @@
             android:paddingBottom="2dp"
             android:text="@string/delivery_offers"
             android:textColor="@color/white"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guidvertical33"
             app:layout_constraintWidth_percent="0.4" />
 
+        <LinearLayout
+            android:id="@+id/contacts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderdatevalue"
+            app:layout_constraintStart_toEndOf="@+id/guidvertical33"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            >
 
+            <ImageView
+                android:id="@+id/chating"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:src="@drawable/chat_view"
+                />
+            <ImageView
+                android:id="@+id/delivery_view"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:src="@drawable/map_view"
+                />
+
+            <ImageView
+                android:id="@+id/accept"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/checked"
+                />
+
+        </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -7,7 +7,7 @@
     <data class ="UserCartBinding">
         <variable
             name="cartmodel"
-            type="com.example.hossam.parashotApp.presentation.screens.home.userCartFragment.UserCartViewModel"/>
+            type="com.codesroots.hossam.parashotApp.presentation.screens.home.userCartFragment.UserCartViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
@@ -244,6 +244,7 @@
             android:gravity="center"
             android:inputType="number"
             android:ellipsize="end"
+            android:enabled="false"
             android:lines="1"
             android:text="@{cartmodel.quentity}"
             android:textColor="@color/black"

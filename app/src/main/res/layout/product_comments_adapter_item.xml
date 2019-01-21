@@ -12,13 +12,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
         <ImageView
             android:id="@+id/person_img"
             android:layout_width="70dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_height="60dp"
-            android:src="@drawable/img_chat"/>
+            android:src="@drawable/person"/>
 
         <LinearLayout
 
@@ -70,7 +71,7 @@
                     android:text="@{photocommentitem.comment}"
                     android:textColor="@color/black"
                     android:layout_marginStart="5dp"
-                    android:textSize="15dp"
+                    android:textSize="13dp"
                     />
             </LinearLayout>
 

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:elevation="15dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
@@ -80,14 +82,17 @@
                         android:layout_height="35dp"
                         android:layout_marginTop="5dp"
                         android:background="@color/gray"/>
+
                     <LinearLayout
+                        android:id="@+id/layout"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:onClick="gotomyOrder"
                         android:layoutDirection="rtl"
-                        android:orientation="vertical">
+                        android:onClick="gotomyOrder"
+                        android:orientation="vertical"
+                        tools:onClick="gotomyOrder">
 
                         <RelativeLayout
                             android:layout_width="42dp"
@@ -95,16 +100,16 @@
                             android:layout_marginBottom="-10dp">
 
                             <ImageView
-                                android:layout_width="@dimen/imagefooterwidth"
-                                android:layout_height="@dimen/imagefooterheight"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
                                 android:background="@drawable/order" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end"
-                                android:padding="3dp"
                                 android:gravity="center"
+                                android:padding="3dp"
                                 android:text="55"
                                 android:textColor="@color/white"
                                 android:textSize="8dp" />
@@ -116,10 +121,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:textColor="@color/textcolorinnenu"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/textsizeinmenu"
                             android:text="@string/myorder"
+                            android:textColor="@color/textcolorinnenu"
+                            android:textSize="@dimen/textsizeinmenu"
+                            android:textStyle="bold"
 
                             />
                     </LinearLayout>

@@ -264,8 +264,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:gravity="start"
+                    android:textColor="@color/black"
                     android:text="@string/choice_color"
-                    android:textColor="@color/textcolorinnenu"
                     android:textSize="16dp"
                     />
 
@@ -305,7 +305,7 @@
                     android:gravity="start"
                     android:layout_marginStart="9dp"
                     android:textSize="16dp"
-                    android:textColor="@color/textcolorinnenu"
+                    android:textColor="@color/black"
                     android:text="@string/storge"
                     />
 
@@ -345,7 +345,7 @@
                     android:layout_marginStart="8dp"
                     android:gravity="start"
                     android:text="@string/description"
-                    android:textColor="@color/textcolorinnenu"
+                    android:textColor="@color/black"
                     android:textSize="16dp"
                     />
 
@@ -360,7 +360,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/descriptiontxt"
                     android:padding="5dp"
                     android:textSize="16dp"
-                    android:textColor="@color/textcolorinnenu"
+                    android:textColor="@color/black"
                     android:text="يحتوي هاتف انفنكس علي شاشة لمس تكاثفية حجمها 5.5 انش ومذودة ومذودة بتقنية اي بي سي"
                     />
 
@@ -387,7 +387,7 @@
                     android:gravity="start"
                     android:layout_marginStart="9dp"
                     android:textSize="16dp"
-                    android:textColor="@color/textcolorinnenu"
+                    android:textColor="@color/black"
                     android:text="@string/product_description"
                     />
 
@@ -399,7 +399,7 @@
                     app:layout_constraintWidth_percent="0.92"
                     android:gravity="start|center_vertical"
                     android:text="دقة الكاميرا 5 ميجا بكسل"
-                    android:textColor="@color/textcolorinnenu"
+                    android:textColor="@color/black"
                     android:textSize="16dp"
                     android:lines="2"
                     app:layout_constraintEnd_toEndOf="parent"

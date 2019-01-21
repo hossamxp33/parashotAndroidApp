@@ -48,12 +48,14 @@
         android:id="@+id/cash"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:padding="15dp"
         app:layout_constraintWidth_percent="0.7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guid2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHeight_percent="0.3"
-        android:src="@drawable/cach"
+        android:src="@drawable/cash_img"
+        android:background="@drawable/cach"
         />
 
 </android.support.constraint.ConstraintLayout>

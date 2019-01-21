@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layoutDirection="rtl"
+    android:background="@color/backhome"
     android:orientation="vertical">
 
 
@@ -18,7 +19,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_margin="7dp"
-            android:background="@drawable/linear_background_for_subcat"
+            android:background="@drawable/linear_background_for_cart"
             app:layout_constraintTop_toBottomOf="@+id/header3" >
 
 
@@ -86,6 +87,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
             android:id="@+id/recylerview">
 
         </android.support.v7.widget.RecyclerView>

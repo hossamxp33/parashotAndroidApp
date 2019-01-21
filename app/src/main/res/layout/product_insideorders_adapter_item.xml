@@ -7,7 +7,7 @@
     <data class ="ProductInsideOrdersBindings">
         <variable
             name="productdata"
-            type="com.example.hossam.parashotApp.presentation.screens.home.productsFragment.ProductsViewModel"/>
+            type="com.codesroots.hossam.parashotApp.presentation.screens.home.productsFragment.ProductsViewModel"/>
     </data>
 
 
@@ -130,14 +130,14 @@
 
 
         <TextView
-            android:id="@+id/charg"
+            android:id="@+id/productrate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/charge"
-            android:textColor="@color/black"
+            android:text="@string/prductrate"
+            android:textColor="@color/white"
             android:layout_marginTop="5dp"
             app:layout_constraintWidth_percent="0.4"
-            android:textSize="10dp"
+            android:textSize="14dp"
             android:maxLines="2"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
@@ -146,7 +146,7 @@
             app:layout_constraintTop_toBottomOf="@+id/item_price"
             app:layout_constraintEnd_toStartOf="@id/guidlinevertical4"
             android:layout_gravity="end"
-            android:background="@drawable/salefromstor_back"
+            android:background="@drawable/myorder_actions_back"
         />
 
 

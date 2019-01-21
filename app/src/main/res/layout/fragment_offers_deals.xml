@@ -19,47 +19,97 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.25" />
 
-    <android.support.design.chip.ChipGroup
-        android:id="@+id/chipGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+    <RadioGroup
+        android:id="@+id/orderstatues"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/linear_background_for_order_statues"
+        android:orientation="horizontal"
+        android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.075"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:singleSelection="true">
+        app:layout_constraintWidth_percent="0.5">
 
-        <android.support.design.chip.Chip
-            android:id="@+id/chipOffers"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/chip_offers"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/order_type_notcommplete_selector"
+            android:button="@null"
             android:checked="true"
-            android:text="عروض"
-            android:textAlignment="center"
-            android:textColor="@drawable/text_color_chip"
-            app:chipBackgroundColor="@drawable/bg_chip_state_list"
-            app:chipCornerRadius="10dp"
-            app:chipStrokeColor="@color/purple"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:rippleColor="@color/purple" />
-
-        <android.support.design.chip.Chip
-            android:id="@+id/chipDeals"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
             android:gravity="center"
-            android:text="صفقات"
-            android:textAlignment="center"
-            android:textColor="@drawable/text_color_chip"
-            app:chipBackgroundColor="@drawable/bg_chip_state_list"
-            app:chipCornerRadius="10dp"
-            app:chipStrokeColor="@color/purple"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:rippleColor="@color/purple" />
-    </android.support.design.chip.ChipGroup>
+            android:text="@string/offers"
+            android:textColor="@color/order_type_text_selector"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary" />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/chip_deals"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/order_type_selector"
+            android:button="@null"
+            android:layout_marginEnd="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:gravity="center"
+            android:text="@string/dealss"
+            android:textColor="@color/order_type_text_selector" />
+
+    </RadioGroup>
+    <!--<android.support.design.chip.ChipGroup-->
+        <!--android:id="@+id/chipGroup"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:singleSelection="true">-->
+
+        <!--<android.support.design.chip.Chip-->
+            <!--android:id="@+id/chipOffers"-->
+            <!--style="@style/Widget.MaterialComponents.Chip.Choice"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="36dp"-->
+            <!--android:checked="true"-->
+            <!--android:text="عروض"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="@drawable/text_color_chip"-->
+            <!--app:chipBackgroundColor="@drawable/bg_chip_state_list"-->
+            <!--app:chipCornerRadius="10dp"-->
+            <!--app:chipStrokeColor="@color/purple"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:rippleColor="@color/purple" />-->
+
+        <!--<android.support.design.chip.Chip-->
+            <!--android:id="@+id/chipDeals"-->
+            <!--style="@style/Widget.MaterialComponents.Chip.Choice"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="36dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="صفقات"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="@drawable/text_color_chip"-->
+            <!--app:chipBackgroundColor="@drawable/bg_chip_state_list"-->
+            <!--app:chipCornerRadius="10dp"-->
+            <!--app:chipStrokeColor="@color/purple"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:rippleColor="@color/purple" />-->
+    <!--</android.support.design.chip.ChipGroup>-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recylerview"
@@ -72,7 +122,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/orderstatues" />
 
     <FrameLayout
         android:id="@+id/progress"

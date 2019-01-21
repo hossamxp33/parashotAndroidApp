@@ -32,7 +32,9 @@
     <string name="refuse">رفض</string>
     <string name="neworder">طلب جديد</string>
     <!--<string name="google_maps_key">AIzaSyDFi45bBEn44Oh7dNIryAZ5FBvEnKPqrz0</string>-->
-    <string name="google_maps_key">AIzaSyDgd6gVwoQu1Ux4v04V3JhhWMqAyKqoRMo</string>
+
+    <!--<string name="google_maps_key">AIzaSyDgd6gVwoQu1Ux4v04V3JhhWMqAyKqoRMo</string>-->
+    <string name="google_maps_key">AIzaSyD8z2lWzm896P2g8VhaBfrVam0JL1BaiW0</string>
     <!--<string name="google_maps_key">AIzaSyDV2hlxxJVgTEPK_NNP3z1H7bALjY7_GL4</string>-->
     <string name="setting">الاعدادات</string>
     <string name="get_deliveryvalue">تحصيل قيمة التوصيل</string>
@@ -146,7 +148,7 @@
     <string name="settings">الاعدادات</string>
     <string name="nav_header_desc">الصورة الشخصية</string>
     <string name="nav_header_title">ALI HUSSAM</string>
-    <string name="charge">شحن مجاني من المتجر</string>
+    <string name="charge">شحن مجاني </string>
     <string name="detect_place">حدد مكان التوصيل</string>
     <string name="already_arabic">انت بالفعل تستخدم اللغة العربية</string>
     <string name="already_eng">You are already using english language</string>
@@ -165,5 +167,39 @@
     <string name="deliveryrate">تقييم المندوب</string>
     <string name="deletefromfavsucces">تم الحذف من المفضلة</string>
     <string name="nofavfound">لا يوجد منتجات مفضلة لديك</string>
+    <string name="addratesuccess">تم اضافة تقييمك بنجاح</string>
+    <string name="depart">قسم</string>
+    <string name="al">ال</string>
+    <string name="connected">متصل</string>
+    <string name="chating">الدردشة</string>
+    <string name="maping">الخريطة</string>
+    <string name="gotostore">باتجاه المتجر</string>
+    <string name="gotoclient">باتجاه العميل</string>
 
+    <string name="client_id" translatable="false">b3f026651e7c4e58b976da0dd48d221d</string>
+    <string name="callback_url" translatable="false">https://instagram.com/</string>
+    <string name="base_url">https://api.instagram.com/</string>
+    <string name="registerinsta">instagram</string>
+    <string name="redirect_url" translatable="false">https://www.instagram.com</string>
+    <string name="get_user_info_url">
+https://api.instagram.com/v1/users/self/?access_token=
+</string>
+    <string name="offernotfound">لا يوجد عروض لطلبك</string>
+    <string name="orderfromgoogle">طلبك من متاجر جوجل ولا يوجد منتجات بداخله</string>
+    <string name="waiting">انتظر ...</string>
+    <string name="waitstart">بانتظار بدء الرحلة</string>
+    <string name="waitdelivery">بانتظار اختيار المندوب</string>
+    <string name="underwaiting">في الانتظار</string>
+    <string name="waitdeliverystart">بانتظار المندوب</string>
+    <string name="gotoyou">في الطريق اليك</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="are_you_sure">هل متاكد من وصول المنتج</string>
+    <string name="delivery">المندوب</string>
+    <string name="stor">المتجر</string>
+    <string name="deliverynotready">المندوب لم يبدا الرحلة اليك</string>
+    <string name="orderdelivery">متابعة المندوب</string>
+    <string name="offers">عروض</string>
+    <string name="dealss">صفقات</string>
+    <string name="nocomments">لا يوجد تعليقات لهذا المندوب</string>
 </resources>
