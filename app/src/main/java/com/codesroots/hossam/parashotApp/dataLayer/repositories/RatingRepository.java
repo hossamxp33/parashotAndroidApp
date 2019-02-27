@@ -64,10 +64,9 @@ public class RatingRepository {
     }
 
 
-    private void deliveryRate(int userid, int deliveryid, String comment, float rate) {
+    public void deliveryRate(int userid, int deliveryid, String comment, float rate) {
         try {
-            apiService.deliveryrates(createPartFromString(String.valueOf(userid)), createPartFromString(String.valueOf(deliveryid)),
-                    createPartFromString(comment), createPartFromString(String.valueOf(rate))).enqueue(new Callback<ResponseBody>() {
+            apiService.deliveryrates(userid, deliveryid,comment,rate).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
                     if (response.body() != null) {

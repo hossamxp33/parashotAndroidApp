@@ -26,8 +26,8 @@ public class MyService extends Service
     public static com.github.nkzawa.socketio.client.Socket mSocket;
     {
         try {
-            mSocket = IO.socket("http://parashotescoket.codesroots.com:2800");
-            //    mSocket = IO.socket("http://192.168.1.25:2400");
+             mSocket = IO.socket("http://parashotescoket.codesroots.com:2800");
+            //   mSocket = IO.socket("http://192.168.1.25:2400");
         }
         catch (URISyntaxException e) {
         }
@@ -43,18 +43,13 @@ public class MyService extends Service
         }
         mSocket.connect();
 
-        mSocket.on("user_connection", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                Log.d("dfsd", args[0].toString());
-                if (userKey1 == null) {
-                    userKey1 = args[0].toString();
-                    String cc = PreferenceHelper.getCURRENTLAT();
-                    String cc2 = PreferenceHelper.getCURRENTLONG();
-                    makeUserConnection();
-                    Intent intent = new Intent("connected");
-                    BroadcastHelper.sendInform(getApplicationContext(),"action",intent);
-                }
+        mSocket.on("user_connection", args -> {
+            Log.d("dfsd", args[0].toString());
+            if (userKey1 == null) {
+                userKey1 = args[0].toString();
+                makeUserConnection();
+                Intent intent = new Intent("connected");
+                BroadcastHelper.sendInform(getApplicationContext(),"action",intent);
             }
         });
     }
@@ -93,9 +88,11 @@ public class MyService extends Service
                     orderDetails.setStorelat(intent.getStringExtra("slat"));
                     orderDetails.setStorelang(intent.getStringExtra("slong"));
                     orderDetails.setClientaddress(intent.getStringExtra("uaddress"));
-                    orderDetails.setClientname("midi");
+                    orderDetails.setClientname(PreferenceHelper.getUserName());
                     orderDetails.setUserlat(intent.getStringExtra("ulate"));
+                      //orderDetails.setUserlat("29.973101258870273");
                     orderDetails.setUserlang(intent.getStringExtra("ulong"));
+                     // orderDetails.setUserlang("31.23717986047268");
                     orderDetails.setProductPrice(intent.getStringExtra("price"));
                     orderDetails.setPaymentWay(intent.getIntExtra("payment",0));
                     orderDetails.setProductname(intent.getStringExtra("product_name"));
@@ -112,9 +109,7 @@ public class MyService extends Service
                     }
                     break;
 
-
             }
-
         }
 
         // constructor
@@ -122,8 +117,6 @@ public class MyService extends Service
 
         }
     }
-
-
 
     @Override
     public void onDestroy() {

@@ -113,6 +113,7 @@ public interface ApiInterface {
             @Header("authorization") String auth
     );
 
+
     ////////////// make order from application stors
     @POST("orders/androidorder/1/{userid}.json")
     @Headers("Accept: Application/json")
@@ -121,6 +122,7 @@ public interface ApiInterface {
             @Body List<ProductModel> models,
             @Header("authorization") String auth
     );
+
 
     @Multipart
     @POST("users/add.json")
@@ -193,12 +195,14 @@ public interface ApiInterface {
             @Part("smallstore_id") RequestBody smallstore_id
     );
 
+
     @DELETE("favourite/delete/{favid}.json")
     @Headers("Accept: Application/json")
     Call<ResponseBody> deleteFav(
             @Path(value = "favid") int favid
     );
 
+    //// get user notification
     @GET("Notifications/getnotifications/{userid}.json")
     @Headers("Accept: Application/json")
     Call<Notifications> getnotifications(
@@ -206,6 +210,7 @@ public interface ApiInterface {
     );
 
 
+    /// rate product
     @Multipart
     @POST("productrates/add.json")
     Call<ResponseBody> productrates(
@@ -215,13 +220,14 @@ public interface ApiInterface {
             @Part("rate") RequestBody rate
     );
 
-    @Multipart
+    /////rate delivery
+    @FormUrlEncoded
     @POST("deliveryrates/add.json")
     Call<ResponseBody> deliveryrates(
-            @Part("user_id") RequestBody user_id,
-            @Part("product_id") RequestBody product_id,
-            @Part("comment") RequestBody comment,
-            @Part("rate") RequestBody rate
+            @Field("user_id") int user_id,
+            @Field("delivry_id") int product_id,
+            @Field("comments") String comment,
+            @Field("rate") float rate
     );
 
 

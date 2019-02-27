@@ -21,6 +21,7 @@ public class PreferenceHelper {
     private static final String STORE_NAME = "STORE_NAME";
     private static final String STORE_LATE = "STORE_LATE";
     private static final String STORE_LONG = "STORE_LONG";
+    private final static String USER_NAME = "USERNAME";
 
 
     private Context context;
@@ -88,8 +89,18 @@ public class PreferenceHelper {
 
     public static String getUserSocketKey() {
         return app_prefs.getString(userSocketKey, null);
-
     }
+
+    public static void setUserName(String name) {
+        Editor edit = app_prefs.edit();
+        edit.putString(USER_NAME, name);
+        edit.apply();
+    }
+
+    public static String getUserName() {
+        return app_prefs.getString(USER_NAME,null);
+    }
+
 
     public String getCURRENTCATEGRY() {
         return app_prefs.getString(CURRENTCATEGRY, null);

@@ -40,7 +40,7 @@ public class MYOrdersModel {
         private String modified;
         private String photo;
         private String store_icon;
-        private StoreBean store;
+        private smallstore smallstore;
         private String storename;
         private float rate;
         private DelivryBean delivry;
@@ -143,12 +143,12 @@ public class MYOrdersModel {
             this.modified = modified;
         }
 
-        public StoreBean getStore() {
-            return store;
+        public smallstore getStore() {
+            return smallstore;
         }
 
-        public void setStore(StoreBean store) {
-            this.store = store;
+        public void setStore(smallstore store) {
+            this.smallstore = store;
         }
 
         public DelivryBean getDelivry() {
@@ -167,7 +167,7 @@ public class MYOrdersModel {
             this.orderdetails = orderdetails;
         }
 
-        public static class StoreBean {
+        public static class smallstore {
             /**
              * id : 50
              * name : ahmed12345

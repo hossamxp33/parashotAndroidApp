@@ -36,6 +36,7 @@
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/sendmessagelayout"
         />
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/sendmessagelayout"
         app:layout_constrainedWidth="true"

@@ -23,6 +23,7 @@ public class DeliveryOffersRepository {
     private Consumer<StoresFromGoogleModel> onSuccessGooglePlaces;
     private Consumer<Throwable> onError;
     private int orderid;
+
     public DeliveryOffersRepository(ApiInterface apiService1, int orderid1)
     {
         apiService = apiService1;
@@ -76,23 +77,19 @@ public class DeliveryOffersRepository {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful())
                     onSuccessEdit.accept(true);
-
                 else
                     onSuccessEdit.accept(false);
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
             }
         });
-
     }
 
     public void setOnSuccess(Consumer<DeliveryOffers> onSuccess) {
         this.onSuccess = onSuccess;
     }
-
 
     public void setOnSuccessEdit(Consumer<Boolean> onSuccessEdit) {
         this.onSuccessEdit = onSuccessEdit;

@@ -28,7 +28,7 @@ public class OffersModel {
         private int id;
         private String start_date;
         private String end_date;
-        private String percentage;
+        private float percentage;
         private int product_id;
         private ProductBean product;
 
@@ -56,11 +56,11 @@ public class OffersModel {
             this.end_date = end_date;
         }
 
-        public String getPercentage() {
+        public float getPercentage() {
             return percentage;
         }
 
-        public void setPercentage(String percentage) {
+        public void setPercentage(float percentage) {
             this.percentage = percentage;
         }
 
@@ -125,8 +125,8 @@ public class OffersModel {
             private String name;
             private String subcat_id;
             private String category_id;
-            private String price;
-            private String last_price;
+            private float price;
+            private float last_price;
             private String description;
             private int smallstore_id;
             private String brand;
@@ -181,19 +181,19 @@ public class OffersModel {
                 this.category_id = category_id;
             }
 
-            public String getPrice() {
+            public float getPrice() {
                 return price;
             }
 
-            public void setPrice(String price) {
+            public void setPrice(float price) {
                 this.price = price;
             }
 
-            public String getLast_price() {
+            public float getLast_price() {
                 return last_price;
             }
 
-            public void setLast_price(String last_price) {
+            public void setLast_price(float last_price) {
                 this.last_price = last_price;
             }
 

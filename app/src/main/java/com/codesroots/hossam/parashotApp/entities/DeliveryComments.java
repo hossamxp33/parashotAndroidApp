@@ -19,7 +19,7 @@ public class DeliveryComments {
         /**
          * id : 1
          * name : حازم
-         * personal_id : 454545
+         * user_id : 237
          * personal_id_image :
          * personal_license_image :
          * bank_accounts : 8888
@@ -32,12 +32,13 @@ public class DeliveryComments {
          * delivery_long : 31.2099091
          * delivery_lat : 30.0384395
          * photo : http://parashot.codesroots.com/library/osama.jpeg
-         * deliveryrates : [{"id":1,"rate":3,"comments":"good","amount_outstanding":2,"user_id":113,"created":"2018-11-27T13:23:41+0000","modified":"2018-11-27T13:23:41+0000","delivry_id":1,"user":{"id":113,"username":"admin","photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","phone":"sssasss","email":"sssasss"}}]
+         * total : 4000
+         * deliveryrates : [{"id":1,"comments":"good","amount_outstanding":2,"user_id":113,"created":"2018-11-27T13:23:41+0000","modified":"2018-11-27T13:23:41+0000","delivry_id":1,"rate":3.5,"user":{"id":113,"username":"admin","photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","phone":"01201875522","email":"sssasss"}},{"id":2,"comments":"3","amount_outstanding":0,"user_id":113,"created":"2019-02-27T11:20:50+0000","modified":"2019-02-27T11:20:50+0000","delivry_id":1,"rate":1.5,"user":{"id":113,"username":"admin","photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","phone":"01201875522","email":"sssasss"}},{"id":3,"comments":"72","amount_outstanding":0,"user_id":241,"created":"2019-02-27T11:21:25+0000","modified":"2019-02-27T11:21:25+0000","delivry_id":1,"rate":2,"user":{"id":241,"username":"osda","photo":null,"phone":"5580","email":""}},{"id":4,"comments":" osama","amount_outstanding":0,"user_id":113,"created":"2019-02-27T11:26:02+0000","modified":"2019-02-27T11:26:02+0000","delivry_id":1,"rate":2,"user":{"id":113,"username":"admin","photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","phone":"01201875522","email":"sssasss"}},{"id":5,"comments":"72","amount_outstanding":0,"user_id":241,"created":"2019-02-27T11:26:07+0000","modified":"2019-02-27T11:26:07+0000","delivry_id":1,"rate":5,"user":{"id":241,"username":"osda","photo":null,"phone":"5580","email":""}},{"id":6,"comments":" osama","amount_outstanding":0,"user_id":113,"created":"2019-02-27T11:26:22+0000","modified":"2019-02-27T11:26:22+0000","delivry_id":1,"rate":2,"user":{"id":113,"username":"admin","photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","phone":"01201875522","email":"sssasss"}},{"id":7,"comments":"ةىى","amount_outstanding":0,"user_id":241,"created":"2019-02-27T11:26:35+0000","modified":"2019-02-27T11:26:35+0000","delivry_id":1,"rate":4,"user":{"id":241,"username":"osda","photo":null,"phone":"5580","email":""}},{"id":8,"comments":"تللب","amount_outstanding":0,"user_id":241,"created":"2019-02-27T11:28:58+0000","modified":"2019-02-27T11:28:58+0000","delivry_id":1,"rate":4,"user":{"id":241,"username":"osda","photo":null,"phone":"5580","email":""}}]
          */
 
         private int id;
         private String name;
-        private int personal_id;
+        private int user_id;
         private String personal_id_image;
         private String personal_license_image;
         private String bank_accounts;
@@ -50,6 +51,7 @@ public class DeliveryComments {
         private String delivery_long;
         private String delivery_lat;
         private String photo;
+        private int total;
         private List<DeliveryratesBean> deliveryrates;
 
         public int getId() {
@@ -68,12 +70,12 @@ public class DeliveryComments {
             this.name = name;
         }
 
-        public int getPersonal_id() {
-            return personal_id;
+        public int getUser_id() {
+            return user_id;
         }
 
-        public void setPersonal_id(int personal_id) {
-            this.personal_id = personal_id;
+        public void setUser_id(int user_id) {
+            this.user_id = user_id;
         }
 
         public String getPersonal_id_image() {
@@ -172,6 +174,14 @@ public class DeliveryComments {
             this.photo = photo;
         }
 
+        public int getTotal() {
+            return total;
+        }
+
+        public void setTotal(int total) {
+            this.total = total;
+        }
+
         public List<DeliveryratesBean> getDeliveryrates() {
             return deliveryrates;
         }
@@ -183,24 +193,24 @@ public class DeliveryComments {
         public static class DeliveryratesBean {
             /**
              * id : 1
-             * rate : 3
              * comments : good
              * amount_outstanding : 2
              * user_id : 113
              * created : 2018-11-27T13:23:41+0000
              * modified : 2018-11-27T13:23:41+0000
              * delivry_id : 1
-             * user : {"id":113,"username":"admin","photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","phone":"sssasss","email":"sssasss"}
+             * rate : 3.5
+             * user : {"id":113,"username":"admin","photo":"http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png","phone":"01201875522","email":"sssasss"}
              */
 
             private int id;
-            private int rate;
             private String comments;
             private int amount_outstanding;
             private int user_id;
             private String created;
             private String modified;
             private int delivry_id;
+            private float rate;
             private UserBean user;
 
             public int getId() {
@@ -209,14 +219,6 @@ public class DeliveryComments {
 
             public void setId(int id) {
                 this.id = id;
-            }
-
-            public int getRate() {
-                return rate;
-            }
-
-            public void setRate(int rate) {
-                this.rate = rate;
             }
 
             public String getComments() {
@@ -267,6 +269,14 @@ public class DeliveryComments {
                 this.delivry_id = delivry_id;
             }
 
+            public float getRate() {
+                return rate;
+            }
+
+            public void setRate(float rate) {
+                this.rate = rate;
+            }
+
             public UserBean getUser() {
                 return user;
             }
@@ -280,7 +290,7 @@ public class DeliveryComments {
                  * id : 113
                  * username : admin
                  * photo : http://parashot.codesroots.com/webroot/library/1/categoryphoto/15390008811521779367.png
-                 * phone : sssasss
+                 * phone : 01201875522
                  * email : sssasss
                  */
 

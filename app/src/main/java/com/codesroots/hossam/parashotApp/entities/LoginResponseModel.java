@@ -5,7 +5,7 @@ public class LoginResponseModel {
 
     /**
      * success : true
-     * data : {"id":186,"group":"1","token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE4NiwiZXhwIjoxNTQyMDMyMjUyfQ.DYjY0XkiB3UijSeqUp8QOS-kHKyIx-ZuEC3KFd2Am_I"}
+     * data : {"id":113,"group":"1","username":"admin","token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjExMywiZXhwIjoxNTQ5MTE4MTQ0fQ.hHF8E6zUbx-5fj8iXDnhwbZSnE3kLRXN_0SavoLo26w"}
      */
 
     private boolean success;
@@ -29,13 +29,15 @@ public class LoginResponseModel {
 
     public static class DataBean {
         /**
-         * id : 186
+         * id : 113
          * group : 1
-         * token : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE4NiwiZXhwIjoxNTQyMDMyMjUyfQ.DYjY0XkiB3UijSeqUp8QOS-kHKyIx-ZuEC3KFd2Am_I
+         * username : admin
+         * token : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjExMywiZXhwIjoxNTQ5MTE4MTQ0fQ.hHF8E6zUbx-5fj8iXDnhwbZSnE3kLRXN_0SavoLo26w
          */
 
         private int id;
         private String group;
+        private String username;
         private String token;
 
         public int getId() {
@@ -52,6 +54,14 @@ public class LoginResponseModel {
 
         public void setGroup(String group) {
             this.group = group;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
         }
 
         public String getToken() {
